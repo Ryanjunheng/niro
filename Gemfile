@@ -18,7 +18,20 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'figaro'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'kaminari'
+gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
+gem 'fog'
+gem "sidekiq"
+gem 'omniauth-google-oauth2'
+gem 'rails_12factor', group: :production
+gem "rspec"
+gem 'clearance'
+gem "linkedin-oauth2", "~> 1.0"
+gem 'bootstrap-sass', '~> 3.3.7'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
