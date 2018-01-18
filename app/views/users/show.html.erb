@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
 	<div class="col-md-2"></div>
 	<div class="col-md-8 col-md-offset-2">
 		<h3><span class="text-primary"><%= current_user.full_name %><br></span></h3>
@@ -9,9 +9,54 @@
         <%= image_tag "http://placehold.it/770x300&text=no images for profile", class:"img-responsive" %>
       <% else %>
 				<%= image_tag(current_user.avatar) %><br>
-			<% end %>		
-		<button class="btn btn-default"><%= link_to 'Edit Profile', edit_user_path(@user) %></button> 
+			<% end %>
+		<button class="btn btn-default"><%= link_to 'Edit Profile', edit_user_path(@user) %></button>
 	</div>
 	<div class="col-md-2"></div>
 
+</div> -->
+
+<div class="container" style="padding-top: 150px;">
+  <div class="profile-main-content">
+     <div class="profile-left col-lg-3 col-md-3">
+			 <% if @user.avatar.present? %>
+       <div>
+         <%= image_tag(@user.avatar, id:"profile-page-profile-image") %>
+       </div>
+			 <% else %>
+			 <div>
+				 <%= image_tag("profile_placeholder.jpg", style:"width:100%;") %>
+			 </div>
+				<% end %>
+      <div class="profile-page-about-me">
+          <div class="about-me-title">
+            <h3>About me</h3>
+          </div>
+          <div class="about-me-content">
+            <strong><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email</strong>
+            <ul>
+              <li> <%=@user.email%></li>
+            </ul>
+            <% if @user.country %>
+            <strong><span class="glyphicon glyphicon-flag"></span>&nbsp; Where I'm from</strong>
+            <ul>
+              <li> <%= @user.country %></li>
+            </ul>
+            <% end %>
+            <% if @user == current_user%>
+            <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+            <% end %>
+          </div>
+      </div>
+      </div>
+    <div class="profile-right col-lg-9 col-md-9">
+      <div>
+        <h1>Hey, I'm <%=@user.full_name%>!</h1>
+        <h3>Member Since <%=@user.created_at.strftime('%B %Y')%></h3>
+      </div>
+      <div class="row well text-center">
+        <h3 class="blockquote"> <%= @user.intro %> </h3>
+      </div>
+    </div>
+  </div>
 </div>
