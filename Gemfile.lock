@@ -255,6 +255,7 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
+    geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -466,6 +467,7 @@ DEPENDENCIES
   faker
   figaro
   fog
+  geocoder
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
