@@ -48,8 +48,8 @@
         <% if !signed_in? %>
           <div class="container">
           <div class="row">
-            <div class="col-md-6"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign in with Facebook'), class:"btn social-login" %></div>
-            <div class="col-md-6"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign in with Google'), class:"btn social-login" %></div>
+            <div class="col-md-6"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign in with Facebook'), "/auth/facebook", class:"btn social-login" %></div>
+            <div class="col-md-6"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign in with Google'), "/auth/google_oauth2", class:"btn social-login" %></div>
           </div>
         </div>
         <% end %>
@@ -94,8 +94,8 @@
         <% if !signed_in? %>
         <div class="container">
           <div class="row">
-            <div class="col-md-6"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign up with Facebook'), class:"btn social-login" %></div>
-            <div class="col-md-6"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign up with Google'), class:"btn social-login" %></div>
+            <div class="col-md-6"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign up with Facebook'), "/auth/facebook", class:"btn social-login" %></div>
+            <div class="col-md-6"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign up with Google'), "/auth/google_oauth2", class:"btn social-login" %></div>
           </div>
         </div>
         <% end %>
