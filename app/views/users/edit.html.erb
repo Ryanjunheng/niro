@@ -1,67 +1,70 @@
+<div class="container" style="padding-top:150px;">
+  <div class="row col-lg-4 col-md-4">
+
 <%= form_for @user do |form| %>
 
-<div>
+<div class="form-group">
   <%= form.label :full_name %>
-  <%= form.text_field :full_name, type: 'full_name' %>
+  <%= form.text_field :full_name, type: 'full_name', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
 	<%= form.label :email %>
-	<%= form.text_field :email, type: 'email' %>
+	<%= form.text_field :email, type: 'email', class:"form-control"  %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :phone %>
-  <%= form.text_field :phone, type: 'phone' %>
+  <%= form.text_field :phone, type: 'phone', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label "Introduction" %>
-  <%= form.text_area :intro, type: 'intro', :cols => "50", :rows => "5" %>
+  <%= form.text_area :intro, type: 'intro', :cols => "50", :rows => "5", class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :city %>
-  <%= form.text_field :city, type: 'city' %>
+  <%= form.text_field :city, type: 'city', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :state %>
-  <%= form.text_field :state, type: 'state' %>
+  <%= form.text_field :state, type: 'state', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :country %>
-  <%= form.text_field :country, type: 'country' %>
+  <%= form.text_field :country, type: 'country', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :fb_link %>
-  <%= form.text_field :fb_link, type: 'fb_link' %>
+  <%= form.text_field :fb_link, type: 'fb_link', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :linkedin_link %>
-  <%= form.text_field :linkedin_link, type: 'linkedin_link' %>
+  <%= form.text_field :linkedin_link, type: 'linkedin_link', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
   <%= form.label :twitter_link %>
-  <%= form.text_field :twitter_link, type: 'twitter_link' %>
+  <%= form.text_field :twitter_link, type: 'twitter_link', class:"form-control" %>
 </div>
 
-<div>
+<div class="form-group">
 	<%= form.label "Upload a profile picture from your computer" %>
 	<%= form.file_field :avatar %><br>
 </div>
 
-<div>
-  <%= form.label "Upload your documents from your computer" %>
-  <%= form.file_field :documents, multiple: true %><br>
+<div class="form-group">
+  <%= form.label "Upload your documents from your computer"%>
+  <%= form.file_field :documents, multiple: true%><br>
 </div>
-<%= form.submit %><br>
+<%= form.submit "update!", class:"btn btn-primary form-control" %><br>
 
-<div> 
+<div class="form-group">
   <% if current_user.avatar? %>
   <strong>Your Profile Image</strong><br>
   <%= image_tag(current_user.avatar_url) %>
@@ -69,10 +72,13 @@
   	<p>Please tick and click the delete button to delete</p><br>
     <%= form.check_box :remove_avatar %>
     Remove Profile Picture
-    <%= form.submit "Delete" %>
+    <%= form.submit "Delete", class:"btn btn-danger" %>
   </label><br>
   <% end %>
 <% end %>
 </div>
 
 <h3><%= link_to "View Profile", user_path %></h3>
+
+  </div>
+</div>
