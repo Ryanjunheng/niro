@@ -1,6 +1,6 @@
 class Organization < ApplicationRecord
 	belongs_to :user
-	has_many :events
+	has_many :events, as: :host
 
 	enum verification: { Unverified: 0, Verified: 1 }
 

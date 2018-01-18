@@ -5,11 +5,12 @@ class User < ApplicationRecord
   has_many :organizations
   has_many :followers, through: :followings
   has_many :user_scores
+  has_many :events, as: :host
   has_many :authentications, dependent: :destroy
 
   enum verification: { Unverified: 0, Verified: 1 }
   enum role: { user: 0, moderator: 1, superadmin: 2 }
-  
+
   mount_uploader :avatar, AvatarUploader
   mount_uploader :documents, DocumentsUploader
   serialize :documents, Array
@@ -32,5 +33,3 @@ class User < ApplicationRecord
    end
 
 end
-
-
