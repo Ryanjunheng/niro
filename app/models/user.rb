@@ -9,4 +9,8 @@ class User < ApplicationRecord
   enum verification: { Unverified: 0, Verified: 1 }
   enum role: { user: 0, moderator: 1, superadmin: 2 }
 
+  mount_uploader :avatar, AvatarUploader
+  mount_uploader :documents, DocumentsUploader
+  serialize :documents, Array
+
 end
