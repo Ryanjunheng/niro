@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   end
 
   resources  :organizatons do
-    resources :events
+    resources :events do
+      resources :badges only: [:new, :create, :delete]
+    end
   end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
