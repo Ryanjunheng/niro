@@ -15,8 +15,6 @@ class CreateOrganizations < ActiveRecord::Migration[5.1]
       t.integer :verification, default: 0
       t.json :logo
       t.json :documents
-
-
       t.timestamps
     end
   end
