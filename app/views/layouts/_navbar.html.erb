@@ -13,15 +13,9 @@
         <li><a class="modal-btn" id="login-title" data-toggle="modal" data-target="#loginModal" > Login</a></li>
         <hr id="navbar-underline" />
       <% else %>
-<<<<<<< HEAD
 
         <li><%= link_to "My Niro Profile", user_path(current_user.id), id:"profile-title" %></li>
         <li><%= link_to "Host a Niro Event", new_user_event_path(current_user.id), id:"become-host-title" %></li>
-=======
-        
-        <li><%= link_to "Profile", user_path(current_user), :id => "profile-title" %></li>
-        <li><%= link_to "Create event", id:"become-host-title" %></li>
->>>>>>> 794143ff54faef6fa6e274031117c4d0581294e8
         <li><%= link_to "Sign Out", sign_out_path, id:"sign-out-title", method: :delete %></li>
         <hr id="navbar-underline" />
       <% end %>
