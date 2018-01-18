@@ -16,21 +16,21 @@ class UsersController < ApplicationController
 
 	def show 
 		
-	end 
+	end
 
 	def edit
 		
 	end
 
 	def update
-		
-
+		@user.update(user_params)
+		redirect_to @user
 	end
 
 	private
 
 	def user_params
-		params.require(:user).permit(:full_name, :email, :password, :avatar, :remove_avatar)
+		params.require(:user).permit(:full_name, :email, :password, :phone, :intro, :city, :state, :country, :fb_link, :linkedin_link, :twitter_link, :avatar, :remove_avatar, {documents: []}, :remove_documents)
 	end
 
 	def find_user
