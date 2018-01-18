@@ -3,3 +3,28 @@
 <% if signed_in? %>
 	<h1>Welcome! <%= current_user.full_name %></h1>
 <% end %>
+
+<div class="container" style="padding-top: 150px">
+  <div class="row" id="home-page-title">
+    <div>
+      <h1 class="text-align">Experience Bed & Coffee &nbsp;<small class="text-muted">Comfortably - Any where around the world!</small></h1>
+    </div>
+  </div>
+  <div class="row list-group">
+		<% @events = Event.order(created_at: :desc) %>
+    <% @events.each do |event| %>
+      <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+      <div class="item col-lg-4" >
+        <div class="thumbnail" style="min-height: 410px;">
+          <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+          <div class="caption">
+            <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
+            <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
+            <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <% end %>
+  </div>
+</div>
