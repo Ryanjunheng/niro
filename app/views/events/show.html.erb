@@ -1,6 +1,6 @@
 <div class="container-fluid" style="padding-top:150px;">
-  <% if @listing.photos == [] %>
-  <%= image_tag("fairbnc-room-photo.jpg") %>
+  <% if @event.photos == [] %>
+  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
   <% else %>
 
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -14,10 +14,10 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <%= image_tag @listing.photos.first, class:"img-responsive container-fluid", style:"width:100%;"%>
+        <%= image_tag @event.photos.first, class:"img-responsive container-fluid", style:"width:100%;"%>
       </div>
 
-      <% @listing.photos.each do |photo| %>
+      <% @event.photos.each do |photo| %>
       <div class="item">
         <%= image_tag photo, class:"img-responsive" %>
       </div>
@@ -42,33 +42,27 @@
     <div class="listing-content-left">
       <div class="list-head">
         <div class="list-head-1">
-          <h1 class="list-group-item-heading"><%= @listing.name %>
-          <p class="lead"><%= @listing.property_type %> &middot; <%= @listing.country %></p>
+          <h1 class="list-group-item-heading"><%= @event.name %>
+          <p class="lead"><%= @event.required_participants %> &middot; <%= @event.city %> - <%= @event.country %></p>
         </div>
         <div class="list-head-2">
           <% if @user.avatar? %>
-          <%= link_to "#{image_tag(@user.avatar.thumb, style:"border-radius:50%;")}".html_safe, user_path(@listing.user_id)%>
+          <%= link_to "#{image_tag(@user.avatar.thumb, style:"border-radius:50%;")}".html_safe, user_path(@event.host_id)%>
           <% else %>
-          <%= link_to "#{image_tag("profile-placeholder.png", style:"border-radius:50%; width:50px; height:50px;")}".html_safe, user_path(@listing.user_id) %>
+          <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50px; height:50px;")}".html_safe, user_path(@event.host_id) %>
           <% end %>
-          <p class="lead" style="font-size:1.5em;"><%= @user.first_name %></p>
+          <p class="lead" style="font-size:1.5em;"><%= @user.full_name %></p>
         </div>
       </div>
       <div>
-        <p class="list-group-item-text" style="font-size:1em;"><i class="fa fa-group"></i>&nbsp;<%= @listing.guest_number %>&nbsp;GUESTS&nbsp;&nbsp;
-          <i class="fa fa-home"></i>&nbsp;<%= @listing.room_number %>&nbsp;ROOMS&nbsp;&nbsp;
-          <i class="fa fa-bed"></i>&nbsp;<%= @listing.bed_number %>&nbsp;BEDS
-        </p>
-      </div>
-      <div>
-        <p style="font-size:1.5em;"><%=@listing.description%></p>
+        <p style="font-size:1.5em;"><%=@event.description%></p>
       </div>
     </div>
     <div class="listing-content-right">
       <div class="booking-form">
-        <h2>RM<%=@listing.price%>&nbsp;<small class="text-disabled">per night</small></h2>
+        <h2>Happening from: <%=@event.start_date%> to <%= @event.end_date %></h2>
         <hr/>
-        <%= render partial: "reservations/form" %>
+        <%= render partial: "form" %>
         <p class="text-disabled text-center">You won't be charge yet</[]>
       </div>
     </div>

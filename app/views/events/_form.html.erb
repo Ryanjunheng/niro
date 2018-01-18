@@ -1,0 +1,13 @@
+<%= form_for User.new, url: users_path(user_id:@user.id) do |f| %>
+<% if @errors.present? %>
+   <div>
+     <p><%= @errors %></p>
+   </div>
+<% end %>
+<%= f.hidden_field :listing_id, value:@event.id %>
+<%= f.hidden_field :user_id, value:@user.id%>
+
+  <div class="form-group">
+    <%= f.submit "Submit Reservation", class:"btn btn-danger form-control" %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+.listing-main-content {
+  display: flex;
+  margin: 50px 0;
+}
+
+.listing-content-left {
+  width:60%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 5px;
+}
+
+.listing-content-right {
+  width:40%;
+  margin: 0 5px;
+}
+
+.list-head {
+  display: flex;
+}
+
+.list-head-1 {
+  width: 75%;
+}
+
+.list-head-2 {
+  width: 25%;
+  display: flex;
+  flex-flow: column;
+  justify-content:center;
+  align-items:center;
+}
+
+.booking-form {
+  border: solid 1px #ececec;
+  padding: 10px 30px 10px 30px;
+  width: 100%;
+}
