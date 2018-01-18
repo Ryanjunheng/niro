@@ -26,6 +26,6 @@ class SessionsController < Clearance::SessionsController
 
    def url_after_destroy
       "/"
-    end
-end
+   end
+
 end
