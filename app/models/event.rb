@@ -1,6 +1,5 @@
 class Event < ApplicationRecord
-  belongs_to :user
-  belongs_to :organization
+  belongs_to :host, polymorphic: true
   has_one :badge
   has_many :messages, through: :event_messages
 
