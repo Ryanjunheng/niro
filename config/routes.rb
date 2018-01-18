@@ -9,11 +9,13 @@ Rails.application.routes.draw do
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
     resources :events
+    resources :messages
   end
 
   resources  :organizatons do
-    resrouces :events
-  end 
+    resources :events
+    resources :messages
+  end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
