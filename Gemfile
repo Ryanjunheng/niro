@@ -30,7 +30,7 @@ gem 'omniauth-google-oauth2'
 gem 'rails_12factor', group: :production
 gem "rspec"
 gem 'clearance'
-gem "linkedin-oauth2", "~> 1.0"
+gem 'omniauth-linkedin-oauth2', git: 'https://github.com/Devato/omniauth-linkedin-oauth2.git'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 # Use CoffeeScript for .coffee assets and views
