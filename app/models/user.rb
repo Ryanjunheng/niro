@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include Clearance::User
-  has_many :messages 
+
+  has_many :messages
   has_many :organizations
   has_many :followers, through: :followings
   has_many :user_scores
@@ -25,3 +26,5 @@ class User < ApplicationRecord
      return x.token unless x.nil?
    end
 end
+
+
