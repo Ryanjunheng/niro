@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  
+
 
   # Clearance Default Routes
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   end
 
   resources  :organizatons do
-    resrouces :events
-  end 
+    resources :events do
+      resources :badges only: [:new, :create, :delete]
+    end
+  end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
