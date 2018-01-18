@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Niro</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <title>Niro - Get your good deeds recognized</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  	<%= csrf_meta_tag %>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag asset_path('icon.png'), rel: 'icon', type: 'image/png' %>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Work+Sans" rel="stylesheet">
   </head>
 
   <body>
+  	<%= render partial: "/layouts/navbar" %>
+  	<div id="flash">
+    <% flash.each do |key, value| -%>
+      <div id="flash_<%= key %>", class="<%= flash_class(key) %>"><%=h value %></div>
+    <% end %>
+  </div>
     <%= yield %>
   </body>
 </html>
