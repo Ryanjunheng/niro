@@ -14,7 +14,7 @@
         <hr id="navbar-underline" />
       <% else %>
         
-        <li><%= link_to "Profile", id:"profile-title" %></li>
+        <li><%= link_to "Profile", user_path(current_user), :id => "profile-title" %></li>
         <li><%= link_to "Create event", id:"become-host-title" %></li>
         <li><%= link_to "Sign Out", sign_out_path, id:"sign-out-title", method: :delete %></li>
         <hr id="navbar-underline" />
