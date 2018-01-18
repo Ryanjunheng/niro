@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   enum verification: { Unverified: 0, Verified: 1 }
   enum role: { user: 0, moderator: 1, superadmin: 2 }
+  
+  mount_uploader :avatar, AvatarUploader
+  mount_uploader :documents, DocumentsUploader
+  serialize :documents, Array
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
      user = self.create!(
@@ -25,6 +29,7 @@ class User < ApplicationRecord
      x = self.authentications.find_by(provider: 'facebook')
      return x.token unless x.nil?
    end
+
 end
 
 
