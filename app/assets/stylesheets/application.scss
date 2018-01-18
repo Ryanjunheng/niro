@@ -1,0 +1,19 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+* {
+	box-sizing: border-box;
+}
+
+#logo-pic {
+	width: 50px;
+}
+
+#logo-pic img {
+	width: 20px;
+	height: 20px;
+}
+
+body {
+	margin: 70px 0 0 0;
+}
