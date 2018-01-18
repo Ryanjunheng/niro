@@ -1,55 +1,59 @@
-<%= render partial: "users/navbar" %>
-<div class="form-background">
-  <!-- <%= image_tag("form-background.jpg") %> -->
 
 <div class="container" style="padding-top:150px;">
   <div class="new-list-box row">
-    <%= form_for Listing.new, url: user_listings_path do |form| %>
+    <%= form_for Event.new, url: user_events_path do |form| %>
     <%= form.hidden_field :user_id, value:current_user.id%>
     <div class="form-group">
       <h4><%= form.label :name %></h4>
       <%= form.text_field :name , class:"form-control"%>
     </div>
     <div class="form-group">
-      <h4><%= form.label :place_type %></h4>
-      <%= form.text_field :place_type , class:"form-control"%>
+      <h4><%= form.label :description %></h4>
+      <%= form.text_area :description , class:"form-control"%>
     </div>
     <div class="form-group">
-      <h4><%= form.label :property_type %></h4>
-      <%= form.text_field :property_type , class:"form-control"%>
+      <h4><%= form.label :event_type %></h4>
+      <%= form.text_field :event_type, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :required_participants %></h4>
+      <%= form.number_field :required_participants, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
       <h4><%= form.label :address %></h4>
-      <%= form.text_field :address , class:"form-control"%>
-    </div>
-    <div class="form-group">
-      <h4><%= form.label :country %></h4>
-      <%= form.text_field :country , class:"form-control"%>
-    </div>
-    <div class="form-group">
-      <h4><%= form.label :state %></h4>
-      <%= form.text_field :state , class:"form-control"%>
+      <%= form.text_field :address, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
       <h4><%= form.label :city %></h4>
-      <%= form.text_field :city , class:"form-control"%>
+      <%= form.text_field :city, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
-      <h4><%= form.label :zipcode %></h4>
-      <%= form.number_field :zipcode , class:"form-control"%>
+      <h4><%= form.label :state %></h4>
+      <%= form.text_field :state, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
-      <h4><p><%= form.label :price %></h4>
-      <%= form.number_field :price , class:"form-control"%></p>
-    </div>
-    <div class="form-group row">
-      <span class="col-lg-4"><h4><%= form.label :guest_number %></h4><%= form.number_field :guest_number, in:1..20, step:1, class:"form-control"%></span>
-      <span class="col-lg-4"><h4><%= form.label :room_number %></h4><%= form.number_field :room_number, in:1..20, step:1,class:"form-control"%></span>
-      <span class="col-lg-4"><h4><%= form.label :bed_number %></h4><%= form.number_field :bed_number, in:1..20, step:1,class:"form-control"%></span>
+      <h4><%= form.label :country %></h4>
+      <%= form.text_field :country, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
-      <h4><%= form.label :description %></h4>
-      <%= form.text_area :description, class:"form-control", rows:"5"%>
+      <h4><%= form.label :zip_code %></h4>
+      <%= form.number_field :zip_code, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group" id="datepicker">
+      <strong><%= form.label :start_date %></strong>
+      <%= form.text_field :start_date, data:{provide:"datepicker", turbolinks: false }, class:"form-control"%>
+    </div>
+    <div class="form-group date" id="datepicker">
+      <strong><%= form.label :end_date %></strong>
+      <%= form.text_field :end_date, data:{provide:"datepicker", turbolinks: false }, class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :start_time %></h4>
+      <%= form.time_field :start_time, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :end_time %></h4>
+      <%= form.time_field :end_time, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
       <h4><%= form.label :photos %></h4>
@@ -61,6 +65,3 @@
     <% end %>
   </div>
 </div>
-</div>
-
-<%= render partial: "users/footer" %>
