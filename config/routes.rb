@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get 'cities/:state', to: 'application#cities'
+
+  post '/users/:id/follow' => "followings#follow"
+  post '/users/:id/unfollow' => "followings#unfollow"
+
 
 
   # Clearance Default Routes
