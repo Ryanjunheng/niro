@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118171231) do
+ActiveRecord::Schema.define(version: 20180118233015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20180118171231) do
     t.datetime "updated_at", null: false
     t.string "host_type"
     t.bigint "host_id"
+    t.decimal "latitude", precision: 15, scale: 13
+    t.decimal "longitude", precision: 15, scale: 13
     t.index ["host_type", "host_id"], name: "index_events_on_host_type_and_host_id"
   end
 
@@ -87,6 +89,8 @@ ActiveRecord::Schema.define(version: 20180118171231) do
     t.json "documents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "latitude", precision: 15, scale: 13
+    t.decimal "longitude", precision: 15, scale: 13
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
