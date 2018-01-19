@@ -59,6 +59,13 @@
       <div class="row well text-center">
         <h3 class="blockquote"> <%= @user.intro %> </h3>
       </div>
+      <div>
+        <h3>Organization:</h3>
+        <% @user.organizations.each do |org| %>
+          <h4><%= link_to org.name, organization_path %></h4>
+          <br>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

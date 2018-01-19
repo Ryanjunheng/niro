@@ -1,0 +1,10 @@
+<h3>Edit organization profile</h3>
+
+<%= form_for @organization do |form| %>
+
+    <%= form.hidden_field :user_id, value:current_user.id %>
+
+    <%= render partial: '/organizations/form', object: form %>
+
+
+<% end %>
