@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119095015) do
+ActiveRecord::Schema.define(version: 20180119095016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,16 @@ ActiveRecord::Schema.define(version: 20180119095015) do
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
+  create_table "testimonials", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "visitor_id"
+    t.string "title"
+    t.text "testimony"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_testimonials_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -135,4 +145,5 @@ ActiveRecord::Schema.define(version: 20180119095015) do
   add_foreign_key "messages", "organizations"
   add_foreign_key "messages", "users"
   add_foreign_key "organizations", "users"
+  add_foreign_key "testimonials", "users"
 end
