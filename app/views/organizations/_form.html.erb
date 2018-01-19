@@ -51,13 +51,22 @@
       <h4><%= form.label :zip_code %></h4>
       <%= form.number_field :zip_code, class:"form-control", rows:"5"%>
     </div>
+
     <div class="form-group">
-      <%= form.label "Upload a logo for your organization" %>
-      <%= form.file_field :logo %><br>
+      <label class="btn btn-lg" id="image-upload-btn">
+        Upload a logo for your organization
+        <span style="display:none;">
+          <%= form.file_field :logo %>
+        </span>
+      </label>
     </div>
     <div class="form-group">
-      <%= form.label "Upload documents for verification" %>
-      <%= form.file_field :documents, multiple: true, class:"btn btn-lg"%>
+      <label class="btn btn-lg" id="image-upload-btn">
+        Upload documents for verification
+        <span style="display:none;">
+          <%= form.file_field :documents, multiple: true %>
+        </span>
+      </label>
     </div>
     <div class="form-group">
       <%= form.submit "Submit", class:"btn btn-lg btn-danger align-center", id:"new-org-submit-btn" %>
