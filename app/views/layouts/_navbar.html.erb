@@ -46,7 +46,7 @@
         </div>
       <br>
         <% if !signed_in? %>
-          <div class="container">
+          <div class="container container-override">
           <div class="row">
             <div class="col-md-4"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign in with Facebook'), "/auth/facebook", class:"btn social-login" %></div>
             <div class="col-md-4"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign in with Google'), "/auth/google_oauth2", class:"btn social-login" %></div>
@@ -93,7 +93,7 @@
           </div>
           <br>
         <% if !signed_in? %>
-        <div class="container">
+        <div class="container container-override">
           <div class="row">
             <div class="col-md-4"><%= link_to raw('<i class="fa fa-facebook-official" aria-hidden="true"></i> Sign up with Facebook'), "/auth/facebook", class:"btn social-login" %></div>
             <div class="col-md-4"><%= link_to raw('<i class="fa fa-google" aria-hidden="true"></i> Sign up with Google'), "/auth/google_oauth2", class:"btn social-login" %></div>
