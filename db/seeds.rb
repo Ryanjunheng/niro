@@ -53,7 +53,7 @@ ActiveRecord::Base.transaction do
     event['state'] = Faker::Address.state
     event['country'] = Faker::Address.country
     event['zip_code'] = 12345
-    event['host'] = User.all[rand(0..39)]
+    event['host'] = User.first
 
     a = Event.new(event)
     unless a.save
