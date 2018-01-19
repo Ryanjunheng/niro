@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include Clearance::User
 
-  has_many :messages
+  has_many :user_messages
   has_many :organizations
   has_many :user_scores
   has_many :events, as: :host
