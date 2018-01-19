@@ -96,7 +96,6 @@
       <div class="user-badge-count col-lg-4 col-md-4 text-center">
         <strong>Total Badges Earned</strong>
         <h1 style="font-size:8em;">51</h1>
-        <%= link_to "view my glorious contributions", user_events_path(@user.id) %>
       </div>
       <div class="user-testimonials col-lg-4 col-md-4 text-center">
         <storng>Total Testimonials Received</strong>
@@ -105,35 +104,28 @@
     </div>
   </head>
   <section>
-    <div class="user-upcoming-missions row">
-      <% if @user = current_user %>
-        <h2>Your Upcoming Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
-      <% end %>
-      <div class="well">
-
+    v class="container" style="padding-top: 150px">
+      <div class="row" id="home-page-title">
+        <div>
+          <h1 class="text-align">Experience Bed & Coffee &nbsp;<small class="text-muted">Comfortably - Any where around the world!</small></h1>
+        </div>
       </div>
-    </div>
-    <div class="user-completed-missions row">
-      <% if @user = current_user %>
-        <h2>Your Completed Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Completed Missions</h2>
-      <% end %>
-      <div class="well">
-
+      <div class="row list-group">
+        <% @events.each do |event| %>
+          <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+          <div class="item col-lg-4" >
+            <div class="thumbnail" style="min-height: 410px;">
+              <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+              <div class="caption">
+                <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
+                <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
+                <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+              </div>
+            </div>
+          </div>
+        </a>
+        <% end %>
       </div>
-    </div>
-    <div class="user-hosted-missions row">
-      <% if @user = current_user %>
-        <h2>Missions Hosted By You </h2>
-      <% else %>
-        <h2>Missions Hosted By <%= @user.full_name %> </h2>
-      <% end %>
-      <div class="well">
-
-      </div>
-    </div>
+    </div>w
   </section>
 </div>
