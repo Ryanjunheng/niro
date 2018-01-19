@@ -62,11 +62,24 @@
       </div>
   <!-- right of main contents -->
       <div class="event-content-right">
+  <!-- event badge column box-->
         <div class="badge-box">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Launch demo modal
-          </button>
+          <% @badge = Badge.find_by(event_id:@event.id) %>
+          <% if @badge.present? %>
+            <strong class="text-center">Join this mission and earn this badge</strong>
+            <%= image_tag(@badge.image, class:"align-center", style:"width:50%; height:auto;") %>
+            <p class="text-center"> <%= @badge.name.upcase %></p>
+            <% else %>
+              <% if @user = current_user %>
+                <p class="text-center">Please create a badge for your event to get it published!</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger align-center" data-toggle="modal" data-target="#myModal">
+                  Create Your Event Badge
+                </button>
+              <% else  %>
+              <h2>This mission is not avilable for participation yet</h2>
+              <% end %>
+          <% end %>
 
           <!-- Modal -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -77,15 +90,40 @@
                   <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                  ...
+                  <%= form_for Badge.new, url: user_event_badges_path(user_id:@user.id, event_id:@event.id), method: :post do |f| %>
+                  <%= f.hidden_field :event_id, value:@event.id %>
+                  <div class="form-group">
+                    <%= f.label "Badge Title" %>
+                    <%= f.text_field :name, class:"form-control" %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.label "Badge Description" %>
+                    <%= f.text_area :name, class:"form-control" %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.label "Upload Badge Image" %>
+                    <%= f.file_field :image, class:"form-control" %>
+                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                    <div><%= f.submit "Create Badge", class:"btn btn-danger" %></div>
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="event-allocated-points">
+          <% if @event.required_participants > 15 && @event.required_participants < 50 %>
+            <% @event.update(allocated_points: 10)  %>
+          <% elsif @event.required_participants >= 50 %>
+            <% @event.update(allocated_points: 20)  %>
+          <% else %>
+            <% @event.update(allocated_points: 5)  %>
+          <% end %>
+          <strong class="text-center">Gain EXP and Level up! by Completing this mission!</strong>
+          <h1 class="text-center" style="font-size:7em; color:gold;"> <%= @event.allocated_points %> <small class="text-center">EXP</small></h1>
+
         </div>
         <% if @event.host_rewards.present? %>
         <div class="host-rewards-box">

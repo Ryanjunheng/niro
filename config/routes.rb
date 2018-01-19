@@ -20,10 +20,10 @@ Rails.application.routes.draw do
       only: [:create, :edit, :update]
     resources :events do
       resources :event_messages
-    resources :user_messages
-    resources :badges
-    resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
+      resources :badges
     end
+    resources :user_messages
+    resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
   end
 
   resources  :organizations do
