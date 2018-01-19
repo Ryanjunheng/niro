@@ -1,86 +1,128 @@
-<div class="container">
-<head id="user-profile">
-  <div class="user-profile-gamify">
-    <div class="user-avatar-">
-
-    </div>
-    <div class="user-level-exp">
-
-    </div>
-
-    <div class="user-badge-count">
-
-    </div>
-    <div class="user-testimonials">
-
-    </div>
-  </div>
-  <div class="user-profile-details">
-    <div class="user-profile-buttons">
-      
-    </div>
-    <div class="user-profile-bio">
-
-    </div>
-
-  </div>
-</head>
-<section>
-  <div class="user-upcoming-missions">
-
-  </div>
-  <div class="user-completed-missions">
-
-
-  </div>
-  <div class="user-hosted-missions">
-
-  </div>
-</section>
-</div>
-
-<div class="container" style="padding-top: 150px;">
-  <div class="profile-main-content">
-     <div class="profile-left col-lg-3 col-md-3">
-			 <% if @user.avatar.present? %>
-       <div>
-         <%= image_tag(@user.avatar, id:"profile-page-profile-image") %>
-       </div>
-			 <% else %>
-			 <div>
-				 <%= image_tag("profile_placeholder.jpg", style:"width:100%;") %>
-			 </div>
-				<% end %>
-      <div class="profile-page-about-me">
-          <div class="about-me-title">
-            <h3>About me</h3>
-          </div>
-          <div class="about-me-content">
-            <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!') %></p>
-            <strong><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email</strong>
-            <ul>
-              <li> <%=@user.email%></li>
-            </ul>
-            <% if @user.country %>
-            <strong><span class="glyphicon glyphicon-flag"></span>&nbsp; Where I'm from</strong>
-            <ul>
-              <li> <%= @user.country %></li>
-            </ul>
-            <% end %>
-            <% if @user == current_user%>
-            <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+<div class="container" style="padding-top:50px;">
+  <head id="user-profile">
+    <div class="user-profile-details row">
+      <div class="user-main col-lg-3 col-md-3">
+          <div class="user-avatar">
+            <% if @user.avatar.present? %>
+            <div>
+              <%= image_tag(@user.avatar, class:"img-circle", id:"profile-page-profile-image") %>
+            </div>
+            <% else %>
+            <div>
+              <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
+            </div>
             <% end %>
           </div>
-      </div>
-      </div>
-    <div class="profile-right col-lg-9 col-md-9">
-      <div>
-        <h1>Hey, I'm <%=@user.full_name%>!</h1>
-        <h3>Member Since <%=@user.created_at.strftime('%B %Y')%></h3>
-      </div>
-      <div class="row well text-center">
-        <h3 class="blockquote"> <%= @user.intro %> </h3>
+          <div class="user-followings">
+            <span>
+              <p>Followers: <%= Following.where(followed_id: @user.id).count %></p>
+              <% if @user.id == current_user.id %>
+              <p>Following: <%= Following.where(follower_id: current_user.id).count %></p>
+              <% else %>
+              <p>Following: <%= Following.where(follower_id: @user.id).count %></p>
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="user-about-me col-lg-9 col-md-9">
+          <div class="about-me-content text-center">
+            <h1> <%= @user.full_name %> </h1>
+            <p> Member since: <%= @user.created_at %> </p>
+            <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%=- @user.country if @user.country %></p>
+          </div>
+          <div class="about-me-blockquote blockquote text-center well">
+              <p> <%= @user.intro %></p>
+          </div>
       </div>
     </div>
-  </div>
+  <div class="user-profile-action">
+    <div class="user-profile-buttons row well">
+      <div class="user-edit-button col-lg-2 col-md-2">
+        <% if @user == current_user%>
+        <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+        <% end %>
+      </div>
+      <div class="user-message-button col-lg-2 col-md-2">
+        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Message User</button>
+      </div>
+      <div class="user-follow-button col-lg-2 col-md-2">
+        <% if @user.id != current_user.id %>
+          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
+            <input type=submit value="Follow" class="btn btn-info">
+          </form>
+        <% end %>
+        <% if @user.id != current_user.id %>
+          <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
+            <input type=submit value="Unfollow" class="btn btn-info">
+          </form>
+        <% end %>
+      </div>
+      <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
+        <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
+      </div>
+    </div>
+    <div class="user-profile-gamify row well">
+      <div class="user-level-exp col-lg-4 col-md-4">
+        <div class="user-level" style="height:75%;">
+          <div class="user-level-image">
+            <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+          </div>
+          <div class="user-level-level">
+            <span>
+              <strong>Lvl. 1:</strong>
+              <strong>Samurai<stong>
+              </span>
+            </div>
+        </div>
+        <div class="user-exp" style="height:25%">
+          <div class="user-exp-bar progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
+        </div>
+        <div class="user-exp-points text-center">
+          <h1>25/100</h1>
+        </div>
+      </div>
+      <div class="user-badge-count col-lg-4 col-md-4 text-center">
+        <strong>Total Badges Earned</strong>
+        <h1 style="font-size:8em;">51</h1>
+      </div>
+      <div class="user-testimonials col-lg-4 col-md-4 text-center">
+        <storng>Total Testimonials Received</strong>
+        <h1 style="font-size:8em;">100</h1>
+      </div>
+    </div>
+  </head>
+  <section>
+    <div class="user-upcoming-missions row">
+      <% if @user = current_user %>
+        <h2>Your Upcoming Missions</h2>
+      <% else %>
+        <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
+      <% end %>
+      <div class="well">
+
+      </div>
+    </div>
+    <div class="user-completed-missions row">
+      <% if @user = current_user %>
+        <h2>Your Completed Missions</h2>
+      <% else %>
+        <h2> <%= @user.full_name %>'s Completed Missions</h2>
+      <% end %>
+      <div class="well">
+
+      </div>
+    </div>
+    <div class="user-hosted-missions row">
+      <% if @user = current_user %>
+        <h2>Missions Hosted By You </h2>
+      <% else %>
+        <h2>Missions Hosted By <%= @user.full_name %> </h2>
+      <% end %>
+      <div class="well">
+
+      </div>
+    </div>
+  </section>
 </div>
