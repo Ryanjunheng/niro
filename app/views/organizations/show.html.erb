@@ -1,6 +1,12 @@
 <h3>You are looking at <%= @organization.name %>'s profile</h3>
 <br>
 
+<% if @organization.logo.size !=0 %>
+	<%= image_tag @organization.logo %>
+<% else %>
+	<%= image_tag("profile_placeholder.jpg") %>
+<% end %>
+
 <% if current_user.id == @organization.user_id %>
 	<button class="btn btn-lg btn-primary" onclick="window.location.href='/organizations/<%= @organization.id %>/edit'">Edit Profile</button>
 <% end %>

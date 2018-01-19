@@ -25,8 +25,8 @@
     </div>
     <div class="form-group">
       <h4><%= form.label :country %></h4>
-      <select id="country" name="organization[country]" class="form-control form-control-small" required>
-      <option value="" selected>Select Your Country</option>
+      <select id="country" name="organization[country]" class="form-control form-control-small">
+      <option value="<%= @organization.country %>" selected>Select Your Country</option>
       <% CS.countries.each do |key, value| %>
         <option value="<%= key %>"><%= value%></option>
      <% end %>
@@ -34,8 +34,8 @@
     </div>
     <div class="form-group">
       <h4><%= form.label :state %></h4>
-      <select id="states-of-country" name="organization[state]" class="form-control form-control-small" required>
-      <option id="no-state" value="" selected>Select Your State</option>
+      <select id="states-of-country" name="organization[state]" class="form-control form-control-small">
+      <option id="no-state" value="<%= @organization.state %>" selected>Select Your State</option>
       <% CS.states(:my).each do |key, value| %>
         <option value="<%= value %>" id="<%= key %>"><%= value %></option>
       <% end %>
@@ -43,23 +43,29 @@
     </div>
     <div class="form-group">
       <h4><%= form.label :city %></h4>
-      <select id="cities-of-state" name="organization[city]" class="form-control form-control-small" required>
-        <option value="" selected>Select Your City</option>
+      <select id="cities-of-state" name="organization[city]" class="form-control form-control-small">
+        <option value="<%= @organization.city %>" selected>Select Your City</option>
       </select>
     </div>
     <div class="form-group">
       <h4><%= form.label :zip_code %></h4>
       <%= form.number_field :zip_code, class:"form-control", rows:"5"%>
     </div>
-
     <div class="form-group">
+      <% if @organization.logo.size !=0 %>
+        <div id="profile-pic"><p><%= image_tag @organization.logo.thumb %></p></div>
+      <% end %>
       <label class="btn btn-lg" id="image-upload-btn">
         Upload a logo for your organization
         <span style="display:none;">
           <%= form.file_field :logo %>
         </span>
       </label>
-    </div>
+      <% if @organization.logo.size !=0 %>
+      <p>OR&nbsp;&nbsp;&nbsp;&nbsp;<%= form.check_box :remove_logo %>&nbsp;&nbsp;remove logo</p>
+      <% end %>
+  </div>
+
     <div class="form-group">
       <label class="btn btn-lg" id="image-upload-btn">
         Upload documents for verification
@@ -68,9 +74,11 @@
         </span>
       </label>
     </div>
+
     <div class="form-group">
       <%= form.submit "Submit", class:"btn btn-lg btn-danger align-center", id:"new-org-submit-btn" %>
     </div>
+    
   
   </div>
 </div>

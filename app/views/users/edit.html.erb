@@ -25,8 +25,8 @@
 
 <div class="form-group">
     <h4><%= form.label :country %></h4>
-    <select id="country" name="user[country]" class="form-control form-control-small" required>
-      <option value="" selected>Select Your Country</option>
+    <select id="country" name="user[country]" class="form-control form-control-small">
+      <option value="<%= @user.country %>" selected>Select Your Country</option>
       <% CS.countries.each do |key, value| %>
         <option value="<%= key %>"><%= value%></option>
      <% end %>
@@ -35,8 +35,8 @@
 
     <div class="form-group">
     <h4><%= form.label :state %></h4>
-    <select id="states-of-country" name="user[state]" class="form-control form-control-small" required>
-      <option id="no-state" value="" selected>Select Your State</option>
+    <select id="states-of-country" name="user[state]" class="form-control form-control-small">
+      <option id="no-state" value="<%= @user.state %>" selected>Select Your State</option>
       <% CS.states(:my).each do |key, value| %>
         <option value="<%= value %>" id="<%= key %>"><%= value %></option>
       <% end %>
@@ -46,7 +46,7 @@
     <div class="form-group">
       <h4><%= form.label :city %></h4>
     <select id="cities-of-state" name="user[city]" class="form-control form-control-small" required>
-      <option value="" selected>Select Your City</option>
+      <option value="<%= @user.city %>" selected>Select Your City</option>
     </select>
     </div>
 
@@ -95,12 +95,18 @@
 </div>
 
 <div class="form-group">
+  <% if current_user.avatar.size !=0 %>
+    <div id="profile-pic"><p><%= image_tag current_user.avatar.thumb %></p></div>
+  <% end %>
   <label class="btn btn-lg" id="image-upload-btn">
     Upload profile picture
     <span style="display:none;">
       <%= form.file_field :avatar %>
     </span>
   </label>
+  <% if current_user.avatar.size !=0 %>
+  <p>OR&nbsp;&nbsp;&nbsp;&nbsp;<%= form.check_box :remove_avatar %>&nbsp;&nbsp;remove avatar</p>
+  <% end %>
 </div>
 
 <div class="form-group">
@@ -114,7 +120,7 @@
 
 <%= form.submit "update!", class:"btn btn-primary form-control" %><br>
 
-<div class="form-group">
+<!-- <div class="form-group">
   <% if current_user.avatar? %>
   <strong>Your Profile Image</strong><br>
   <%= image_tag(current_user.avatar_url) %>
@@ -126,7 +132,7 @@
   </label><br>
   <% end %>
 <% end %>
-</div>
+</div> -->
 
 <h3><%= link_to "View Profile", user_path %></h3>
 
