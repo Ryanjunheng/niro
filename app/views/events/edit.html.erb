@@ -4,7 +4,7 @@
     <%= form_for @event, url: user_event_path do |form| %>
     <%= form.hidden_field :user_id, value:current_user.id%>
     <div class="form-group">
-      <h4><%= form.label :name %></h4>
+      <h4><%= form.label "Event name" %></h4>
       <%= form.text_field :name , class:"form-control"%>
     </div>
     <div class="form-group">
@@ -24,16 +24,28 @@
       <%= form.text_field :address, class:"form-control", rows:"5"%>
     </div>
     <div class="form-group">
-      <h4><%= form.label :city %></h4>
-      <%= form.text_field :city, class:"form-control", rows:"5"%>
+      <h4><%= form.label :country %></h4>
+      <select id="country" name="event[country]" class="form-control form-control-small" required>
+      <option value="" selected>Select Your Country</option>
+      <% CS.countries.each do |key, value| %>
+        <option value="<%= key %>"><%= value%></option>
+      <% end %>
+      </select>
     </div>
     <div class="form-group">
       <h4><%= form.label :state %></h4>
-      <%= form.text_field :state, class:"form-control", rows:"5"%>
+      <select id="states-of-country" name="event[state]" class="form-control form-control-small" required>
+      <option id="no-state" value="" selected>Select Your State</option>
+      <% CS.states(:my).each do |key, value| %>
+        <option value="<%= value %>" id="<%= key %>"><%= value %></option>
+      <% end %>
+      </select>
     </div>
     <div class="form-group">
-      <h4><%= form.label :country %></h4>
-      <%= form.text_field :country, class:"form-control", rows:"5"%>
+      <h4><%= form.label :city %></h4>
+      <select id="cities-of-state" name="event[city]" class="form-control form-control-small" required>
+        <option value="" selected>Select Your City</option>
+      </select>
     </div>
     <div class="form-group">
       <h4><%= form.label :zip_code %></h4>

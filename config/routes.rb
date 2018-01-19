@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
   end
 
-  resources  :organizatons do
+  resources  :organizations do
     resources :events do
       resources :badges, only: [:new, :create, :delete]
     end

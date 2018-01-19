@@ -63,6 +63,13 @@
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
+      <div>
+        <h3>Organization:</h3>
+        <% @user.organizations.each do |org| %>
+          <h4><%= link_to org.name, organization_path %></h4>
+          <br>
+        <% end %>
+      </div>
     </div>
     <div class="user-profile-gamify row well">
       <div class="user-level-exp col-lg-4 col-md-4">

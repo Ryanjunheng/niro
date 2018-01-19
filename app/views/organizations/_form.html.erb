@@ -1,0 +1,77 @@
+
+<div class="container" style="padding-top:150px;">
+  <div class="new-list-box row">
+    
+  
+    <div class="form-group">
+      <h4><%= form.label :name %></h4>
+      <%= form.text_field :name , class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :email %></h4>
+      <%= form.email_field :email , class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :registration_number %></h4>
+      <%= form.text_field :registration_number, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :phone %></h4>
+      <%= form.number_field :phone, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :address %></h4>
+      <%= form.text_field :address, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :country %></h4>
+      <select id="country" name="organization[country]" class="form-control form-control-small" required>
+      <option value="" selected>Select Your Country</option>
+      <% CS.countries.each do |key, value| %>
+        <option value="<%= key %>"><%= value%></option>
+     <% end %>
+    </select>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :state %></h4>
+      <select id="states-of-country" name="organization[state]" class="form-control form-control-small" required>
+      <option id="no-state" value="" selected>Select Your State</option>
+      <% CS.states(:my).each do |key, value| %>
+        <option value="<%= value %>" id="<%= key %>"><%= value %></option>
+      <% end %>
+      </select>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :city %></h4>
+      <select id="cities-of-state" name="organization[city]" class="form-control form-control-small" required>
+        <option value="" selected>Select Your City</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :zip_code %></h4>
+      <%= form.number_field :zip_code, class:"form-control", rows:"5"%>
+    </div>
+
+    <div class="form-group">
+      <label class="btn btn-lg" id="image-upload-btn">
+        Upload a logo for your organization
+        <span style="display:none;">
+          <%= form.file_field :logo %>
+        </span>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="btn btn-lg" id="image-upload-btn">
+        Upload documents for verification
+        <span style="display:none;">
+          <%= form.file_field :documents, multiple: true %>
+        </span>
+      </label>
+    </div>
+    <div class="form-group">
+      <%= form.submit "Submit", class:"btn btn-lg btn-danger align-center", id:"new-org-submit-btn" %>
+    </div>
+  
+  </div>
+</div>
+    

@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :events, as: :host
   has_many :authentications, dependent: :destroy
 
+  has_many :participations
+  has_many :events, through: :participations
+
   enum verification: { Unverified: 0, Verified: 1 }
   enum role: { user: 0, moderator: 1, superadmin: 2 }
 
