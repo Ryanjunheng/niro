@@ -33,6 +33,7 @@
             <h3>About me</h3>
           </div>
           <div class="about-me-content">
+            <progress value="50" max="100"></progress>
             <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!') %></p>
             <strong><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email</strong>
             <ul>
@@ -57,6 +58,13 @@
       </div>
       <div class="row well text-center">
         <h3 class="blockquote"> <%= @user.intro %> </h3>
+      </div>
+      <div>
+        <h3>Organization:</h3>
+        <% @user.organizations.each do |org| %>
+          <h4><%= link_to org.name, organization_path %></h4>
+          <br>
+        <% end %>
       </div>
     </div>
   </div>
