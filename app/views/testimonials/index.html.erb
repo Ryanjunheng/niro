@@ -94,6 +94,23 @@
     </div>
   </head>
   <section>
+    <% if @user = current_user %>
+      <h2>Loves I Get From Everyone</h2>
+    <% end %>
+    <% if @user != current_user %>
+      <div class="user-create-testimony">
+        <h2>Leave a testimony for <%= @user.full_name %></h2>
+        <div class="testimony-form well">
+          <%= form_for user_testimonials_path(@user.id), method: :post do |form| %>
+          <%  form.hidden_field :visitor_id, value:current_user.id %>
+          <%  form.hidden_field :user_id, value:@user.id %>
+          <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+          <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+          <%= form.submit "post", class:"btn btn-primary" %>
+          <% end %>
+        </div>
+    <% end %>
+    </div>
       <div class="well row">
         <div class="testimonials-visitor-avatar col-lg-3 col-md-3">
           <% if @user.avatar.present? %>
@@ -102,7 +119,7 @@
           </div>
           <% else %>
           <div>
-            <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"height:75%;") %>
+            <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
           </div>
           <% end %>
         </div>

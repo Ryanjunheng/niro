@@ -43,7 +43,10 @@
         <% end %>
       </div>
       <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Message User</button>
+        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/messages'">Message User</button>
+      </div>
+      <div class="user-tetimonials-button col-lg-2 col-md-2">
+        <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
       </div>
       <div class="user-follow-button col-lg-2 col-md-2">
         <% if @user.id != current_user.id %>
