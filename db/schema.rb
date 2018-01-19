@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20180119034621) do
 
   # These are extensions that must be enabled in order to support this database
@@ -58,8 +59,8 @@ ActiveRecord::Schema.define(version: 20180119034621) do
     t.datetime "updated_at", null: false
     t.string "host_type"
     t.bigint "host_id"
-    t.decimal "latitude", precision: 15, scale: 13
-    t.decimal "longitude", precision: 15, scale: 13
+    t.float "latitude"
+    t.float "longitude"
     t.index ["host_type", "host_id"], name: "index_events_on_host_type_and_host_id"
   end
 
@@ -99,15 +100,15 @@ ActiveRecord::Schema.define(version: 20180119034621) do
     t.json "documents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "latitude", precision: 15, scale: 13
-    t.decimal "longitude", precision: 15, scale: 13
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
+    t.string "email", null: false
     t.string "encrypted_password", limit: 128
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false

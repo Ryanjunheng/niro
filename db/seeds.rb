@@ -23,7 +23,6 @@ ActiveRecord::Base.transaction do
     user['state'] = Faker::Address.state
     user['country'] = Faker::Address.country
     user['intro'] = Faker::HowIMetYourMother.quote
-    user['documents'] = Faker::File.mime_type
     user['avatar'] = Faker::Avatar.image("my-own-slug")
 
     User.create(user)
@@ -54,7 +53,7 @@ ActiveRecord::Base.transaction do
     event['state'] = Faker::Address.state
     event['country'] = Faker::Address.country
     event['zip_code'] = 12345
-    event['host'] = User.all[rand(0..39)]
+    event['host'] = User.first
 
     a = Event.new(event)
     unless a.save
