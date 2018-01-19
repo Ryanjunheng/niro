@@ -126,7 +126,25 @@
         <div class="testimonials-visitor-testimonial col-lg-9 col-md-9">
           <h2>This person is great! <small class="text-disabled"> posted on: date </small></h2>
           <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+          <div class="user-testimonials-button">
+            <div class="user-testminonials-edit button" id:"user-testimonials-edit-button">
+              <!-- to use javascript to toggle drop down edit form  -->
+            </div>
+            <div class="user-testimonials-delete-button">
+              <!-- pending and each do function to allow for delete button -->
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="user-testimonial-edit-form well">
+        <%= form_for "#", method: :post do |form| %>
+        <%  form.hidden_field :visitor_id, value:current_user.id %>
+        <%  form.hidden_field :user_id, value:@user.id %>
+        <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+        <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+        <%= form.submit "post", class:"btn btn-primary" %>
+        <% end %>
+        <!-- pending each do function to narrow visbility of this to user -->
       </div>
   </section>
 </div>

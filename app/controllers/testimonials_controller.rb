@@ -14,6 +14,12 @@ class TestimonialsController < ApplicationController
     end
   end
 
+  def update
+    @testimonial = Testimonial.find(params[:id])
+    @testimonial.update(testimonial_params)
+    redirect_to user_testimonials_path(params[:user_id])
+  end
+
   private
 
   def testimonial_params
