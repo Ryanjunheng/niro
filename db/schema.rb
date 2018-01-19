@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119192830) do
+ActiveRecord::Schema.define(version: 20180119193600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,16 +80,6 @@ ActiveRecord::Schema.define(version: 20180119192830) do
     t.index ["followed_id"], name: "index_followings_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_followings_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_followings_on_follower_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "organization_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_messages_on_organization_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -169,8 +159,6 @@ ActiveRecord::Schema.define(version: 20180119192830) do
   add_foreign_key "authentications", "users"
   add_foreign_key "badges", "events"
   add_foreign_key "event_messages", "events"
-  add_foreign_key "messages", "organizations"
-  add_foreign_key "messages", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
