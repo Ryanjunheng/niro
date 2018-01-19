@@ -1,80 +1,111 @@
-<div class="container-fluid" style="padding-top:150px;">
-  <% if @event.photos == [] %>
-  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
-  <% else %>
+<div>
+  <div class="container-fluid" style="padding-top:150px;">
+    <% if @event.photos == [] %>
+    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
+    <% else %>
 
-  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-    </ol>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      </ol>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <%= image_tag @event.photos.first, class:"img-responsive container-fluid", style:"width:100%;"%>
-      </div>
-
-      <% @event.photos.each do |photo| %>
-      <div class="item">
-        <%= image_tag photo, class:"img-responsive" %>
-      </div>
-      <% end %>
-    </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <% end %>
-
-</div>
-
-
-<div class="container">
-  <div class="listing-main-content">
-    <div class="listing-content-left">
-      <div class="list-head">
-        <div class="list-head-1">
-          <h1 class="list-group-item-heading"><%= @event.name %>
-          <p class="lead"><%= @event.required_participants %> &middot; <%= @event.city %> - <%= @event.country %></p>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="eventbox">
+        <div class="item active">
+          <%= image_tag @event.photos.first, class:"img-responsive container-fluid", style:"width:100%;"%>
         </div>
-        <div class="list-head-2">
-          <% if @user.avatar? %>
-          <%= link_to "#{image_tag(@user.avatar.thumb, style:"border-radius:50%;")}".html_safe, user_path(@event.host_id)%>
-          <% else %>
-          <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50px; height:50px;")}".html_safe, user_path(@event.host_id) %>
-          <% end %>
-          <p class="lead" style="font-size:1.5em;"><%= @user.full_name %></p>
+
+        <% @event.photos.each do |photo| %>
+        <div class="item">
+          <%= image_tag photo, class:"img-responsive" %>
         </div>
+        <% end %>
       </div>
-      <div>
-        <p style="font-size:1.5em;"><%=@event.description%></p>
-      </div>
-      <div style='width: 800px;'>
-        <div id="map" style='width: 800px; height: 400px;'></div>
-      </div>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <div class="listing-content-right">
-      <div class="booking-form">
-        <h2>Happening from: <%=@event.start_date%> to <%= @event.end_date %></h2>
-        <hr/>
-        <%= render partial: "form" %>
-        <p class="text-disabled text-center">You won't be charge yet</[]>
-      </div>
-    </div>
+    <% end %>
   </div>
 
-</div>
+  <!-- contents below sliding banner images -->
+  <!-- left of main contents -->
+  <div class="container">
+    <div class="event-main-content">
+      <div class="event-content-left">
+        <div class="event-head">
+          <div class="event-head-1">
+            <h1 class="event-group-item-heading"><%= @event.name %>
+            <p class="lead"><%= @event.required_participants %> &middot; <%= @event.city %> - <%= @event.country %></p>
+          </div>
+          <div class="event-head-2">
+            <% if @user.avatar? %>
+            <%= link_to "#{image_tag(@user.avatar.thumb, style:"border-radius:50%;")}".html_safe, user_path(@event.host_id)%>
+            <% else %>
+            <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50px; height:50px;")}".html_safe, user_path(@event.host_id) %>
+            <% end %>
+            <p class="lead" style="font-size:1.5em;"><%= @user.full_name %></p>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:1.5em;"><%=@event.description%></p>
+        </div>
+      </div>
+  <!-- right of main contents -->
+      <div class="event-content-right">
+        <div class="badge-box">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Launch demo modal
+          </button>
 
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if @event.host_rewards.present? %>
+        <div class="host-rewards-box">
+
+        </div>
+        <% end %>
+        <div class="booking-form">
+          <h2>Happening from: <%=@event.start_date%> to <%= @event.end_date %></h2>
+          <hr/>
+          <%= render partial: "form" %>
+          <p class="text-disabled text-center">You won't be charge yet</[]>
+        </div>
+      </div>
+    </div>
+    <!-- google map -->
+    <div style='width: 100%; margin-bottom:100px;'>
+      <div id="map" style='width: 100%; height: 500px;'></div>
+    </div>
+  </div>
+</div>
 
 
 <script>
