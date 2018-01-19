@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "listing";
+@import "event";
 
 * {
 	box-sizing: border-box;
@@ -17,4 +17,140 @@
 
 body {
 	margin: 70px 0 0 0;
+}
+
+
+.align-center {
+  position: relative;
+  left:50%;
+  transform: translate(-50%);
+}
+
+#facebook-btn:active {
+  color:white;
+}
+#facebook-btn:link {
+  color:white;
+}
+#facebook-btn:visited {
+  color:white;
+}
+#facebook-btn:hover {
+  color:white;
+}
+
+.hr-text {
+ line-height: 1em;
+ position: relative;
+ outline: 0;
+ border: 0;
+ color: black;
+ text-align: center;
+ font-size: 1.5em;
+ height: 1.5em;
+ opacity: .75;
+ &:before {
+   content: '';
+   // use the linear-gradient for the fading effect
+   // use a solid background color for a solid bar
+   background: linear-gradient(to right, transparent, #818078 , transparent);
+   position: absolute;
+   left: 0;
+   top: 50%;
+   width: 100%;
+   height: 1px;
+ }
+ &:after {
+   content: attr(data-content);
+   position: relative;
+   display: inline-block;
+   color: black;
+
+   padding: 0 .5em;
+   line-height: 1.5em;
+   // this is really the only tricky part, you need to specify the background color of the container element...
+   color: #818078 ;
+   background-color: #fcfcfa ;
+ }
+}
+
+.navbar {
+  border-bottom: solid 1.5px #ececec;
+  padding: 15px 0;
+  min-height: 100px
+}
+
+.navbar-fixed-top {
+  z-index: 1;
+}
+
+.navbar-align {
+  padding-top: 10px;
+}
+
+.update-box, .new-list-box {
+  width: 60%;
+  border: 1px solid #ececec;
+  padding: 20px;
+}
+
+.form-background {
+  background-image:url("form-background.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: top;
+  background-blend-mode:lighten;
+}
+
+.profile-main-content {
+  display:flex;
+}
+
+.profile-left {
+  padding: 10px;
+  display: flex;
+  flex-direction:column;
+  width: 25%;
+}
+
+.profile-right {
+  padding: 10px;
+  width: 75%;
+
+}
+
+#profile-page-profile-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+
+}
+
+.profile-page-about-me {
+  border: solid 1px #ececec;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me-title {
+  background-color: #ececec;
+  padding: 0 30px 5px 30px;
+  font-family:sans-serif;
+
+}
+
+.about-me-content {
+  font-size: 1.25em;
+  padding: 20px 30px;
+  font-family: sans-serif;
+}
+
+.about-me-content ul {
+  margin-bottom: 10px;
+}
+
+
+.about-me-content ul li {
+  list-style:none;
+  text-indent: -40px
 }
