@@ -43,10 +43,7 @@
         <% end %>
       </div>
       <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/messages'">Message User</button>
-      </div>
-      <div class="user-tetimonials-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
+        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Message User</button>
       </div>
       <div class="user-follow-button col-lg-2 col-md-2">
         <% if @user.id != current_user.id %>
@@ -62,13 +59,6 @@
       </div>
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
-      </div>
-      <div>
-        <h3>Organization:</h3>
-        <% @user.organizations.each do |org| %>
-          <h4><%= link_to org.name, organization_path %></h4>
-          <br>
-        <% end %>
       </div>
     </div>
     <div class="user-profile-gamify row well">
@@ -104,35 +94,57 @@
     </div>
   </head>
   <section>
-    <div class="user-upcoming-missions row">
-      <% if @user = current_user %>
-        <h2>Your Upcoming Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
-      <% end %>
-      <div class="well">
-
-      </div>
+    <% if @user = current_user %>
+      <h2>Loves I Get From Everyone</h2>
+    <% end %>
+    <% if @user != current_user %>
+      <div class="user-create-testimony">
+        <h2>Leave a testimony for <%= @user.full_name %></h2>
+        <div class="testimony-form well">
+          <%= form_for user_testimonials_path(@user.id), method: :post do |form| %>
+          <%  form.hidden_field :visitor_id, value:current_user.id %>
+          <%  form.hidden_field :user_id, value:@user.id %>
+          <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+          <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+          <%= form.submit "post", class:"btn btn-primary" %>
+          <% end %>
+        </div>
+    <% end %>
     </div>
-    <div class="user-completed-missions row">
-      <% if @user = current_user %>
-        <h2>Your Completed Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Completed Missions</h2>
-      <% end %>
-      <div class="well">
-
+      <div class="well row">
+        <div class="testimonials-visitor-avatar col-lg-3 col-md-3">
+          <% if @user.avatar.present? %>
+          <div>
+            <%= image_tag(@user.avatar, class:"img-circle", id:"profile-page-profile-image") %>
+          </div>
+          <% else %>
+          <div>
+            <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
+          </div>
+          <% end %>
+        </div>
+        <div class="testimonials-visitor-testimonial col-lg-9 col-md-9">
+          <h2>This person is great! <small class="text-disabled"> posted on: date </small></h2>
+          <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+          <div class="user-testimonials-button">
+            <div class="user-testminonials-edit button" id:"user-testimonials-edit-button">
+              <!-- to use javascript to toggle drop down edit form  -->
+            </div>
+            <div class="user-testimonials-delete-button">
+              <!-- pending and each do function to allow for delete button -->
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="user-hosted-missions row">
-      <% if @user = current_user %>
-        <h2>Missions Hosted By You </h2>
-      <% else %>
-        <h2>Missions Hosted By <%= @user.full_name %> </h2>
-      <% end %>
-      <div class="well">
-
+      <div class="user-testimonial-edit-form well">
+        <%= form_for "#", method: :post do |form| %>
+        <%  form.hidden_field :visitor_id, value:current_user.id %>
+        <%  form.hidden_field :user_id, value:@user.id %>
+        <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+        <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+        <%= form.submit "post", class:"btn btn-primary" %>
+        <% end %>
+        <!-- pending each do function to narrow visbility of this to user -->
       </div>
-    </div>
   </section>
 </div>
