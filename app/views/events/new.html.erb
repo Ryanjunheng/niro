@@ -2,7 +2,8 @@
 <div class="container" style="padding-top:150px;">
   <div class="new-list-box row">
     <%= form_for Event.new, url: user_events_path do |form| %>
-    <%= form.hidden_field :user_id, value:current_user.id%>
+    <%= form.hidden_field :host_id, value:current_user.id%>
+    <%= form.hidden_field :host_type, value:"User"%>
     <div class="form-group">
       <h4><%= form.label :name %></h4>
       <%= form.text_field :name , class:"form-control"%>
