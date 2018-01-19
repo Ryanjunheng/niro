@@ -1,20 +1,43 @@
-<!-- <div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8 col-md-offset-2">
-		<h3><span class="text-primary"><%= current_user.full_name %><br></span></h3>
-		<h3>Email: <span class="text-primary"><%= current_user.email %><br></span></h3>
-		<hr>
-		<h3>Profile Picture:</h3>
-			<% if !current_user.avatar.present? %>
-        <%= image_tag "http://placehold.it/770x300&text=no images for profile", class:"img-responsive" %>
-      <% else %>
-				<%= image_tag(current_user.avatar) %><br>
-			<% end %>
-		<button class="btn btn-default"><%= link_to 'Edit Profile', edit_user_path(@user) %></button>
-	</div>
-	<div class="col-md-2"></div>
+<div class="container">
+<head id="user-profile">
+  <div class="user-profile-gamify">
+    <div class="user-avatar-">
 
-</div> -->
+    </div>
+    <div class="user-level-exp">
+
+    </div>
+
+    <div class="user-badge-count">
+
+    </div>
+    <div class="user-testimonials">
+
+    </div>
+  </div>
+  <div class="user-profile-details">
+    <div class="user-profile-buttons">
+      
+    </div>
+    <div class="user-profile-bio">
+
+    </div>
+
+  </div>
+</head>
+<section>
+  <div class="user-upcoming-missions">
+
+  </div>
+  <div class="user-completed-missions">
+
+
+  </div>
+  <div class="user-hosted-missions">
+
+  </div>
+</section>
+</div>
 
 <div class="container" style="padding-top: 150px;">
   <div class="profile-main-content">
