@@ -61,3 +61,23 @@
     </div>
   </div>
 </div>
+
+<% if @user.id != current_user.id %>
+<%= form_tag "/users/#{ @user.id }/follow", method: :post %>
+  <input type=submit value="Follow">
+</form>
+<% end %>
+
+<% if @user.id != current_user.id %>
+<%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
+  <input type=submit value="Unfollow">
+</form>
+<% end %>
+
+<p>Followers: <%= Following.where(followed_id: @user.id).count %></p>
+
+<% if @user.id == current_user.id %>
+<p>Following: <%= Following.where(follower_id: current_user.id).count %></p>
+<% else %>
+<p>Following: <%= Following.where(follower_id: @user.id).count %></p>
+<% end %>
