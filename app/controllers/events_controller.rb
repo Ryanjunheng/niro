@@ -2,6 +2,11 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:show, :update]
   before_action :check_login, only: [:new, :edit]
 
+  def index
+    @events = Event.where(host_id: params[:user_id], host_type:"User").order(created_at: :desc)
+    @user = User.find(params[:user_id])
+  end
+
   def show
     @user = User.find(params[:user_id])
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
