@@ -20,6 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'figaro'
 gem 'geocoder'
+gem 'gmaps4rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'kaminari'
