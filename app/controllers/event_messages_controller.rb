@@ -1,0 +1,2 @@
+class EventMessagesController < ApplicationController
+end
