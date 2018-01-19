@@ -3,7 +3,6 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :organizations
-  has_many :followers, through: :followings
   has_many :user_scores
   has_many :events, as: :host
   has_many :authentications, dependent: :destroy
