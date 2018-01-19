@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  resources  :organizatons do
+  resources  :organizations do
     resources :events do
       resources :badges, only: [:new, :create, :delete]
     end
