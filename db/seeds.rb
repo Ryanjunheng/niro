@@ -23,7 +23,6 @@ ActiveRecord::Base.transaction do
     user['state'] = Faker::Address.state
     user['country'] = Faker::Address.country
     user['intro'] = Faker::HowIMetYourMother.quote
-    user['documents'] = Faker::File.mime_type
     user['avatar'] = Faker::Avatar.image("my-own-slug")
 
     User.create(user)
