@@ -14,6 +14,9 @@ class EventsController < ApplicationController
       marker.lng event.longitude
     end
     @participation = Participation.find_by(user_id: current_user.id, event_id: @event.id)
+    # @participants = @event.users
+    @participants = Participation.where(event_id: @event.id)
+    @event_messages = EventMessage.where(event_id: @event.id).order(created_at: :desc)
   end
 
   def new

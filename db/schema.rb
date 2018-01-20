@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119193600) do
+ActiveRecord::Schema.define(version: 20180120150000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 20180119193600) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["event_id"], name: "index_event_messages_on_event_id"
+    t.index ["user_id"], name: "index_event_messages_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -108,6 +110,7 @@ ActiveRecord::Schema.define(version: 20180119193600) do
     t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
@@ -159,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180119193600) do
   add_foreign_key "authentications", "users"
   add_foreign_key "badges", "events"
   add_foreign_key "event_messages", "events"
+  add_foreign_key "event_messages", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"

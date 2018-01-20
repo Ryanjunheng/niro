@@ -50,3 +50,35 @@
   color: green;
   font-size: 4.5em;
 }
+
+.event-participants-list {
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 50px 0;
+  background-color: white;
+}
+
+.event-participants-list-box {
+  background-color: #ececFF;
+}
+
+.event-chat-box {
+  font-family:sans-serif;
+  margin-bottom: 150px;
+}
+
+.modal-body {
+  min-height: 200px;
+
+}
+
+.each-event-message-box {
+  font-size: 18px;
+  border: 1px solid #ececec;
+}
+
+.list-all-event-message {
+  padding: 10px;
+  margin: 10px;
+}
