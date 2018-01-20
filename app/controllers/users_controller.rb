@@ -15,7 +15,10 @@ class UsersController < ApplicationController
 	end
 
 	def show 
-		
+		@pending_org_feed = params[:pending_org_feed] ? params[:pending_org_feed].to_i : 1 
+  		@pending_user_feed = params[:pending_user_feed] ? params[:pending_user_feed].to_i : 1
+		@pending_org = Organization.where(verification: 0).page(@pending_org_feed)
+		@pending_user = User.where(verification: 0).page(@pending_user_feed)
 	end
 
 	def edit
