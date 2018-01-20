@@ -63,13 +63,6 @@
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
-      <div>
-        <h3>Organization:</h3>
-        <% @user.organizations.each do |org| %>
-          <h4><%= link_to org.name, organization_path %></h4>
-          <br>
-        <% end %>
-      </div>
     </div>
     <div class="user-profile-gamify row well">
       <div class="user-level-exp col-lg-4 col-md-4">
@@ -132,8 +125,25 @@
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
       <% end %>
       <div class="well">
-
+        <% @host_events = Event.where(host_id: @user.id, host_type:"User").limit(6).order(created_at: :desc) %>
+          <div class="row list-group">
+            <% @host_events.each do |event| %>
+              <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+              <div class="item col-lg-4" >
+                <div class="thumbnail" style="min-height: 410px;">
+                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <div class="caption">
+                    <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
+                    <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
+                    <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <% end %>
+          </div>
       </div>
     </div>
   </section>
+</div>
 </div>

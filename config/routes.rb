@@ -18,16 +18,21 @@ Rails.application.routes.draw do
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
-    resources :events
-    resources :messages
+    resources :events do
+      resources :event_messages
+      resources :badges
+      resources :participations
+    end
+    resources :user_messages
     resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
   end
 
   resources  :organizations do
     resources :events do
-      resources :badges, only: [:new, :create, :delete]
+      resources :badges
+      resources :event_messages
+      resources :participations
     end
-    resources :messages
   end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
