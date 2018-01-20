@@ -10,12 +10,19 @@ class EventMessagesController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def update
+    @event_message = EventMessage.find_by(user_id:current_user.id, event_id:params[:event_id], id:params[:id])
     @event_message.update(event_message_params)
-    redirect_to request_referrer
+    redirect_to request.referrer
   end
 
   def destroy
+    @event_message = EventMessage.find_by(user_id:current_user.id, event_id:params[:event_id], id:params[:id])
+    @event_message.destroy
+    redirect_to request.referrer
   end
 
   private
