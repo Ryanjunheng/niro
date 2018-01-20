@@ -7,6 +7,17 @@
 	<%= image_tag("profile_placeholder.jpg") %>
 <% end %>
 
+
+
+<% if signed_in? and current_user.superadmin? and current_user.Verified?%>
+	<% if @organization.Verified? %>
+		<h2>Verification status: <%= @organization.verification %></h2>
+	<% else %>
+		<h2>Verification status: <%= @organization.verification %></h2>
+		<%= button_to "Verify", verify_org_path(@organization.id), method: :post, class:"btn btn-primary" %>
+	<% end %>
+<% end %>
+
 <% if current_user.id == @organization.user_id %>
 	<button class="btn btn-lg btn-primary" onclick="window.location.href='/organizations/<%= @organization.id %>/edit'">Edit Profile</button>
 <% end %>
