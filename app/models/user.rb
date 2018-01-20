@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :events, as: :host
   has_many :authentications, dependent: :destroy
   has_many :event_messages
-
+  has_many :chats
   has_many :participations
   has_many :events, through: :participations
 
