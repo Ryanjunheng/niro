@@ -64,6 +64,21 @@
 }
 
 .event-chat-box {
-  font-size: 3em;
   font-family:sans-serif;
+  margin-bottom: 150px;
+}
+
+.modal-body {
+  min-height: 200px;
+
+}
+
+.each-event-message-box {
+  font-size: 18px;
+  border: 1px solid #ececec;
+}
+
+.list-all-event-message {
+  padding: 10px;
+  margin: 10px;
 }

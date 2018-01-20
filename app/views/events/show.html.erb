@@ -210,17 +210,64 @@
         </div>
       </div>
   </div>
-<!-- Event Chat Box -->
-  <div class="event-chat-box text-center">
-    <h2>Mission Chat Box</h2>
-    <small class="text-diabled">Ask a question OR post a comment here!</small>
-    
-  </div>
-<!-- google map -->
-  <div style='width: 100%; margin-bottom:100px;'>
+  <!-- google map -->
+  <div style='width: 100%; margin-bottom:50px;'>
     <div id="map" style='width: 100%; height: 500px;'></div>
   </div>
 </div>
+<!-- Event Chat Box -->
+  <div class="event-chat-box container text-center">
+    <h2>Mission Chat Box</h2>
+    <small class="text-diabled">Ask a question OR post a comment here!</small>
+
+    <!-- New Message Small modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-new-modal-md">Create Message</button>
+
+    <div class="modal fade bs-new-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+         <div class="modal-body">
+           <%= render partial: "new_event_message" %>
+         </div>
+         <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display of event messages  -->
+    <% if @flash.present? %>
+    <div class="alert">
+      <p> <%= @flash.error %> </p>
+    </div>
+    <% end %>
+    <div class="list-all-event-message">
+      <% @event_messages.each do |m| %>
+      <div class="each-event-message-box col-lg-4 col-md-4">
+        <%= image_tag(m.user.avatar) %>
+        <p>posted by: <%= m.user.full_name %></p>
+        <% if m.user_id == current_user.id %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-md">Edit Message</button>
+        <% end %>
+        <hr/>
+        <p> <%= m.message  %></p>
+      </div>
+      <% end %>
+    </div>
+
+    <!-- Edit Message Small modal -->
+    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+         <div class="modal-body">
+           <%= render partial: "edit_event_message" %>
+         </div>
+         <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- event participant lists only availabel for host -->
 <div class="event-participants-list-box" style="border-top: solid 3px grey;">
   <div class="container event-participants-list-table-box">
