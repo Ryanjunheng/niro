@@ -70,21 +70,7 @@
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
-      <div>
-        
-        <% if @user.organizations.size != 0 %>
-          <h3>Organization:</h3>
-          <% @user.organizations.each do |org| %>
-            <% if org.Unverified? and @user.id == current_user.id %>
-              <h4><%= link_to org.name, organization_path %>(status: verification pending)</h4>
-            <% elsif org.Unverified? and @user.id != current_user.id %>
-              <h4>Pending for verification</h4>
-            <% else org.Verified? %>
-              <h4><%= link_to org.name, organization_path %> (status: verified)</h4>
-          <% end %>
-        <% end %>
-        <% end %>
-      </div>
+      
     </div>
     <div class="user-profile-gamify row well">
       <div class="user-level-exp col-lg-4 col-md-4">
@@ -150,6 +136,26 @@
 
       </div>
     </div>
+
+    <div class="row">
+        <% if @user.organizations.size != 0 %>
+          <h3>Your organization:</h3>
+          <div class="well">
+          <ul>
+          <% @user.organizations.each do |org| %>
+            <% if org.Unverified? and @user.id == current_user.id %>
+              <li><h4><%= link_to org.name, organization_path %>(status: verification pending)</h4></li>
+            <% elsif org.Unverified? and @user.id != current_user.id %>
+              <h4>Pending for verification</h4>
+            <% else org.Verified? %>
+              <li><h4><%= link_to org.name, organization_path %> (status: verified)</h4></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+        <% end %>
+    </div>
+
     <% if signed_in? and current_user.superadmin? and @user.id == current_user.id%>
         <% pending_org = Organization.where(verification: 0) %>
         <% pending_user = User.where(verification: 0) %>
