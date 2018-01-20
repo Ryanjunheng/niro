@@ -6,8 +6,6 @@ class Event < ApplicationRecord
   has_many :participations
   has_many :users, through: :participations
 
-  enum allocated_points: [5, 10, 20]
-
   mount_uploaders :photos, PhotosUploader
   serialize :photos, Array
 

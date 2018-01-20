@@ -1,13 +1,7 @@
-<%= form_for User.new, url: users_path(user_id:@user.id) do |f| %>
-<% if @errors.present? %>
-   <div>
-     <p><%= @errors %></p>
-   </div>
-<% end %>
-<%= f.hidden_field :listing_id, value:@event.id %>
-<%= f.hidden_field :user_id, value:@user.id%>
-
+<%= form_for Participation.new, url: user_event_participations_path(user_id:params[:user_id], event_id:params[:id]) do |f| %>
+<%= f.hidden_field :event_id, value:@event.id %>
+<%= f.hidden_field :user_id, value:current_user.id%>
   <div class="form-group">
-    <%= f.submit "Submit Reservation", class:"btn btn-danger form-control" %>
+    <%= f.submit "Join this mission", class:"btn btn-danger form-control" %>
   </div>
 <% end %>

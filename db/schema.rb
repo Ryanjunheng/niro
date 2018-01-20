@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119100452) do
+ActiveRecord::Schema.define(version: 20180119193600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20180119100452) do
     t.bigint "host_id"
     t.float "latitude"
     t.float "longitude"
+    t.text "host_rewards"
     t.index ["host_type", "host_id"], name: "index_events_on_host_type_and_host_id"
   end
 
@@ -81,18 +82,7 @@ ActiveRecord::Schema.define(version: 20180119100452) do
     t.index ["follower_id"], name: "index_followings_on_follower_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "organization_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_messages_on_organization_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "name"
     t.string "email"
     t.string "registration_number"
@@ -109,6 +99,7 @@ ActiveRecord::Schema.define(version: 20180119100452) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
@@ -168,9 +159,6 @@ ActiveRecord::Schema.define(version: 20180119100452) do
   add_foreign_key "authentications", "users"
   add_foreign_key "badges", "events"
   add_foreign_key "event_messages", "events"
-  add_foreign_key "messages", "organizations"
-  add_foreign_key "messages", "users"
-  add_foreign_key "organizations", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "testimonials", "users"
