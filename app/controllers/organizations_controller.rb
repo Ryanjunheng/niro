@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-	before_action :find_organization, only: [:show, :edit, :update]
+	before_action :find_organization, only: [:show, :edit, :update, :verify]
 
 	def index
 	end
@@ -29,11 +29,16 @@ class OrganizationsController < ApplicationController
 		redirect_to @organization
 	end
 
+	def verify
+		@organization.Verified!
+		redirect_to @organization 
+	end
+
 
 	private
 
 	def organization_params
-		params.require(:organization).permit(:user_id, :name, :email, :registration_number, :phone, :address, :city, :state, :country, :zip_code, :logo, :remove_logo, {documents: []}, :remove_documents)
+		params.require(:organization).permit(:user_id, :name, :email, :registration_number, :phone, :address, :city, :state, :country, :zip_code, :logo, :remove_logo, {documents: []}, :remove_documents, :verification)
 	end
 
 	def find_organization
