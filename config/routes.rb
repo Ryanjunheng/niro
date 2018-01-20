@@ -41,5 +41,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
   post "/users/:user_id/events/:event_id/participations/:id/complete" => "participations#complete", as: :complete_mission
   post "/users/:user_id/events/:event_id/participations/:id/fail" => "participations#fail", as: :fail_mission
+  post "/organizations/:id/verify" => "organizations#verify", as: "verify_org"
+  post "/users/:id/verify" => "users#verify", as: "verify_user"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
