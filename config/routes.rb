@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :event_messages
       resources :badges
+      resources :participations
     end
     resources :user_messages
     resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :badges
       resources :event_messages
+      resources :participations
     end
   end
 

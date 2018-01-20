@@ -13,6 +13,7 @@ class EventsController < ApplicationController
       marker.lat event.latitude
       marker.lng event.longitude
     end
+    @participation = Participation.find_by(user_id: current_user.id, event_id: @event.id)
   end
 
   def new
@@ -36,6 +37,7 @@ class EventsController < ApplicationController
     @event.update(event_params)
     redirect_to user_events_path(params[:host], params[:id])
   end
+
 
   private
 

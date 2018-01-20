@@ -34,9 +34,19 @@
   align-items:center;
 }
 
-.booking-form, .event-allocated-points, .badge-box, .host-rewards-box{
+.booking-form, .event-allocated-points, .badge-box, .host-rewards-box, {
   border: solid 1px #ececec;
   padding: 10px 30px 10px 30px;
   width: 100%;
   margin: 7.5px 0;
+}
+
+.required-participants-count h1 {
+  color: red;
+  font-size: 4.5em;
+}
+
+.actual-participants-count h1{
+  color: green;
+  font-size: 4.5em;
 }
