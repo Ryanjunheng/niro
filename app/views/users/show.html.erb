@@ -27,8 +27,15 @@
         <div class="user-about-me col-lg-9 col-md-9">
           <div class="about-me-content text-center">
             <h1> <%= @user.full_name %> </h1>
+            <p>Status: <%= @user.verification %></p>
+            <p><%= @user.role.capitalize %></p>
             <p> Member since: <%= @user.created_at %> </p>
             <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%=- @user.country if @user.country %></p>
+            <% if signed_in? and current_user.superadmin? and current_user.Verified?%>
+              <% if !@user.Verified? %>
+                <%= button_to "Verify", verify_user_path(@user.id), method: :post, class:"btn btn-primary"%>
+              <% end %>
+            <% end %>
           </div>
           <div class="about-me-blockquote blockquote text-center well">
               <p> <%= @user.intro %></p>
@@ -64,10 +71,18 @@
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
       <div>
-        <h3>Organization:</h3>
-        <% @user.organizations.each do |org| %>
-          <h4><%= link_to org.name, organization_path %></h4>
-          <br>
+        
+        <% if @user.organizations.size != 0 %>
+          <h3>Organization:</h3>
+          <% @user.organizations.each do |org| %>
+            <% if org.Unverified? and @user.id == current_user.id %>
+              <h4><%= link_to org.name, organization_path %>(status: verification pending)</h4>
+            <% elsif org.Unverified? and @user.id != current_user.id %>
+              <h4>Pending for verification</h4>
+            <% else org.Verified? %>
+              <h4><%= link_to org.name, organization_path %> (status: verified)</h4>
+          <% end %>
+        <% end %>
         <% end %>
       </div>
     </div>
@@ -135,5 +150,40 @@
 
       </div>
     </div>
+    <% if signed_in? and @user.id == current_user.id and current_user.superadmin? %>
+      <% pending_org = Organization.where(verification: 0) %>
+      <% pending_user = User.where(verification: 0) %>
+    <div class="row">
+        <h2>Organizations awaiting verification</h2>
+      
+      <div class="well">
+        <% if pending_org.count != 0 %>
+          <ul>
+            <% pending_org.each do |org| %>
+              <li><%= link_to org.name, organization_path(org.id) %></li>
+            <% end %>
+          </ul>
+      <% else %>
+        <p>No organizations pending for verification</p>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+        <h2>Users awaiting verification</h2>
+      
+      <div class="well">
+        <% if pending_user.count != 0 %>
+          <ul>
+            <% pending_user.each do |user| %>
+              <li><%= link_to user.full_name, user_path(user.id) %></li>
+            <% end %>
+          </ul>
+      <% else %>
+        <p>No users pending for verification</p>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
   </section>
 </div>
