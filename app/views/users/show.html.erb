@@ -121,7 +121,7 @@
   </head>
   <section>
     <div class="user-upcoming-missions row">
-      <% if @user == current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Your Upcoming Missions</h2>
       <% else %>
         <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
@@ -131,7 +131,7 @@
       </div>
     </div>
     <div class="user-completed-missions row">
-      <% if @user == current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Your Completed Missions</h2>
       <% else %>
         <h2> <%= @user.full_name %>'s Completed Missions</h2>
@@ -141,7 +141,7 @@
       </div>
     </div>
     <div class="user-hosted-missions row">
-      <% if @user == current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Missions Hosted By You </h2>
       <% else %>
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
@@ -150,9 +150,7 @@
 
       </div>
     </div>
-    <% if signed_in? %>
-    <%= p @user.id %>
-      <% if current_user.superadmin? && @user.id == current_user.id %>
+    <% if signed_in? and current_user.superadmin? and @user.id == current_user.id%>
         <% pending_org = Organization.where(verification: 0) %>
         <% pending_user = User.where(verification: 0) %>
         <div class="row">
@@ -186,7 +184,6 @@
               <% end %>
             </div>
         </div>
-      <% end %>
     <% end %>
   </section>
 </div>
