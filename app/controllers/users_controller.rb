@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :find_user, only: [:show, :edit, :update]
+	before_action :find_user, only: [:show, :edit, :update, :verify]
 
 	def index
 	end
@@ -24,6 +24,11 @@ class UsersController < ApplicationController
 
 	def update
 		@user.update(user_params)
+		redirect_to @user
+	end
+
+	def verify
+		@user.Verified!
 		redirect_to @user
 	end
 
