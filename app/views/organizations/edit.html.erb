@@ -2,9 +2,121 @@
 
 <%= form_for @organization do |form| %>
 
-    <%= form.hidden_field :user_id, value:current_user.id %>
+	<%= form.hidden_field :user_id, value:"current_user.id" %>
+    
+<div class="container" style="padding-top:150px;">
+  <div class="new-list-box row">
+    
+  
+    <div class="form-group">
+      <h4><%= form.label :name %></h4>
+      <%= form.text_field :name , class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :email %></h4>
+      <%= form.email_field :email , class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :registration_number %></h4>
+      <%= form.text_field :registration_number, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :phone %></h4>
+      <%= form.number_field :phone, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :address %></h4>
+      <%= form.text_field :address, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :country %></h4>
+      <select id="country" name="organization[country]" class="form-control form-control-small">
+      <option value="<%= @organization.country %>" selected>Select Your Country</option>
+      <% CS.countries.each do |key, value| %>
+        <option value="<%= key %>"><%= value%></option>
+     <% end %>
+    </select>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :state %></h4>
+      <select id="states-of-country" name="organization[state]" class="form-control form-control-small">
+      <option id="no-state" value="<%= @organization.state %>" selected>Select Your State</option>
+      <% CS.states(:my).each do |key, value| %>
+        <option value="<%= value %>" id="<%= key %>"><%= value %></option>
+      <% end %>
+      </select>
+    </div>
+    <div class="form-group">
+      <h4><%= form.label :city %></h4>
+      <select id="cities-of-state" name="organization[city]" class="form-control form-control-small">
+        <option value="<%= @organization.city %>" selected>Select Your City</option>
+      </select>
+    </div>
 
-    <%= render partial: '/organizations/form', object: form %>
+    <script type="text/javascript">
+
+      $(document).on('change', '#states-of-country', function(e) {
+        var cities_of_state, input_state, state;
+        input_state = $(this);
+        cities_of_state = $('#cities-of-state');
+        state = this.options[e.target.selectedIndex].id;
+        if (state === 'no-state') {
+          return cities_of_state.html('');
+        } else {
+          $.ajax({
+            url: '/cities/' + $(this).children(':selected').attr('id'),
+            success: function(data) {
+              var opt;
+              opt = '<option value="" selected>Select Your City</option>';
+              if (data.length === 0) {
+
+              } else {
+                data.forEach(function(i) {
+                  opt += '<option value="' + i + '">' + i + '</option>';
+                });
+                cities_of_state.html(opt);
+              }
+            }
+          });
+        }
+      });
+    </script>
+
+    <div class="form-group">
+      <h4><%= form.label :zip_code %></h4>
+      <%= form.number_field :zip_code, class:"form-control", rows:"5"%>
+    </div>
+    <div class="form-group">
+      <% if @organization.logo.size !=0 %>
+        <div id="profile-pic"><p><%= image_tag @organization.logo.thumb %></p></div>
+      <% end %>
+      
+        <h4><%= form.label "Upload a logo for your organization" %></h4>
+        
+        <%= form.file_field :logo %>
+        
+      <% if @organization.logo.size !=0 %>
+      <p>OR&nbsp;&nbsp;&nbsp;&nbsp;<%= form.check_box :remove_logo %>&nbsp;&nbsp;remove logo</p>
+      <% end %>
+  </div>
+
+    <div class="form-group">
+
+    	<h4><%= form.label "Upload documents for verification" %></h4>
+      
+    	<%= form.file_field :documents, multiple: true %>
+        
+    </div>
+
+    <div class="form-group">
+      <%= form.submit "Submit", class:"btn btn-lg btn-danger align-center", id:"new-org-submit-btn" %>
+    </div>
+    
+  
+  </div>
+</div>
+    
+
 
     
 

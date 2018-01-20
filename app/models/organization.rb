@@ -1,4 +1,5 @@
 class Organization < ApplicationRecord
+	
 	belongs_to :user
 	has_many :events, as: :host
 
@@ -7,5 +8,5 @@ class Organization < ApplicationRecord
 	mount_uploader :logo, LogoUploader
 	mount_uploaders :documents, DocumentsUploader
 	serialize :documents, Array
-
+	
 end

@@ -14,7 +14,7 @@
         <hr id="navbar-underline" />
       <% else %>
         <li id="sign-in-as"><% if current_user.avatar.size != 0 %><span>Signed in as: &nbsp;<%= image_tag current_user.avatar.thumb %>&nbsp;&nbsp;<%= current_user.full_name %></span><% else %><span id="no-avatar">Signed in as: &nbsp;<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%= current_user.full_name %></span><% end %></li>
-        <li><%= link_to "Create your organization", new_organization_path %></li>
+        <li><%= link_to "Create your organization page", new_organization_path %></li>
         <li><%= link_to "My Niro Profile", user_path(current_user.id), id:"profile-title" %></li>
         <li><%= link_to "Host a Niro Event", new_user_event_path(current_user.id), id:"become-host-title" %></li>
         <li><%= link_to "Sign Out", sign_out_path, id:"sign-out-title", method: :delete %></li>
