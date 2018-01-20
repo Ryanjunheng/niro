@@ -1,5 +1,5 @@
 class Participation < ApplicationRecord
 	belongs_to :user
 	belongs_to :event
-	enum status: [:in_progress, :completed, :failed]
+	enum status: ["In Progress", "Completed", "Failed"]
 end

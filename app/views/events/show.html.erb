@@ -209,14 +209,51 @@
         </div>
       </div>
     </div>
+<!-- Event Chat Box -->
+    <div class="event-chat-box">
+      <h2>Mission Chat Box</h2>
+      <small class="text-diabled">Ask a question OR post a comment here!</small>
+      
+
+    </div>
     <!-- google map -->
     <div style='width: 100%; margin-bottom:100px;'>
       <div id="map" style='width: 100%; height: 500px;'></div>
     </div>
+
+    <!-- event participant lists only availabel for host -->
+    <% if @event.host_id == current_user.id && @event.host_type == "User" %>
+      <table class="table table-hover">
+        <tr>
+          <th>no.</th>
+          <th>name</th>
+          <th>email</th>
+          <th>status</th>
+          <th>action</th>
+        </tr>
+      <% num = 0 %>
+      <% @participants.each do |p| %>
+        <tr>
+          <td> <%= num += 1 %> </td>
+          <td> <%= p.user.full_name %> </td>
+          <td> <%= p.user.email %></td>
+          <td><%= p.status %></td>
+          <td>
+            <% if p.status == "Completed" || p.status == "Failed" %>
+            <div class="glyphicon glyphicon-ok-circle" style="font-size: 1.5em;"></div>
+            <% else %>
+            <%= link_to "Completed", complete_mission_path(p.user_id, p.event_id, p.id), method: :post %>
+            <%= link_to "Failed", fail_mission_path(p.user_id, p.event_id, p.id), method: :post %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+
+      <% end %>
+      <% end %>
+
   </div>
 </div>
-
-
 <script>
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){

@@ -13,6 +13,18 @@ class ParticipationsController < ApplicationController
   def show
   end
 
+  def complete
+    @participant = Participation.find(params[:id])
+    @participant.Completed!
+    redirect_to '/'
+  end
+
+  def fail
+    @participant = Participation.find(params[:id])
+    @participant.Failed!
+    redirect_to '/'
+  end
+
   def destroy
     @participation = Participation.find_by(user_id: current_user.id, event_id: params[:event_id])
     @participation.destroy
@@ -22,6 +34,6 @@ class ParticipationsController < ApplicationController
   private
 
   def participation_params
-    params.require(:participation).permit(:user_id, :event_id)
+    params.require(:participation).permit(:user_id, :event_id, :status)
   end
 end
