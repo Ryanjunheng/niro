@@ -39,6 +39,7 @@
     </div>
     <% end %>
   </div>
+</div>
 
   <!-- contents below sliding banner images -->
   <div class="container">
@@ -208,21 +209,25 @@
           <% end %>
         </div>
       </div>
-    </div>
+  </div>
 <!-- Event Chat Box -->
-    <div class="event-chat-box">
-      <h2>Mission Chat Box</h2>
-      <small class="text-diabled">Ask a question OR post a comment here!</small>
-      
-
-    </div>
-    <!-- google map -->
-    <div style='width: 100%; margin-bottom:100px;'>
-      <div id="map" style='width: 100%; height: 500px;'></div>
-    </div>
-
-    <!-- event participant lists only availabel for host -->
-    <% if @event.host_id == current_user.id && @event.host_type == "User" %>
+  <div class="event-chat-box text-center">
+    <h2>Mission Chat Box</h2>
+    <small class="text-diabled">Ask a question OR post a comment here!</small>
+    
+  </div>
+<!-- google map -->
+  <div style='width: 100%; margin-bottom:100px;'>
+    <div id="map" style='width: 100%; height: 500px;'></div>
+  </div>
+</div>
+<!-- event participant lists only availabel for host -->
+<div class="event-participants-list-box" style="border-top: solid 3px grey;">
+  <div class="container event-participants-list-table-box">
+    <div class="event-participants-list">
+      <h1 class="text-center">Niroes Signed Up For This Mission</h1>
+      <hr/>
+      <% if @event.host_id == current_user.id && @event.host_type == "User" %>
       <table class="table table-hover">
         <tr>
           <th>no.</th>
@@ -231,8 +236,8 @@
           <th>status</th>
           <th>action</th>
         </tr>
-      <% num = 0 %>
-      <% @participants.each do |p| %>
+        <% num = 0 %>
+        <% @participants.each do |p| %>
         <tr>
           <td> <%= num += 1 %> </td>
           <td> <%= p.user.full_name %> </td>
@@ -248,12 +253,12 @@
           </td>
         </tr>
       </table>
-
       <% end %>
       <% end %>
-
+    </div>
   </div>
 </div>
+
 <script>
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
