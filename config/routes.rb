@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'room/show'
+
   mount ActionCable.server => '/cable'
 
   root "home#index"
