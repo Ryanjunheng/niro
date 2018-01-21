@@ -155,6 +155,7 @@
       </div>
     </div>
 
+ <!-- Super Admin's Organiation list block  -->
     <div class="row">
         <% if @user.organizations.size != 0 %>
           <h3>Your organization:</h3>
@@ -162,11 +163,11 @@
           <ul>
           <% @user.organizations.each do |org| %>
             <% if org.Unverified? and @user.id == current_user.id %>
-              <li><h4><%= link_to org.name, organization_path %>(status: verification pending)</h4></li>
+              <li><h4><%= link_to org.name, organization_path(org.id) %>(status: verification pending)</h4></li>
             <% elsif org.Unverified? and @user.id != current_user.id %>
               <h4>Pending for verification</h4>
             <% else org.Verified? %>
-              <li><h4><%= link_to org.name, organization_path %> (status: verified)</h4></li>
+              <li><h4><%= link_to org.name, organization_path(org.id) %> (status: verified)</h4></li>
           <% end %>
         <% end %>
         </ul>
