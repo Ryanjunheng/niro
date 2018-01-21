@@ -34,6 +34,6 @@ end
 
 Merit::Badge.create!(
   id: 1,
-  name: "Nike Color Run 2017",
-  description: "Participated in Nike Color Run 2017",
+  name: "TEST event badge",
+  description: "Participated in TEST event",
 )

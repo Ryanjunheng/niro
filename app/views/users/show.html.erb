@@ -106,6 +106,25 @@
     </div>
   </head>
   <section>
+    <div class="user-badges row">
+      <% if @user.id == current_user.id %>
+        <h2>Your Badges</h2>
+      <% else %>
+        <h2> <%= @user.full_name %>'s Badges</h2>
+      <% end %>
+      <div class="well">
+        <ul>
+        <% if @user.badges.size != 0 %>
+          <% @user.badges.each do |badge| %>
+            <% @event_badge = Badge.find_by(name: badge.name) %>
+            <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No Badges earned yet! <%= link_to "Start earning now!", root_path %></p>
+        <% end %>
+      </div>
+    </div>
     <div class="user-upcoming-missions row">
       <% if @user.id == current_user.id %>
         <h2>Your Upcoming Missions</h2>
