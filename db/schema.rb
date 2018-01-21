@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121014135) do
+ActiveRecord::Schema.define(version: 20180121090004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,17 @@ ActiveRecord::Schema.define(version: 20180121014135) do
     t.integer "status", default: 0
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "reportings", force: :cascade do |t|
+    t.integer "reporter_id"
+    t.string "reported_type"
+    t.bigint "reported_id"
+    t.text "comment"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reported_type", "reported_id"], name: "index_reportings_on_reported_type_and_reported_id"
   end
 
   create_table "sashes", force: :cascade do |t|
