@@ -2,6 +2,21 @@
   <div class="event-page-title text-center">
     <h style="font-size:5em;"> <%= @event.name %> </h1>
   </div>
+  <!-- user event reporting button  -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Event</button>
+
+  <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header"></div>
+       <div class="modal-body">
+         <%= render partial: "/reportings/_user_event_reporting_form" %>
+       </div>
+       <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+  <!-- end reporting button -->
   <div class="jumbotron" style="padding-top:50px;">
     <% if @event.photos == [] %>
     <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
@@ -205,10 +220,10 @@
           <% else %>
             <% shout = ["I'm on FIRE!", "I've never skipped missions like this!", "Won't miss this one", "Consider it done!", "Keep it coming"] %>
             <h3 class="blockquote text-center"> <%= shout.sample %></h3>
-            
+
             <hr/>
             <%= render partial: "form" %>
-           
+
           <% end %>
         </div>
          <% end %>
