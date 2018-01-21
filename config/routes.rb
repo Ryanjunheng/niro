@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       resources :badges
       resources :participations
     end
-    resources :chats
+    resource :rooms, only:[:show]
     resources :user_messages
     resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
   end
