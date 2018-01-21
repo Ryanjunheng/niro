@@ -31,3 +31,9 @@ end
 # }].each do |attrs|
 #   Merit::Badge.create! attrs
 # end
+
+Merit::Badge.create!(
+  id: 1,
+  name: "Nike Color Run 2017",
+  description: "Participated in Nike Color Run 2017",
+)

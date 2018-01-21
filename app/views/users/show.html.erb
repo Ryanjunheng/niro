@@ -113,7 +113,15 @@
         <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_upcoming_participation.size != 0 %>
+          <% @user_upcoming_participation.each do |p| %>
+            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No upcoming mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-completed-missions row">
@@ -123,7 +131,15 @@
         <h2> <%= @user.full_name %>'s Completed Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_completed_participation.size != 0 %>
+          <% @user_completed_participation.each do |p| %>
+            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No completed mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-hosted-missions row">
@@ -133,7 +149,7 @@
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
       <% end %>
       <div class="well">
-        <% @host_events = Event.where(host_id: @user.id, host_type:"User").limit(6).order(created_at: :desc) %>
+        <% if @host_events.size != 0 %>
           <div class="row list-group">
             <% @host_events.each do |event| %>
               <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
@@ -150,6 +166,9 @@
             </a>
             <% end %>
           </div>
+          <% else %>
+            <p>No mission hosted yet</p>
+          <% end %>
       </div>
     </div>
 
