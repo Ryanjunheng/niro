@@ -1,4 +1,19 @@
 <h3>You are looking at <%= @organization.name %>'s profile</h3>
+<!-- user event reporting button  -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Event</button>
+
+<div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header"></div>
+		 <div class="modal-body">
+			 <%= render partial: "/reportings/organization_reporting_form" %>
+		 </div>
+		 <div class="modal-footer"></div>
+		</div>
+	</div>
+</div>
+<!-- end reporting button -->
 <br>
 
 <% if @organization.logo.size !=0 %>
@@ -21,5 +36,3 @@
 <% if current_user.id == @organization.user_id %>
 	<button class="btn btn-lg btn-primary" onclick="window.location.href='/organizations/<%= @organization.id %>/edit'">Edit Profile</button>
 <% end %>
-
-

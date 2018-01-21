@@ -1,4 +1,4 @@
-<%= form_for EventMessage.new, url: organization_event_event_messages_path(user_id:@user.id, event_id: @event.id), method: :post do |f| %>
+<%= form_for EventMessage.new, url: user_event_event_messages_path(user_id:@user.id, event_id: @event.id), method: :post do |f| %>
 <%= f.hidden_field :event_id, value:@event.id %>
 <%= f.hidden_field :user_id, value:current_user.id %>
 <div class="form-group">

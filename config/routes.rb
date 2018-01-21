@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   post "/users/:id/reportings/new" => "reportings#user_create", as: :reporting_user
   post "/users/:user_id/events/:id/reportings/new" => "reportings#user_event_create", as: :reporting_user_event
   post "/organizations/:id/reportings/new" => "reportings#org_create", as: :reporting_organization
-  post "/organizations/:organizations_id/events/:id/reportings/new" => "reportings#org_event_create", as: :reporting_organization_event
+  post "/organizations/:organization_id/events/:id/reportings/new" => "reportings#org_event_create", as: :reporting_organization_event
 
 
   # end of reporting routes
