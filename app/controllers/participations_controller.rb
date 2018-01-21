@@ -2,7 +2,15 @@ class ParticipationsController < ApplicationController
 
   def create
     @participation = Participation.new(participation_params)
+
+    @event = Participation.find_by(event_id: params[:event_id])
+    @customer = User.find(@participation.user_id)
+    @host = User.find_by(id: params[:user_id])
+
     if @participation.save
+      BookingEmailJob.perform_later(@participation)
+      HostEmailJob.perform_later(@customer, @host, @event)
+
       redirect_to user_path(current_user.id)
     else
       redirect_to user_event_path(user_id: @participation.user_id, id: @participation.event_id)
@@ -11,6 +19,7 @@ class ParticipationsController < ApplicationController
   end
 
   def show
+    @participation = Participation.find(params[:id])
   end
 
   def complete
