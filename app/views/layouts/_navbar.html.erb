@@ -16,7 +16,19 @@
         <li id="sign-in-as"><% if current_user.avatar.size != 0 %><span>Signed in as: &nbsp;<%= image_tag current_user.avatar.thumb %>&nbsp;&nbsp;<%= current_user.full_name %></span><% else %><span id="no-avatar">Signed in as: &nbsp;<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%= current_user.full_name %></span><% end %></li>
         <li><%= link_to "Create your organization page", new_organization_path %></li>
         <li><%= link_to "My Niro Profile", user_path(current_user.id), id:"profile-title" %></li>
-        <li><%= link_to "Host a Niro Event", new_user_event_path(current_user.id), id:"become-host-title" %></li>
+    <!-- Differentiating logins for user and without organizations -->
+        <% if current_user.organizations.present? %>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Host a Niro Event</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Host as Yourself", new_user_event_path(current_user.id), id:"become-host-title" %></li>
+              <% current_user.organizations.each do |org| %>
+              <li><%= link_to "Host as #{org.name}", new_organization_event_path(org.id), id:"become-host-title" %></li>
+              <% end %>
+            </ul>
+        </li>
+        <% else  %>
+          <li><%= link_to "Host a Niro Event", new_user_event_path(current_user.id), id:"become-host-title" %></li>
+        <% end %>
         <li><%= link_to "Sign Out", sign_out_path, id:"sign-out-title", method: :delete %></li>
         <hr id="navbar-underline" />
       <% end %>

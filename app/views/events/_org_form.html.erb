@@ -1,0 +1,7 @@
+<%= form_for Participation.new, url: organization_event_participations_path(organization_id:params[:organization_id], event_id:params[:id]) do |f| %>
+<%= f.hidden_field :event_id, value:@event.id %>
+<%= f.hidden_field :user_id, value:current_user.id%>
+  <div class="form-group">
+    <%= f.submit "Join this mission", class:"btn btn-danger form-control" %>
+  </div>
+<% end %>

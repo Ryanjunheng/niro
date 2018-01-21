@@ -5,7 +5,7 @@ class TestimonialsController < ApplicationController
   end
 
   def create
-    @testimonial = Testimonial.new(testimnial_params)
+    @testimonial = Testimonial.new(testimonial_params)
     if @testimonial.save
       redirect_to user_testimonials_path(params[:user_id])
     else
