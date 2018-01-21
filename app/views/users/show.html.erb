@@ -1,4 +1,5 @@
 <div class="container" style="padding-top:50px;">
+ <!-- User profiles avatar and bio -->
   <head id="user-profile">
     <div class="user-profile-details row">
       <div class="user-main col-lg-3 col-md-3">
@@ -43,6 +44,7 @@
       </div>
     </div>
   <div class="user-profile-action">
+    <!-- Buttions bar  -->
     <div class="user-profile-buttons row well">
       <div class="user-edit-button col-lg-2 col-md-2">
         <% if @user == current_user %>
@@ -50,7 +52,7 @@
         <% end %>
       </div>
       <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/messages'">Message User</button>
+        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
       </div>
       <div class="user-tetimonials-button col-lg-2 col-md-2">
         <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
@@ -70,8 +72,8 @@
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
-    
     </div>
+    <!-- user level experience badges and testimonials  -->
     <div class="user-profile-gamify row well">
       <div class="user-level-exp col-lg-4 col-md-4">
         <div class="user-level" style="height:75%;">
@@ -175,7 +177,7 @@
     <% if signed_in? and current_user.superadmin? and @user.id == current_user.id%>
         <div class="row">
           <h2>Organizations awaiting verification</h2>
-      
+
             <div class="well">
               <% if @pending_org.count != 0 %>
                 <ul>
@@ -193,7 +195,7 @@
 
         <div class="row">
           <h2>Users awaiting verification</h2>
-      
+
             <div class="well">
               <% if @pending_user.count != 0 %>
                 <ul>

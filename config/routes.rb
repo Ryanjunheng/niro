@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  mount ActionCable.server => '/cable'
+  get 'room/show'
+
 
   root "home#index"
 
@@ -23,6 +26,7 @@ Rails.application.routes.draw do
       resources :badges
       resources :participations
     end
+    resource :rooms, only:[:show]
     resources :user_messages
     resources :testimonials, only:[:index, :show, :create, :edit, :update, :destroy]
   end
