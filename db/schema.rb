@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20180121014135) do
     t.string "category", default: "default"
     t.index ["sash_id"], name: "index_merit_scores_on_sash_id"
   end
-  
+
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
