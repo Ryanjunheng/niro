@@ -1,12 +1,13 @@
 class User < ApplicationRecord
   has_merit
-  
+
   include Clearance::User
 
   has_many :messages
   has_many :organizations
   has_many :user_scores
   has_many :events, as: :host
+  has_many :reportings, as: :reported
   has_many :authentications, dependent: :destroy
   has_many :event_messages
   has_many :chats
