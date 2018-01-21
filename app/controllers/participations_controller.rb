@@ -46,6 +46,8 @@ class ParticipationsController < ApplicationController
       redirect_to request.referrer
       @flash = {error: "There was a problem submitting your missiong request, please try again"}
     end
+    
+  end
 
   def show
     @participation = Participation.find(params[:id])
