@@ -9,6 +9,7 @@ class ParticipationMailer < ApplicationMailer
 	def host_email(customer, host, event)
 		@customer = customer
 		@host = host
+		@event = event
 		# @url to be added
 		mail(to: @host.email, subject: 'A booking has been made!')
 	end

@@ -8,8 +8,9 @@ class ParticipationsController < ApplicationController
     @host = User.find_by(id: params[:user_id])
 
     if @participation.save
-      ParticipationMailer.booking_email(@participation).deliver_now
-      ParticipationMailer.host_email(@customer, @host, @event).deliver_now
+      BookingEmailJob.perform_later(@participation)
+      HostEmailJob.perform_later(@customer, @host, @event)
+
       redirect_to user_path(current_user.id)
     else
       redirect_to user_event_path(user_id: @participation.user_id, id: @participation.event_id)
