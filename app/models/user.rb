@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_merit
+  
   include Clearance::User
 
   has_many :messages

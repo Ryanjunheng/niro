@@ -194,6 +194,7 @@
           <h1 class="text-center" style="font-size:7em; color:gold;"> <%= @event.allocated_points %> <small class="text-center">EXP</small></h1>
 
         </div>
+        <% if @event.host_id != current_user.id %>
         <div class="booking-form">
           <% participated = Participation.find_by(user_id: current_user.id, event_id: @event.id) %>
           <% if participated.present? %>
@@ -204,10 +205,13 @@
           <% else %>
             <% shout = ["I'm on FIRE!", "I've never skipped missions like this!", "Won't miss this one", "Consider it done!", "Keep it coming"] %>
             <h3 class="blockquote text-center"> <%= shout.sample %></h3>
+            
             <hr/>
             <%= render partial: "form" %>
+           
           <% end %>
         </div>
+         <% end %>
       </div>
   </div>
   <!-- google map -->

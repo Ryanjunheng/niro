@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   has_many :participations
   has_many :users, through: :participations
 
+  mount_uploader :image, ImageUploader
   mount_uploaders :photos, PhotosUploader
   serialize :photos, Array
 

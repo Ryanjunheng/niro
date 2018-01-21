@@ -1,3 +1,5 @@
+
+
 <div class="container" style="padding-top:50px;">
  <!-- User profiles avatar and bio -->
   <head id="user-profile">
@@ -82,24 +84,36 @@
           </div>
           <div class="user-level-level">
             <span>
-              <strong>Lvl. 1:</strong>
-              <strong>Samurai<stong>
-              </span>
-            </div>
+              <% if @user.points >= 0 and @user.points <= 100 %>
+                <strong>Level: 1:</strong>
+                <strong>Peasant<stong>
+              <% elsif @user.points >= 101 and @user.points <= 200 %>
+                <strong>Level: 2:</strong>
+                <strong>Samurai<stong>
+              <% elsif @user.points >= 201 and @user.points <= 300 %>
+                <strong>Level: 3:</strong>
+                <strong>Daimyo<stong>
+              <% elsif @user.points >= 301 and @user.points <= 400 %>   
+                <strong>Level: 4:</strong>
+                <strong>Shogun<stong>
+              <% end %>
+            </span>
+          </div>
         </div>
         <div class="user-exp" style="height:25%">
+          <% bar_width = (@user.points).to_f / 100 * 100 %>
           <div class="user-exp-bar progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= bar_width %>%"></div>
             </div>
         </div>
         <div class="user-exp-points text-center">
-          <h1>25/100</h1>
+          <h4>Total points: <%= @user.points %></h4>
         </div>
       </div>
       <div class="user-badge-count col-lg-4 col-md-4 text-center">
         <strong>Total Badges Earned</strong>
-        <h1 style="font-size:8em;">51</h1>
-        <%= link_to "view my glorious contributions", user_events_path(@user.id) %>
+        <h1 style="font-size:8em;"><%= @user.badges.size %></h1>
+        <a href="#user-badges-box">View my shiny badges</a>
       </div>
       <div class="user-testimonials col-lg-4 col-md-4 text-center">
         <storng>Total Testimonials Received</strong>
@@ -108,6 +122,25 @@
     </div>
   </head>
   <section>
+    <div class="user-badges row", id="user-badges-box">
+      <% if @user.id == current_user.id %>
+        <h2>Your Badges</h2>
+      <% else %>
+        <h2> <%= @user.full_name %>'s Badges</h2>
+      <% end %>
+      <div class="well">
+        <ul>
+        <% if @user.badges.size != 0 %>
+          <% @user.badges.each do |badge| %>
+            <% @event_badge = Badge.find_by(name: badge.name) %>
+            <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No Badges earned yet! <%= link_to "Start earning now!", root_path %></p>
+        <% end %>
+      </div>
+    </div>
     <div class="user-upcoming-missions row">
       <% if @user.id == current_user.id %>
         <h2>Your Upcoming Missions</h2>
@@ -115,7 +148,15 @@
         <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_upcoming_participation.size != 0 %>
+          <% @user_upcoming_participation.each do |p| %>
+            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No upcoming mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-completed-missions row">
@@ -125,7 +166,15 @@
         <h2> <%= @user.full_name %>'s Completed Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_completed_participation.size != 0 %>
+          <% @user_completed_participation.each do |p| %>
+            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No completed mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-hosted-missions row">
@@ -135,7 +184,7 @@
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
       <% end %>
       <div class="well">
-        <% @host_events = Event.where(host_id: @user.id, host_type:"User").limit(6).order(created_at: :desc) %>
+        <% if @host_events.size != 0 %>
           <div class="row list-group">
             <% @host_events.each do |event| %>
               <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
@@ -152,6 +201,9 @@
             </a>
             <% end %>
           </div>
+          <% else %>
+            <p>No mission hosted yet</p>
+          <% end %>
       </div>
     </div>
 
