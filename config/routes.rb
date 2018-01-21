@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/users/:id/follow' => "followings#follow"
   post '/users/:id/unfollow' => "followings#unfollow"
 
+  get "/participations/:id" => "participations#show"
+
 
 
   # Clearance Default Routes

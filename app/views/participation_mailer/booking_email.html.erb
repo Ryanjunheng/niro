@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <p>
+    Dear <strong><%= @participation.user.email %></strong>,
+  </p>
+
+  <p>
+    Congratulations, your participation is confirmed for:
+    <h4><%= @participation.event.name %></h4>
+  </p>
+
+  <br>
+
+  <p>
+    You can see more participation details at: <a href="<%= @url %>" target="_blank"><%= @url %></a>
+  </p>
+
+  <br>
+
+  <p>
+    Thanks,<br>
+    Niro
+  </p>
+
+</div>
