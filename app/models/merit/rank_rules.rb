@@ -26,6 +26,13 @@ module Merit
       # set_rank :level => 3, :to => Commiter.active do |commiter|
       #   commiter.branches.count > 2 && commiter.followers >= 20
       # end
+      set_rank level: 1, to: User do |user|
+        user.points == 5
+      end
+
+      set_rank level: 2, to: User do |user|
+        user.points >= 100
+      end
     end
   end
 end

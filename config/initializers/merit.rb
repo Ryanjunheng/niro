@@ -33,7 +33,8 @@ end
 # end
 
 Merit::Badge.create!(
-  id: 1,
+  id: 101,
   name: "TEST event badge",
   description: "Participated in TEST event",
 )
+

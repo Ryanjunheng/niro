@@ -1,3 +1,5 @@
+
+
 <div class="container" style="padding-top:50px;">
   <head id="user-profile">
     <div class="user-profile-details row">
@@ -80,24 +82,36 @@
           </div>
           <div class="user-level-level">
             <span>
-              <strong>Lvl. 1:</strong>
-              <strong>Samurai<stong>
-              </span>
-            </div>
+              <% if @user.points >= 0 and @user.points <= 100 %>
+                <strong>Level: 1:</strong>
+                <strong>Peasant<stong>
+              <% elsif @user.points >= 101 and @user.points <= 200 %>
+                <strong>Level: 2:</strong>
+                <strong>Samurai<stong>
+              <% elsif @user.points >= 201 and @user.points <= 300 %>
+                <strong>Level: 3:</strong>
+                <strong>Daimyo<stong>
+              <% elsif @user.points >= 301 and @user.points <= 400 %>   
+                <strong>Level: 4:</strong>
+                <strong>Shogun<stong>
+              <% end %>
+            </span>
+          </div>
         </div>
         <div class="user-exp" style="height:25%">
+          <% bar_width = (@user.points).to_f / 100 * 100 %>
           <div class="user-exp-bar progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= bar_width %>%"></div>
             </div>
         </div>
         <div class="user-exp-points text-center">
-          <h1>25/100</h1>
+          <h4>Total points: <%= @user.points %></h4>
         </div>
       </div>
       <div class="user-badge-count col-lg-4 col-md-4 text-center">
         <strong>Total Badges Earned</strong>
-        <h1 style="font-size:8em;">51</h1>
-        <%= link_to "view my glorious contributions", user_events_path(@user.id) %>
+        <h1 style="font-size:8em;"><%= @user.badges.size %></h1>
+        <a href="#user-badges-box">View my shiny badges</a>
       </div>
       <div class="user-testimonials col-lg-4 col-md-4 text-center">
         <storng>Total Testimonials Received</strong>
@@ -106,7 +120,7 @@
     </div>
   </head>
   <section>
-    <div class="user-badges row">
+    <div class="user-badges row", id="user-badges-box">
       <% if @user.id == current_user.id %>
         <h2>Your Badges</h2>
       <% else %>

@@ -16,7 +16,8 @@ class ParticipationsController < ApplicationController
   def complete
     @participant = Participation.find(params[:id])
     @participant.Completed!
-    @participant.user.add_badge(1)
+    @participant.user.add_badge(@participant.event_id)
+    @participant.user.add_points(@participant.event.allocated_points)
     redirect_to '/'
   end
 
