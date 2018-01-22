@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
 	def index
 	end
 
-	def new 
+	def new
 	end
 
 	def create
@@ -19,7 +19,11 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
-		@host_events = Event.where(host_id: @organization.id, host_type:"Organization").limit(6).order(created_at: :desc)
+		@host_events = Event.where(host_id: @organization.id, host_type:"Organization").order(created_at: :desc)
+		@hash = Gmaps4rails.build_markers(@organization) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+    end
 	end
 
 	def edit
@@ -32,7 +36,7 @@ class OrganizationsController < ApplicationController
 
 	def verify
 		@organization.Verified!
-		redirect_to @organization 
+		redirect_to @organization
 	end
 
 
