@@ -37,6 +37,18 @@
           </div>
       </div>
     </div>
+
+    <div class="user-testimonial-edit-form well">
+      <%= form_for "#", method: :post do |form| %>
+      <%  form.hidden_field :visitor_id, value:current_user.id %>
+      <%  form.hidden_field :user_id, value:@user.id %>
+      <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+      <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+      <%= form.submit "post", class:"btn btn-primary" %>
+      <% end %>
+      <!-- pending each do function to narrow visbility of this to user -->
+    </div>
+    
   <div class="user-profile-action">
     <div class="user-profile-buttons row well">
       <div class="user-edit-button col-lg-2 col-md-2">
@@ -126,16 +138,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="user-testimonial-edit-form well">
-        <%= form_for "#", method: :post do |form| %>
-        <%  form.hidden_field :visitor_id, value:current_user.id %>
-        <%  form.hidden_field :user_id, value:@user.id %>
-        <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
-        <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
-        <%= form.submit "post", class:"btn btn-primary" %>
-        <% end %>
-        <!-- pending each do function to narrow visbility of this to user -->
       </div>
   </section>
 </div>
