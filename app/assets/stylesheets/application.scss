@@ -6,6 +6,16 @@
 @import "footer";
 
 
+$size: 30px;
+
+.social-share-button {
+  .ssb-icon {
+    background-size: $size $size;
+    height: $size;
+    width: $size;
+  }
+}
+
 * {
 	box-sizing: border-box;
 }
