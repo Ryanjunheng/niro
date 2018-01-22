@@ -35,10 +35,14 @@
 }
 
 .booking-form, .event-allocated-points, .badge-box, .host-rewards-box, {
-  border: solid 1px #ececec;
   padding: 10px 30px 10px 30px;
   width: 100%;
   margin: 7.5px 0;
+}
+
+.event-action-box {
+  // border: 2px solid grey;
+  box-shadow: 3px 5px 10px 2px grey;
 }
 
 .required-participants-count h1 {
@@ -81,4 +85,98 @@
 .list-all-event-message {
   padding: 10px;
   margin: 10px;
+}
+
+.event-description-box {
+  padding:0 10px;
+}
+
+#event-specific-badge {
+  margin:20px 0;
+  box-shadow: 3px 5px 5px 3px grey;
+}
+
+#event-message-user-avatar {
+  border-radius: 50%;
+  width:40%;
+}
+
+.each-event-message-box {
+  padding:25px;
+  border: none;
+  box-shadow: 3px 3px 5px 3px grey;
+  margin: 10px;
+  height: 350px;
+  background-color: #ffc;
+}
+
+
+.sticky-note h2{
+  font-size:60%;
+  font-weight:normal;
+}
+
+.sticky-note p{
+  font-size:50%;
+  font-weight:normal;
+}
+.sticky-note ul,li{
+  list-style:none;
+  margin:1em;
+  float:left;
+}
+
+.sticky-note ul{
+  overflow:hidden;
+  padding:3em;
+}
+.sticky-note ul li {
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:13em;
+  width:13em;
+  padding:1em;
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -moz-transition:-moz-transform .15s linear;
+    -o-transition:-o-transform .15s linear;
+    -webkit-transition:-webkit-transform .15s linear;
+}
+
+.sticky-note ul li:nth-child(even) {
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+  background:#cfc;
+}
+.sticky-note ul li:nth-child(3n) {
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+  background:#ccf;
+}
+.sticky-note ul li:nth-child(5n) {
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  position:relative;
+  top:-10px;
+}
+
+.sticky-note ul li:hover,.sticky-note ul li:focus{
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  position:relative;
+  z-index:5;
 }

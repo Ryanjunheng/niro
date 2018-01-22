@@ -2,24 +2,10 @@
   <div class="event-page-title text-center">
     <h style="font-size:5em;"> <%= @event.name %> </h1>
   </div>
-  <!-- user event reporting button  -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Event</button>
 
-  <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header"></div>
-       <div class="modal-body">
-         <%= render partial: "/reportings/organization_event_reporting_form" %>
-       </div>
-       <div class="modal-footer"></div>
-      </div>
-    </div>
-  </div>
-  <!-- end reporting button -->
-  <div class="jumbotron" style="padding-top:50px;">
+  <div class="jumbotron">
     <% if @event.photos == [] %>
-    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
+    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"width:100%;") %>
     <% else %>
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -73,6 +59,21 @@
           </div>
           <div class="mission-title col-lg-8 col-md-8">
             <h1> Your Mission Details </h1>
+            <!-- user event reporting button  -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Event</button>
+
+            <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header"></div>
+                 <div class="modal-body">
+                   <%= render partial: "/reportings/organization_event_reporting_form" %>
+                 </div>
+                 <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+            <!-- end reporting button -->
           </div>
         </div>
         <!-- misison rewards  -->
@@ -84,38 +85,32 @@
           </div>
         </div>
         <% end %>
-        <!-- missiong time and location -->
+        <!-- mission time and location -->
         <div class="row">
           <h3>Getting there on time</h3>
           <hr>
           </hr>
           <div class="row">
-            <div class="missiong-location well col-lg-4 col-md-4">
+            <div class="mission-location col-lg-4 col-md-4">
                <div class="glyphicon glyphicon-map-marker align-center" style="font-size: 2em;"></div>
-                <p> <%=@event.address%>, <% @event.zip_code %> <%= @event.city %>, <%=@event.state%>, <%= @event.country %>.</p>
+              <div class="text-center">
+                <h4> <%=@event.address%>, <% @event.zip_code %> <%= @event.city %>, <%=@event.state%>, <%= @event.country %>.</h4>
+              </div>
             </div>
-            <div class="mission-time well col-lg-4 col-md-4">
+            <div class="mission-time col-lg-4 col-md-4">
               <div class="glyphicon glyphicon-calendar align-center" style="font-size: 2em;"></div>
-              <div>
-                <small>start date:</small>
-                <h2> <%= @event.start_date %> </h2>
-              </div>
-              </hr>
-              <div>
-                <small>end date:</small>
-                <h2> <%= @event.end_date %> </h2>
+              <div class="text-center">
+                <h4> <%= @event.start_date %> </h4>
+                <div class="glyphicon glyphicon-triangle-bottom"></div>
+                <h4> <%= @event.end_date %> </h4>
               </div>
             </div>
-            <div class="missiong-time well col-lg-4 col-md-4">
+            <div class="mission-time col-lg-4 col-md-4">
               <div class="glyphicon glyphicon-time align-center" style="font-size: 2em;"></div>
-              <div>
-                <small>start time:</small>
-                <h2> <%= @event.start_time %> </h2>
-              </div>
-              </hr>
-              <div>
-                <small>end time:</small>
-                <h2> <%= @event.end_time %> </h2>
+              <div class="text-center">
+                <h4> <%= @event.start_time.strftime("%I:%M %P") %> </h4>
+                <div class="glyphicon glyphicon-triangle-bottom"></div>
+                <h4> <%= @event.end_time.strftime("%I:%M %P") %> </h4>
               </div>
             </div>
           </div>
@@ -123,7 +118,7 @@
           <h3>Mission Description</h3>
           <hr>
           </hr>
-          <div class="row well">
+          <div class="row event-description-box">
             <p> <%= @event.description %></p>
           </div>
         </div>
@@ -145,12 +140,13 @@
       </div>
 
   <!-- event badge column box-->
+    <div class="event-action-box">
         <div class="badge-box">
           <% @badge = Badge.find_by(event_id:@event.id) %>
           <% if @badge.present? %>
-            <strong class="text-center">Join this mission and earn this badge</strong>
-            <%= image_tag(@badge.image, class:"align-center", style:"width:50%; height:auto;", data:{container:"body",toggle:"popover", placement:"left",content:@badge.description}) %>
-            <div class="well">
+          <div class="text-center">
+            <strong>Join this mission and earn this badge</strong>
+            <%= image_tag(@badge.image, id:"event-specific-badge", style:"width:50%; height:auto;", data:{container:"body",toggle:"popover", placement:"left",content:@badge.description}) %>
               <h4 class="text-center"><%= @badge.name.capitalize %></h4>
             </div>
             <% else %>
@@ -197,6 +193,7 @@
             </div>
           </div>
         </div>
+    <!-- Event points -->
         <div class="event-allocated-points">
           <% if @event.required_participants > 15 && @event.required_participants < 50 %>
             <% @event.update(allocated_points: 10)  %>
@@ -207,9 +204,10 @@
           <% end %>
           <strong class="text-center">Gain EXP and Level up! by Completing this mission!</strong>
           <h1 class="text-center" style="font-size:7em; color:gold;"> <%= @event.allocated_points %> <small class="text-center">EXP</small></h1>
+        <hr/>
         </div>
   <!-- block for niroes participation -->
-      
+      <% if @event.host_id != current_user.id %>
         <div class="booking-form">
           <% participated = Participation.find_by(user_id: current_user.id, event_id: @event.id) %>
           <% if participated.present? %>
@@ -224,8 +222,9 @@
             <%= render partial: "org_form" %>
           <% end %>
         </div>
-        
+        <% end %>
       </div>
+    </div>
   </div>
   <!-- google map -->
   <div style='width: 100%; margin-bottom:50px;'>
@@ -233,50 +232,45 @@
   </div>
 </div>
 <!-- Event Chat Box -->
-  <div class="event-chat-box container text-center">
-    <h2>Mission Chat Box</h2>
-    <small class="text-diabled">Ask a question OR post a comment here!</small>
+    <div class="event-chat-box container text-center">
+      <h2>Mission Sticky Notes</h2>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-new-modal-md">Post Your Note</button>
 
-    <!-- New Message Small modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-new-modal-md">Create Message</button>
 
-    <div class="modal fade bs-new-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-      <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-          <div class="modal-header"></div>
-         <div class="modal-body">
-           <%= render partial: "org_new_event_message" %>
-         </div>
-         <div class="modal-footer"></div>
+      <!-- New Message Small modal -->
+
+      <div class="modal fade bs-new-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header"></div>
+           <div class="modal-body">
+             <%= render partial: "org_new_event_message" %>
+           </div>
+           <div class="modal-footer"></div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Display of event messages  -->
-    <% if @flash.present? %>
-    <div class="alert">
-      <p> <%= @flash.error %> </p>
-    </div>
-    <% end %>
-    <div class="list-all-event-message">
-      <% @event_messages.each do |m| %>
-      <div class="each-event-message-box col-lg-4 col-md-4">
-        <%= link_to  "delete", delete_organization_event_message_path(organization_id:@organization.id, event_id:m.event_id, id:m.id), method: :delete%>
-        <%= image_tag(m.user.avatar) %>
-        <p>posted by: <%= m.user.full_name %></p>
-        <% if m.user_id == current_user.id %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs<%=m.id.to_s%>-modal-md">Edit Message</button>
-        <% end %>
-        <hr/>
-        <p> <%= m.message  %></p>
-      </div>
-      <!-- Edit Message Small modal -->
+    <!-- Display of event messages with sticky note -->
+    <div class="sticky-note">
+      <ul>
+        <% @event_messages.each do |m| %>
+      <li>
+          <span>
+          <%= link_to  "delete", user_event_event_message_path(user_id:m.user_id, event_id:m.event_id, id:m.id), method: :delete%>
+          &middot;
+          <% if m.user_id == current_user.id %>
+          <a href="#" data-toggle="modal" data-target=".bs<%=m.id.to_s%>-modal-md">edit</a>
+          <% end %>
+          </span>
+          <a href="/users/<%=m.user_id%>"><h2># <%= m.user.full_name %> &middot; <%= m.created_at%></h2></a>
+          <p><%= truncate(m.message, length:400) %></p>
+      </li>
       <div class="modal fade bs<%=m.id.to_s%>-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-md" role="document">
           <div class="modal-content">
             <div class="modal-header"></div>
             <div class="modal-body">
-              <%= form_for :event_message, url:update_organization_event_message_path(organization_id:@organization.id, event_id: m.event_id, id:m.id), method: :put do |f| %>
+              <%= form_for :event_message, url:user_event_event_message_path(user_id:m.user_id, event_id: m.event_id, id:m.id), method: :put do |f| %>
               <%= f.hidden_field :event_id, value:@event.id %>
               <%= f.hidden_field :user_id, value:current_user.id %>
               <div class="form-group">
@@ -292,9 +286,9 @@
         </div>
       </div>
       <% end %>
+    </ul>
     </div>
-
-  </div>
+    </div>
 <!-- event participant lists only availabel for host -->
 <% if @event.host.user_id == current_user.id && @event.host_type == "Organization" %>
 <div class="event-participants-list-box" style="border-top: solid 3px grey;">
@@ -302,7 +296,7 @@
     <div class="event-participants-list">
       <h1 class="text-center">Niroes Signed Up For This Mission</h1>
       <hr/>
-      
+
       <table class="table table-hover">
         <tr>
           <th>no.</th>
@@ -329,7 +323,7 @@
         </tr>
       </table>
       <% end %>
-    
+
     </div>
   </div>
 </div>
@@ -341,5 +335,6 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   markers = handler.addMarkers(<%=raw @hash.to_json %>);
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
+  handler.getMap().setZoom(20);
 });
 </script>

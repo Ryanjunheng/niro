@@ -43,4 +43,3 @@ Merit::Badge.create!(
   name: "org test event",
   description: "Participated in Org test event",
 )
-
