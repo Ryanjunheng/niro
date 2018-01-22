@@ -1,3 +1,92 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.about-me-content h2 {
+  font-size: 2.5em;
+}
+
+.profile-container {
+  max-height: 400px;
+}
+
+.bio-box {
+  box-shadow: 3px 3px 10px 3px black;
+  overflow: scroll;
+  height: 300px;
+  padding: 8%;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.jumbotron-profile {
+  background-color: #b784a7;
+  max-height: 400px;
+}
+
+.user-profile-details {
+}
+
+.btn-profile {
+  border: 2px solid #78184a;
+  border-radius:10px;
+  color:#78184a;
+  padding: 5px 10px;
+  font-size: 1.25em;
+  margin-right:10px;
+}
+
+.btn-profile:hover {
+  border: 2px solid #78184a;
+  border-radius:10px;
+  background-color: #78184a;
+  color:white;
+  padding: 5px 10px;
+  font-size: 1.25em;
+}
+
+.user-social-buttons {
+  font-size: 1.5em;
+}
+
+.niro-status {
+  // background-color: #fece26;
+  padding: 0;
+  height: 800px;
+}
+
+.user-badges {
+  // background-color: #FFFF99;
+  height: 100%;
+  // border-left: 2px solid #ececec;
+}
+
+.user-level-exp {
+  border-bottom:2px solid #ececec;
+  padding: 25px;
+}
+
+.user-badge-count {
+  border-bottom:2px solid #ececec;
+  padding: 25px;
+}
+
+.user-badge-count h1 {
+  color:#fece26;
+}
+
+.user-testimonials {
+  padding: 25px;
+
+}
+.user-testimonials h1 {
+  color: #45b200;
+
+}
+
+.badge-well {
+  // background-color:#FFFF99;
+  height: 85%;
+  overflow: scroll;
+  border: none;
+}
