@@ -101,7 +101,15 @@
       <div class="user-level-exp col-lg-4 col-md-4">
         <div class="user-level" style="height:75%;">
           <div class="user-level-image">
-            <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+            <% if @user.points >= 0 and @user.points <= 100 %>
+              <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 101 and @user.points <= 200 %>
+              <%= image_tag("niro-lvl2.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 201 and @user.points <= 300 %>
+              <%= image_tag("niro-lvl3.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 301 and @user.points <= 400 %>
+              <%= image_tag("niro-lvl4.png", style:"height:150px;", class:"align-center") %>
+            <% end %>
           </div>
           <div class="user-level-level">
             <span>
