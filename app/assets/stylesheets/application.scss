@@ -2,8 +2,23 @@
 @import "bootstrap";
 @import "events";
 @import "social-share-button";
+@import "rooms";
 @import "footer";
+@import "home";
+@import "users";
+@import "pace/purple/pace-theme-mac-osx";
+@import "organizations";
 
+
+$size: 30px;
+
+.social-share-button {
+  .ssb-icon {
+    background-size: $size $size;
+    height: $size;
+    width: $size;
+  }
+}
 
 * {
 	box-sizing: border-box;
@@ -25,6 +40,11 @@ body {
 
 #sign-in-as img {
   border-radius: 50%;
+}
+
+#sign-in-as span {
+  position: relative;
+  top: 14px;
 }
 
 .align-center {

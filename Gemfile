@@ -36,6 +36,8 @@ gem 'omniauth-linkedin-oauth2', git: 'https://github.com/Devato/omniauth-linkedi
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'social-share-button'
+gem 'merit'
+gem 'pace-rails'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :find_user, only: [:show, :edit, :update]
+	before_action :find_user, only: [:show, :edit, :update, :verify]
 
 	def index
 	end
@@ -15,7 +15,13 @@ class UsersController < ApplicationController
 	end
 
 	def show 
-		
+		@pending_org_feed = params[:pending_org_feed] ? params[:pending_org_feed].to_i : 1 
+  		@pending_user_feed = params[:pending_user_feed] ? params[:pending_user_feed].to_i : 1
+		@pending_org = Organization.where(verification: 0).page(@pending_org_feed)
+		@pending_user = User.where(verification: 0).page(@pending_user_feed)
+		@user_upcoming_participation = Participation.includes(:event).where(status: 0, user_id: @user.id).order(:created_at)
+		@user_completed_participation = Participation.includes(:event).where(status: 1, user_id: @user.id).order(:created_at)
+		@host_events = Event.where(host_id: @user.id, host_type:"User").limit(6).order(created_at: :desc)
 	end
 
 	def edit
@@ -24,6 +30,11 @@ class UsersController < ApplicationController
 
 	def update
 		@user.update(user_params)
+		redirect_to @user
+	end
+
+	def verify
+		@user.Verified!
 		redirect_to @user
 	end
 

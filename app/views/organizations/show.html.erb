@@ -1,14 +1,95 @@
 <h3>You are looking at <%= @organization.name %>'s profile</h3>
-<br>
 
-<% if @organization.logo.size !=0 %>
-	<%= image_tag @organization.logo %>
-<% else %>
-	<%= image_tag("profile_placeholder.jpg") %>
-<% end %>
+<div class="jumbotron jumbotron-org">
+	<div class="container">
+		<!-- Organization's logo and name -->
+		<div class="org-logo-box thumbnail text-center col-lg-4 col-md-4">
+			<% if @organization.logo.size !=0 %>
+				<%= image_tag @organization.logo, id:"org-logo" %>
+			<% else %>
+				<%= image_tag("profile_placeholder.jpg", id:"org-logo") %>
+			<% end %>
+			<h3> <%= @organization.name %></h3>
+				<% if current_user.id == @organization.user_id %>
+				<button class="btn btn-info" onclick="window.location.href='/organizations/<%= @organization.id %>/edit'">Edit Profile</button>
+				<% end %>
+				<!-- user event reporting button  -->
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Organization</button>
+				<div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+					<div class="modal-dialog modal-md" role="document">
+						<div class="modal-content">
+							<div class="modal-header"></div>
+							<div class="modal-body">
+								<%= render partial: "/reportings/organization_reporting_form" %>
+							</div>
+							<div class="modal-footer"></div>
+						</div>
+					</div>
+				</div>
+				<!-- end reporting button -->
+		</div>
+		<!-- Organization's address -->
+		<div class="org-details-box col-lg-4 col-md-4">
+			<div class="text-center">
+			<h4><%=@organization.email%></h4>
+			<p>account status: <%=@organization.verification%></p>
+			<p>Reg. No.:<%=@organization.registration_number%></p>
+			<p><%=@organization.address%></p>
+			<p><%=@organization.city%> &middot; <%=@organization.state%> &middot; <%=@organization.country%>
+			</div>
+			<button class="btn btn-primary align-center" id="org-link-btn"><a href="www.google.com">Visit <%=@organization.name%>'s website</a></button>
+		<!-- Superadmin to verify organization -->
+			<% if signed_in? and current_user.superadmin? and current_user.Verified?%>
+			<% if @organization.Verified? %>
+			<h2>Verification status: <%= @organization.verification %></h2>
+			<% else %>
+			<h2>Verification status: <%= @organization.verification %></h2>
+			<%= button_to "Verify", verify_org_path(@organization.id), method: :post, class:"btn btn-primary" %>
+			<% end %>
+			<% end %>
+		</div>
+		<!-- Organization's google map  -->
+		<div class="org-map col-lg-4 col-md-4">
+			<div style='width: 100%; margin-bottom:50px;'>
+				<div id="map" style='width: 100%; height: 500px;'></div>
+			</div>
+		</div>
+		<script>
+		handler = Gmaps.build('Google');
+		handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+		  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+		  handler.bounds.extendWith(markers);
+		  handler.fitMapToBounds();
+		});
+		</script>
+	<!-- End of Google Map -->
+	</div>
+</div>
 
-<% if current_user.id == @organization.user_id %>
-	<button class="btn btn-lg btn-primary" onclick="window.location.href='/organizations/<%= @organization.id %>/edit'">Edit Profile</button>
-<% end %>
+<!-- Events hosted by Organization -->
 
-
+<div class="container">
+	<div class="user-hosted-missions row">
+		<h2>Missions Hosted By <%= @organization.name %> </h2>
+			<% if @host_events.size != 0 %>
+			<div class="row list-group">
+				<% @host_events.each do |event| %>
+				<a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
+					<div class="item col-lg-4" >
+						<div class="thumbnail" style="min-height: 410px;">
+							<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+							<div class="caption">
+								<p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
+								<h2 class="group inner list-group-item-heading"><%= event.name %></h2>
+								<p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+							</div>
+						</div>
+					</div>
+				</a>
+				<% end %>
+			</div>
+			<% else %>
+			<p>No mission hosted yet</p>
+			<% end %>
+	</div>
+</div>
