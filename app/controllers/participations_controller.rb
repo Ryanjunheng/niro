@@ -25,6 +25,12 @@ class ParticipationsController < ApplicationController
   #   redirect_to '/'
   # end
 
+  def complete
+    @participant = Participation.find(params[:id])
+    @participant.Completed!
+    redirect_to '/'
+  end
+
   # def fail
   #   @participant = Participation.find(params[:id])
   #   @participant.Failed!
