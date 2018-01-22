@@ -1,4 +1,7 @@
+
+
 <div class="container" style="padding-top:50px;">
+ <!-- User profiles avatar and bio -->
   <head id="user-profile">
     <div class="user-profile-details row">
       <div class="user-main col-lg-3 col-md-3">
@@ -27,8 +30,30 @@
         <div class="user-about-me col-lg-9 col-md-9">
           <div class="about-me-content text-center">
             <h1> <%= @user.full_name %> </h1>
+            <!-- user event reporting button  -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
+
+            <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header"></div>
+                 <div class="modal-body">
+                   <%= render partial: "/reportings/user_reporting_form" %>
+                 </div>
+                 <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+            <!-- end reporting button -->
+            <p>Status: <%= @user.verification %></p>
+            <p><%= @user.role.capitalize %></p>
             <p> Member since: <%= @user.created_at %> </p>
-            <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%=- @user.country if @user.country %></p>
+            <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%= @user.country if @user.country %></p>
+            <% if signed_in? and current_user.superadmin? and current_user.Verified? %>
+              <% if !@user.Verified? %>
+                <%= button_to "Verify", verify_user_path(@user.id), method: :post, class:"btn btn-primary"%>
+              <% end %>
+            <% end %>
           </div>
           <div class="about-me-blockquote blockquote text-center well">
               <p> <%= @user.intro %></p>
@@ -36,41 +61,36 @@
       </div>
     </div>
   <div class="user-profile-action">
+    <!-- Buttions bar  -->
     <div class="user-profile-buttons row well">
       <div class="user-edit-button col-lg-2 col-md-2">
-        <% if @user == current_user%>
+        <% if @user == current_user %>
         <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
         <% end %>
       </div>
       <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/messages'">Message User</button>
+        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
       </div>
       <div class="user-tetimonials-button col-lg-2 col-md-2">
         <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
       </div>
       <div class="user-follow-button col-lg-2 col-md-2">
-        <% if @user.id != current_user.id %>
-          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
-            <input type=submit value="Follow" class="btn btn-info">
-          </form>
-        <% end %>
-        <% if @user.id != current_user.id %>
+        <% if current_user && current_user.id == params[:id].to_i %>
+        <% elsif current_user.following?(@user) %>
           <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
             <input type=submit value="Unfollow" class="btn btn-info">
+          </form>
+        <% else %>
+          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
+            <input type=submit value="Follow" class="btn btn-info">
           </form>
         <% end %>
       </div>
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
-      <div>
-        <h3>Organization:</h3>
-        <% @user.organizations.each do |org| %>
-          <h4><%= link_to org.name, organization_path %></h4>
-          <br>
-        <% end %>
-      </div>
     </div>
+    <!-- user level experience badges and testimonials  -->
     <div class="user-profile-gamify row well">
       <div class="user-level-exp col-lg-4 col-md-4">
         <div class="user-level" style="height:75%;">
@@ -79,24 +99,36 @@
           </div>
           <div class="user-level-level">
             <span>
-              <strong>Lvl. 1:</strong>
-              <strong>Samurai<stong>
-              </span>
-            </div>
+              <% if @user.points >= 0 and @user.points <= 100 %>
+                <strong>Level: 1:</strong>
+                <strong>Peasant<stong>
+              <% elsif @user.points >= 101 and @user.points <= 200 %>
+                <strong>Level: 2:</strong>
+                <strong>Samurai<stong>
+              <% elsif @user.points >= 201 and @user.points <= 300 %>
+                <strong>Level: 3:</strong>
+                <strong>Daimyo<stong>
+              <% elsif @user.points >= 301 and @user.points <= 400 %>
+                <strong>Level: 4:</strong>
+                <strong>Shogun<stong>
+              <% end %>
+            </span>
+          </div>
         </div>
         <div class="user-exp" style="height:25%">
+          <% bar_width = (@user.points).to_f / 100 * 100 %>
           <div class="user-exp-bar progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= bar_width %>%"></div>
             </div>
         </div>
         <div class="user-exp-points text-center">
-          <h1>25/100</h1>
+          <h4>Total points: <%= @user.points %></h4>
         </div>
       </div>
       <div class="user-badge-count col-lg-4 col-md-4 text-center">
         <strong>Total Badges Earned</strong>
-        <h1 style="font-size:8em;">51</h1>
-        <%= link_to "view my glorious contributions", user_events_path(@user.id) %>
+        <h1 style="font-size:8em;"><%= @user.badges.size %></h1>
+        <a href="#user-badges-box">View my shiny badges</a>
       </div>
       <div class="user-testimonials col-lg-4 col-md-4 text-center">
         <storng>Total Testimonials Received</strong>
@@ -105,35 +137,152 @@
     </div>
   </head>
   <section>
+    <div class="user-badges row", id="user-badges-box">
+      <% if @user.id == current_user.id %>
+        <h2>Your Badges</h2>
+      <% else %>
+        <h2> <%= @user.full_name %>'s Badges</h2>
+      <% end %>
+      <div class="well">
+        <ul>
+        <% if @user.badges.size != 0 %>
+          <% @user.badges.each do |badge| %>
+            <% @event_badge = Badge.find_by(name: badge.name) %>
+            <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No Badges earned yet! <%= link_to "Start earning now!", root_path %></p>
+        <% end %>
+      </div>
+    </div>
     <div class="user-upcoming-missions row">
-      <% if @user = current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Your Upcoming Missions</h2>
       <% else %>
         <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_upcoming_participation.size != 0 %>
+          <% @user_upcoming_participation.each do |p| %>
+            <% if p.event.host_type == "User" %>
+              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% elsif p.event.host_type == "Organization" %>
+              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% end %>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No upcoming mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-completed-missions row">
-      <% if @user = current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Your Completed Missions</h2>
       <% else %>
         <h2> <%= @user.full_name %>'s Completed Missions</h2>
       <% end %>
       <div class="well">
-
+        <ul>
+        <% if @user_completed_participation.size != 0 %>
+          <% @user_completed_participation.each do |p| %>
+            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <p>No completed mission</p>
+        <% end %>
       </div>
     </div>
     <div class="user-hosted-missions row">
-      <% if @user = current_user %>
+      <% if @user.id == current_user.id %>
         <h2>Missions Hosted By You </h2>
       <% else %>
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
       <% end %>
       <div class="well">
-
+        <% if @host_events.size != 0 %>
+          <div class="row list-group">
+            <% @host_events.each do |event| %>
+              <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+              <div class="item col-lg-4" >
+                <div class="thumbnail" style="min-height: 410px;">
+                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <div class="caption">
+                    <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
+                    <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
+                    <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <% end %>
+          </div>
+          <% else %>
+            <p>No mission hosted yet</p>
+          <% end %>
       </div>
     </div>
+
+ <!-- Super Admin's Organiation list block  -->
+    <div class="row">
+        <% if @user.organizations.size != 0 %>
+          <h3>Your organization:</h3>
+          <div class="well">
+          <ul>
+          <% @user.organizations.each do |org| %>
+            <% if org.Unverified? and @user.id == current_user.id %>
+              <li><h4><%= link_to org.name, organization_path(org.id) %>(status: verification pending)</h4></li>
+            <% elsif org.Unverified? and @user.id != current_user.id %>
+              <h4>Pending for verification</h4>
+            <% else org.Verified? %>
+              <li><h4><%= link_to org.name, organization_path(org.id) %> (status: verified)</h4></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+        <% end %>
+    </div>
+
+    <% if signed_in? and current_user.superadmin? and @user.id == current_user.id%>
+        <div class="row">
+          <h2>Organizations awaiting verification</h2>
+
+            <div class="well">
+              <% if @pending_org.count != 0 %>
+                <ul>
+                  <% @pending_org.each do |org| %>
+                    <li><%= link_to org.name, organization_path(org.id), target: :_blank %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p>No organizations pending for verification</p>
+              <% end %>
+              <br>
+              <p><%= paginate @pending_org, param_name: :pending_org_feed %></p>
+            </div>
+        </div>
+
+        <div class="row">
+          <h2>Users awaiting verification</h2>
+
+            <div class="well">
+              <% if @pending_user.count != 0 %>
+                <ul>
+                  <% @pending_user.each do |user| %>
+                    <li><%= link_to user.full_name, user_path(user.id), target: :_blank %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p>No users pending for verification</p>
+              <% end %>
+              <br>
+              <p><%= paginate @pending_user, param_name: :pending_user_feed %></p>
+            </div>
+        </div>
+    <% end %>
   </section>
+</div>
 </div>

@@ -1,7 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "event";
+@import "events";
 @import "social-share-button";
+@import "rooms";
+@import "footer";
+@import "home";
+
 
 * {
 	box-sizing: border-box;
@@ -23,6 +27,11 @@ body {
 
 #sign-in-as img {
   border-radius: 50%;
+}
+
+#sign-in-as span {
+  position: relative;
+  top: 14px;
 }
 
 .align-center {

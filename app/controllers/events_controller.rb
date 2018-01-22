@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
-  before_action :find_event, only: [:show, :update]
+  before_action :find_event, only: [:show, :update, :org_show]
   before_action :check_login, only: [:new, :edit]
 
+# User related methods
   def index
     @events = Event.where(host_id: params[:user_id], host_type:"User").order(created_at: :desc)
     @user = User.find(params[:user_id])
@@ -13,6 +14,10 @@ class EventsController < ApplicationController
       marker.lat event.latitude
       marker.lng event.longitude
     end
+    @participation = Participation.find_by(user_id: current_user.id, event_id: @event.id)
+    # @participants = @event.users
+    @participants = Participation.where(event_id: @event.id)
+    @event_messages = EventMessage.where(event_id: @event.id).order(created_at: :desc)
   end
 
   def new
@@ -37,6 +42,51 @@ class EventsController < ApplicationController
     redirect_to user_events_path(params[:host], params[:id])
   end
 
+
+#Organization related method
+
+  def org_new
+  end
+
+  def org_create
+    @event = Event.new(event_params)
+    if @event.save
+      redirect_to organization_path(params[:id])
+    else
+      p @event.errors
+      render 'events/org_new'
+      @error = {create: "You have failed to create the event, please try again"}
+    end
+  end
+
+  def org_show
+    @organization = Organization.find(params[:organization_id])
+    @hash = Gmaps4rails.build_markers(@event) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+    end
+    @participation = Participation.find_by(user_id: current_user.id, event_id: @event.id)
+    # @participants = @event.users
+    @participants = Participation.where(event_id: @event.id)
+    @event_messages = EventMessage.where(event_id: @event.id).order(created_at: :desc)
+  end
+
+  def org_edit
+
+  end
+
+  def org_update
+
+  end
+
+  def org_destroy
+
+  end
+
+
+
+
+
   private
 
   def check_login
@@ -51,6 +101,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:host_id, :host_type, :name, :description, :event_type, :status, :required_participants, :start_date, :end_date, :start_time, :end_time, :address, :city, :state, :country, :zip_code, {photos:[]})
+    params.require(:event).permit(:host_id, :host_type, :name, :description, :event_type, :status, :required_participants, :start_date, :end_date, :start_time, :end_time, :address, :city, :state, :country, :zip_code, {photos:[]}, :image)
   end
+
 end

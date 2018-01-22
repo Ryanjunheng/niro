@@ -1,13 +1,13 @@
 class Event < ApplicationRecord
   belongs_to :host, polymorphic: true
   has_one :badge
-  has_many :messages, through: :event_messages
+  has_many :event_messages
+  has_many :reportings, as: :reported
 
   has_many :participations
   has_many :users, through: :participations
 
-  enum allocated_points: [5, 10, 20]
-
+  mount_uploader :image, ImageUploader
   mount_uploaders :photos, PhotosUploader
   serialize :photos, Array
 
