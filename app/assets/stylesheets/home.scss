@@ -32,6 +32,14 @@
   padding:25px 0;
 }
 
+.each-leader {
+  margin-bottom: 25px;
+}
+
+.leader-info strong {
+  font-size: 1.5em;
+}
+
 .home-page-star {
   width: 25%;
   margin-bottom: -25px;
@@ -59,4 +67,24 @@
 
 .home-event-date {
   border-right: 2px solid #ececec;
+}
+
+#myFooter {
+  background-color: #ba55d3;
+}
+
+// Navbar styling
+
+#brand {
+  font-size:1.75em;
+  color: #9a35b2;
+}
+
+#sign-up-title, #login-title {
+  font-family: sans-serif;
+  font-size: 1.25em;
+}
+
+.dropdown-menu {
+  width:350px;
 }

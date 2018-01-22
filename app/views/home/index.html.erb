@@ -1,7 +1,11 @@
 <div class="jumbotron home-gif">
 	<div class="banner-content text-center">
+		<h3>Make the world a better place &middot; Put smile on other's face</h3>
 		<h1>Be our Everyday Hero</h1>
-		<h2>Be a Niro</h2>
+		<h1>Be a Niro</h1>
+		<div >
+			<h2><%= Event.all.count %> Missions On Niro Today </h1>
+		</div>
 	</div>
 </div>
 
@@ -14,13 +18,13 @@
 				</div>
 				<div class="text-center">
 					<h1>All Time Top Niroes</h1>
-					<h4>Making the world a better place</h4>
+					<em>Making the world a better place</em>
 				</div>
 			</div>
 				<div class="leader-box">
-					<% @leaders = User.order(points: :desc).limit(18) %>
+					<% @leaders = User.order(points: :desc).limit(16) %>
 					<% @leaders.each do |l| %>
-						<div class="each-leader col-lg-2 col-md-2">
+						<div class="each-leader col-lg-3 col-md-3">
 							<div class="leader-avatar">
 								<% if l.avatar.size > 0  %>
 								<%= link_to "#{image_tag(l.avatar.thumb)}".html_safe, user_path(l.id) %>
@@ -41,7 +45,7 @@
 		<div class="row home-box-title">
 			<div class="text-center">
 				<h1>Missions by The Big Guys</h1>
-				<h4>Reaching out for heroes</h4>
+				<em>Reaching out for heroes</em>
 			</div>
 		</div>
   <div class="row list-group">
@@ -76,7 +80,7 @@
  	<div class="row home-box-title">
  		<div class="text-center">
  			<h1>Missions by Fellow Niroes</h1>
- 			<h4>Power of the crowd</h4>
+ 			<em>Power of the crowd</em>
  		</div>
  	</div>
  <div class="row list-group">
