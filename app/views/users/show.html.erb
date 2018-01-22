@@ -30,6 +30,21 @@
         <div class="user-about-me col-lg-9 col-md-9">
           <div class="about-me-content text-center">
             <h1> <%= @user.full_name %> </h1>
+            <!-- user event reporting button  -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
+
+            <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header"></div>
+                 <div class="modal-body">
+                   <%= render partial: "/reportings/user_reporting_form" %>
+                 </div>
+                 <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+            <!-- end reporting button -->
             <p>Status: <%= @user.verification %></p>
             <p><%= @user.role.capitalize %></p>
             <p> Member since: <%= @user.created_at %> </p>
@@ -93,7 +108,7 @@
               <% elsif @user.points >= 201 and @user.points <= 300 %>
                 <strong>Level: 3:</strong>
                 <strong>Daimyo<stong>
-              <% elsif @user.points >= 301 and @user.points <= 400 %>   
+              <% elsif @user.points >= 301 and @user.points <= 400 %>
                 <strong>Level: 4:</strong>
                 <strong>Shogun<stong>
               <% end %>

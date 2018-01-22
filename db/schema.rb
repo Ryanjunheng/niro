@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121014135) do
+ActiveRecord::Schema.define(version: 20180121090004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20180121014135) do
     t.index ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id"
     t.index ["badge_id"], name: "index_badges_sashes_on_badge_id"
     t.index ["sash_id"], name: "index_badges_sashes_on_sash_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "chat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
   create_table "event_messages", force: :cascade do |t|
@@ -139,7 +147,6 @@ ActiveRecord::Schema.define(version: 20180121014135) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "name"
     t.string "email"
     t.string "registration_number"
@@ -156,6 +163,7 @@ ActiveRecord::Schema.define(version: 20180121014135) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
@@ -167,6 +175,17 @@ ActiveRecord::Schema.define(version: 20180121014135) do
     t.integer "status", default: 0
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "reportings", force: :cascade do |t|
+    t.integer "reporter_id"
+    t.string "reported_type"
+    t.bigint "reported_id"
+    t.text "comment"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reported_type", "reported_id"], name: "index_reportings_on_reported_type_and_reported_id"
   end
 
   create_table "sashes", force: :cascade do |t|
@@ -221,10 +240,10 @@ ActiveRecord::Schema.define(version: 20180121014135) do
 
   add_foreign_key "authentications", "users"
   add_foreign_key "badges", "events"
+  add_foreign_key "chats", "users"
   add_foreign_key "event_messages", "events"
   add_foreign_key "event_messages", "users"
   add_foreign_key "messages", "users"
-  add_foreign_key "organizations", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "testimonials", "users"
