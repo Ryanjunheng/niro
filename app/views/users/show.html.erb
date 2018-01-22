@@ -40,9 +40,15 @@
               <% end %>
             <% end %>
           </div>
-          <div class="about-me-blockquote blockquote text-center well">
-              <p> <%= @user.intro %></p>
-          </div>
+          
+            <div class="about-me-blockquote blockquote text-center well">
+              <% if !@user.intro.empty? %>
+                <p> <%= @user.intro %></p>
+              <% else %>
+                <p>No intro yet</p>
+              <% end %>
+            </div>
+          
       </div>
     </div>
   <div class="user-profile-action">
