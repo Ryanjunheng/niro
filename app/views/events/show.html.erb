@@ -110,12 +110,12 @@
               <div class="glyphicon glyphicon-time align-center" style="font-size: 2em;"></div>
               <div>
                 <small>start time:</small>
-                <h2> <%= @event.start_time %> </h2>
+                <h2> <%= @event.start_time.strftime("%H:%M:%p") %> </h2>
               </div>
               </hr>
               <div>
                 <small>end time:</small>
-                <h2> <%= @event.end_time %> </h2>
+                <h2> <%= @event.end_time.strftime("%H:%M:%p") %> </h2>
               </div>
             </div>
           </div>
@@ -298,12 +298,12 @@
 
   </div>
 <!-- event participant lists only availabel for host -->
+<% if @event.host_id == current_user.id && @event.host_type == "User" %>
 <div class="event-participants-list-box" style="border-top: solid 3px grey;">
   <div class="container event-participants-list-table-box">
     <div class="event-participants-list">
       <h1 class="text-center">Niroes Signed Up For This Mission</h1>
       <hr/>
-      <% if @event.host_id == current_user.id && @event.host_type == "User" %>
       <table class="table table-hover">
         <tr>
           <th>no.</th>
@@ -330,10 +330,10 @@
         </tr>
       </table>
       <% end %>
-      <% end %>
     </div>
   </div>
 </div>
+<% end %>
 
 <script>
 handler = Gmaps.build('Google');
