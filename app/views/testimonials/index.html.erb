@@ -14,14 +14,16 @@
             <% end %>
           </div>
           <div class="user-followings">
-            <span>
-              <p>Followers: <%= Following.where(followed_id: @user.id).count %></p>
-              <% if @user.id == current_user.id %>
-              <p>Following: <%= Following.where(follower_id: current_user.id).count %></p>
-              <% else %>
-              <p>Following: <%= Following.where(follower_id: @user.id).count %></p>
-              <% end %>
-            </span>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 text-center">
+                <p>Followers</p>
+                <h1><%= Following.where(followed_id: @user.id).count %></h1>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <p>Followings</p>
+                <h1><%= Following.where(follower_id: @user.id).count %></h1>
+              </div>
+            </div>
           </div>
         </div>
         <div class="user-about-me col-lg-9 col-md-9">
@@ -35,6 +37,18 @@
           </div>
       </div>
     </div>
+
+    <div class="user-testimonial-edit-form well">
+      <%= form_for "#", method: :post do |form| %>
+      <%  form.hidden_field :visitor_id, value:current_user.id %>
+      <%  form.hidden_field :user_id, value:@user.id %>
+      <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
+      <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
+      <%= form.submit "post", class:"btn btn-primary" %>
+      <% end %>
+      <!-- pending each do function to narrow visbility of this to user -->
+    </div>
+    
   <div class="user-profile-action">
     <div class="user-profile-buttons row well">
       <div class="user-edit-button col-lg-2 col-md-2">
@@ -42,21 +56,10 @@
         <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
         <% end %>
       </div>
-      <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Message User</button>
+      <div class="user-message-button pull-left ">
+        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
       </div>
-      <div class="user-follow-button col-lg-2 col-md-2">
-        <% if @user.id != current_user.id %>
-          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
-            <input type=submit value="Follow" class="btn btn-info">
-          </form>
-        <% end %>
-        <% if @user.id != current_user.id %>
-          <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
-            <input type=submit value="Unfollow" class="btn btn-info">
-          </form>
-        <% end %>
-      </div>
+
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
@@ -135,16 +138,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="user-testimonial-edit-form well">
-        <%= form_for "#", method: :post do |form| %>
-        <%  form.hidden_field :visitor_id, value:current_user.id %>
-        <%  form.hidden_field :user_id, value:@user.id %>
-        <%= form.text_field :title, placeholder:"Testimony title", class:"form-control" %>
-        <%= form.text_area :testimony, placeholder:"Your testimony", class:"form-control" %>
-        <%= form.submit "post", class:"btn btn-primary" %>
-        <% end %>
-        <!-- pending each do function to narrow visbility of this to user -->
       </div>
   </section>
 </div>
