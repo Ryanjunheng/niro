@@ -207,7 +207,7 @@
         <% if @user_completed_participation.size != 0 %>
           <% @user_completed_participation.each do |p| %>
             <% if p.event.host_type == "User" %>
-              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+              <li><%= link_to p.event.name, user_event_path(p.event.host_id, p.event.id) %><br><%= p.event.end_date %></li>
             <% elsif p.event.host_type == "Organization" %>
               <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
             <% end %>
