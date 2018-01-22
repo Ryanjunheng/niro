@@ -204,7 +204,7 @@
                     <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                     <div>
                       <div class="home-event-date text-center col-lg-4 col-md-4">
-                        <% if event.start_date.present? %>
+                        <% if p.event.start_date.present? %>
                         <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
                         <h4><%=p.event.start_date.strftime("%d")%></h4>
                         <% end %>
@@ -273,7 +273,7 @@
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                   <div>
                     <div class="home-event-date text-center col-lg-4 col-md-4">
-                      <% if event.start_date.present? %>
+                      <% if p.event.start_date.present? %>
                       <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
                       <h4><%=p.event.start_date.strftime("%d")%></h4>
                       <% end %>
