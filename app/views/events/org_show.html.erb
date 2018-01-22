@@ -194,6 +194,7 @@
           <h1 class="text-center" style="font-size:7em; color:gold;"> <%= @event.allocated_points %> <small class="text-center">EXP</small></h1>
         </div>
   <!-- block for niroes participation -->
+      
         <div class="booking-form">
           <% participated = Participation.find_by(user_id: current_user.id, event_id: @event.id) %>
           <% if participated.present? %>
@@ -208,6 +209,7 @@
             <%= render partial: "org_form" %>
           <% end %>
         </div>
+        
       </div>
   </div>
   <!-- google map -->
@@ -297,7 +299,34 @@
         <% @participants.each do |p| %>
         <tr>
           <td> <%= num += 1 %> </td>
-          <td> <%= p.user.name %> </td>
+          <td> <%= p.user.full_name %> </td>
+          <td> <%= p.user.email %></td>
+          <td><%= p.status %></td>
+          <td>
+            <% if p.status == "Completed" || p.status == "Failed" %>
+            <div class="glyphicon glyphicon-ok-circle" style="font-size: 1.5em;"></div>
+            <% else %>
+            <%= link_to "Completed", complete_mission_path(p.user_id, p.event_id, p.id), method: :post %>
+            <%= link_to "Failed", fail_mission_path(p.user_id, p.event_id, p.id), method: :post %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+      <% elsif @event.host.user_id == current_user.id && @event.host_type == "Organization" %>
+        <table class="table table-hover">
+        <tr>
+          <th>no.</th>
+          <th>name</th>
+          <th>email</th>
+          <th>status</th>
+          <th>action</th>
+        </tr>
+        <% num = 0 %>
+        <% @participants.each do |p| %>
+        <tr>
+          <td> <%= num += 1 %> </td>
+          <td> <%= p.user.full_name %> </td>
           <td> <%= p.user.email %></td>
           <td><%= p.status %></td>
           <td>
