@@ -3,55 +3,108 @@
 		<h1>Be our Everyday Hero</h1>
 		<h2>Be a Niro</h2>
 	</div>
-
 </div>
 
-<div class="container" style="padding-top: 150px">
+<div class="container" style="padding-top: 25px">
+	<!-- Niroes Leader Board  -->
+		<div class="leader-board row">
+			<div class="home-box-title">
+				<div>
+					<%= image_tag("home-page-star.png", class:"home-page-star align-center") %>
+				</div>
+				<div class="text-center">
+					<h1>All Time Top Niroes</h1>
+					<h4>Making the world a better place</h4>
+				</div>
+			</div>
+				<div class="leader-box">
+					<% @leaders = User.order(points: :desc).limit(18) %>
+					<% @leaders.each do |l| %>
+						<div class="each-leader col-lg-2 col-md-2">
+							<div class="leader-avatar">
+								<% if l.avatar.size > 0  %>
+								<%= link_to "#{image_tag(l.avatar.thumb)}".html_safe, user_path(l.id) %>
+								<% else %>
+								<%= link_to "#{image_tag("profile_placeholder.jpg", id:"each-leader", class:"align-center")}".html_safe, user_path(l.id) %>
+								<% end %>
+							</div>
+							<div class="leader-info text-center">
+									<strong><%=l.full_name%></strong>
+									<p>Lvl. <%=l.level%></p>
+							</div>
+					</div>
+				<%end%>
+			</div>
+		</div>
 	<!-- Missions hosted by organizations  -->
-  <div class="row" id="home-page-title">
-    <div>
-      <h1 class="text-align">Missions hosted by Registered Entities &nbsp;<small class="text-muted">Comfortably - Any where around the world!</small></h1>
-    </div>
-  </div>
+	<div class="home-org-box row">
+		<div class="row home-box-title">
+			<div class="text-center">
+				<h1>Missions by The Big Guys</h1>
+				<h4>Reaching out for heroes</h4>
+			</div>
+		</div>
   <div class="row list-group">
 		<% @events = Event.where(host_type:"Organization").order(created_at: :desc) %>
     <% @events.each do |event| %>
       <a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
       <div class="item col-lg-4" >
-        <div class="thumbnail" style="min-height: 410px;">
+        <div class="thumbnail" style="min-height: 400px;">
           <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
           <div class="caption">
-            <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
-            <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
-            <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+            <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+						<div>
+							<div class="home-event-date text-center col-lg-4 col-md-4">
+								<h4 style="color:#BD3B1B"`><%=event.start_date.strftime("%^b")%></h4>
+								<h4><%=event.start_date.strftime("%d")%></h4>
+							</div>
+							<div class="home-event-detail text-center col-lg-8 col-md-8">
+								<h4><strong>Min. Niroes<strong>: <%=event.required_participants%></h4>
+								<p class="group inner list-group-item-text"><%= event.city %> &middot; <%= event.state %> &middot; <%=event.country%></p>
+							</div>
+						</div>
           </div>
         </div>
       </div>
     </a>
     <% end %>
   </div>
+</div>
 
  <!-- Missions hosted by Niroes  -->
-  <div class="row" id="home-page-title">
-    <div>
-      <h1 class="text-align">Missions hosted by Niroes &nbsp;<small class="text-muted">Comfortably - Any where around the world!</small></h1>
-    </div>
-  </div>
-  <div class="row list-group">
-		<% @events = Event.where(host_type:"User").order(created_at: :desc) %>
-    <% @events.each do |event| %>
-      <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
-      <div class="item col-lg-4" >
-        <div class="thumbnail" style="min-height: 410px;">
-          <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
-          <div class="caption">
-            <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
-            <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
-            <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
-          </div>
-        </div>
-      </div>
-    </a>
-    <% end %>
-  </div>
+ <div class="home-org-box row">
+ 	<div class="row home-box-title">
+ 		<div class="text-center">
+ 			<h1>Missions by Fellow Niroes</h1>
+ 			<h4>Power of the crowd</h4>
+ 		</div>
+ 	</div>
+ <div class="row list-group">
+	 <% @events = Event.where(host_type:"User").order(created_at: :desc) %>
+ 	<% @events.each do |event| %>
+		<a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+ 		<div class="item col-lg-4" >
+ 			<div class="thumbnail" style="min-height: 400px;">
+ 				<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+ 				<div class="caption">
+ 					<h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+ 					<div>
+ 						<div class="home-event-date text-center col-lg-4 col-md-4">
+							<% if event.start_date.present? %>
+ 							<h4 style="color:#BD3B1B"><%=event.start_date.strftime("%^b")%></h4>
+							<h4><%=event.start_date.strftime("%d")%></h4>
+							<% end %>
+ 						</div>
+ 						<div class="home-event-detail text-center col-lg-8 col-md-8">
+ 							<h4><strong>Min. Niroes<strong>: <%=event.required_participants%></h4>
+ 							<p class="group inner list-group-item-text"><%= event.city %> &middot; <%= event.state %> &middot; <%=event.country%></p>
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</a>
+ 	<% end %>
+ </div>
+ </div>
 </div>

@@ -12,7 +12,51 @@
 
 .banner-content {
   color: white;
-  height: 650px;
+  height: 800px;
 
+}
 
+#each-leader {
+  width:60%;
+  border-radius:50%;
+  padding:2.5%;
+  margin:10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.leader-board {
+  margin-bottom:50px
+}
+
+.leader-box {
+  padding:25px 0;
+}
+
+.home-page-star {
+  width: 25%;
+  margin-bottom: -25px;
+}
+
+.home-box-title h1 {
+  font-size: 3em;
+}
+.home-box-title h4 {
+  font-size: 2em;
+  color: #b784A7;
+}
+
+.home-org-box {
+  border-top: 2px solid #ececec;
+}
+
+.list-group {
+  margin-top: 25px;
+}
+
+.thumbnail {
+  border: none;
+}
+
+.home-event-date {
+  border-right: 2px solid #ececec;
 }
