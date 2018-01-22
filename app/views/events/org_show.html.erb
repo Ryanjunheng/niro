@@ -296,12 +296,13 @@
 
   </div>
 <!-- event participant lists only availabel for host -->
+<% if @event.host.user_id == current_user.id && @event.host_type == "Organization" %>
 <div class="event-participants-list-box" style="border-top: solid 3px grey;">
   <div class="container event-participants-list-table-box">
     <div class="event-participants-list">
       <h1 class="text-center">Niroes Signed Up For This Mission</h1>
       <hr/>
-      <% if @event.host_id == current_user.id && @event.host_type == "User" %>
+      
       <table class="table table-hover">
         <tr>
           <th>no.</th>
@@ -328,37 +329,11 @@
         </tr>
       </table>
       <% end %>
-      <% elsif @event.host.user_id == current_user.id && @event.host_type == "Organization" %>
-        <table class="table table-hover">
-        <tr>
-          <th>no.</th>
-          <th>name</th>
-          <th>email</th>
-          <th>status</th>
-          <th>action</th>
-        </tr>
-        <% num = 0 %>
-        <% @participants.each do |p| %>
-        <tr>
-          <td> <%= num += 1 %> </td>
-          <td> <%= p.user.full_name %> </td>
-          <td> <%= p.user.email %></td>
-          <td><%= p.status %></td>
-          <td>
-            <% if p.status == "Completed" || p.status == "Failed" %>
-            <div class="glyphicon glyphicon-ok-circle" style="font-size: 1.5em;"></div>
-            <% else %>
-            <%= link_to "Completed", complete_mission_path(p.user_id, p.event_id, p.id), method: :post %>
-            <%= link_to "Failed", fail_mission_path(p.user_id, p.event_id, p.id), method: :post %>
-            <% end %>
-          </td>
-        </tr>
-      </table>
-      <% end %>
-      <% end %>
+    
     </div>
   </div>
 </div>
+<% end %>
 
 <script>
 handler = Gmaps.build('Google');
