@@ -335,6 +335,8 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
+    pace-rails (0.1.3)
+      jquery-rails
     pg (0.21.0)
     public_suffix (3.0.1)
     puma (3.11.0)
@@ -488,6 +490,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-linkedin-oauth2!
+  pace-rails
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)
