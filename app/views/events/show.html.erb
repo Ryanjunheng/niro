@@ -110,12 +110,12 @@
               <div class="glyphicon glyphicon-time align-center" style="font-size: 2em;"></div>
               <div>
                 <small>start time:</small>
-                <h2> <%= @event.start_time.strftime("%H:%M:%p") %> </h2>
+                <h2> <%= @event.start_time.strftime("%I:%M:%p") %> </h2>
               </div>
               </hr>
               <div>
                 <small>end time:</small>
-                <h2> <%= @event.end_time.strftime("%H:%M:%p") %> </h2>
+                <h2> <%= @event.end_time.strftime("%I:%M:%p") %> </h2>
               </div>
             </div>
           </div>
