@@ -162,7 +162,11 @@
         <% if @user.badges.size != 0 %>
           <% @user.badges.each do |badge| %>
             <% @event_badge = Badge.find_by(name: badge.name) %>
-            <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li>
+            <% if @event_badge.event.host_type == "User" %>
+              <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
+            <% elsif @event_badge.event.host_type == "Organization" %>
+              <li><%= link_to (image_tag @event_badge.image), show_organization_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
+            <% end %>
           <% end %>
         </ul>
         <% else %>
@@ -202,7 +206,11 @@
         <ul>
         <% if @user_completed_participation.size != 0 %>
           <% @user_completed_participation.each do |p| %>
-            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+            <% if p.event.host_type == "User" %>
+              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+            <% elsif p.event.host_type == "Organization" %>
+              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% end %>
           <% end %>
         </ul>
         <% else %>
