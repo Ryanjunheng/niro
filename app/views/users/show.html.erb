@@ -75,14 +75,14 @@
         <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
       </div>
       <div class="user-follow-button col-lg-2 col-md-2">
-        <% if @user.id != current_user.id %>
-          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
-            <input type=submit value="Follow" class="btn btn-info">
-          </form>
-        <% end %>
-        <% if @user.id != current_user.id %>
+        <% if current_user && current_user.id == params[:id].to_i %>
+        <% elsif current_user.following?(@user) %>
           <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
             <input type=submit value="Unfollow" class="btn btn-info">
+          </form>
+        <% else %>
+          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
+            <input type=submit value="Follow" class="btn btn-info">
           </form>
         <% end %>
       </div>
@@ -166,7 +166,11 @@
         <ul>
         <% if @user_upcoming_participation.size != 0 %>
           <% @user_upcoming_participation.each do |p| %>
-            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% if p.event.host_type == "User" %>
+              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% elsif p.event.host_type == "Organization" %>
+              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% end %>
           <% end %>
         </ul>
         <% else %>

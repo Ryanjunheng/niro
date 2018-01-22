@@ -19,6 +19,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
+		@host_events = Event.where(host_id: @organization.id, host_type:"Organization").limit(6).order(created_at: :desc)
 	end
 
 	def edit
