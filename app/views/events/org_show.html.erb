@@ -65,9 +65,9 @@
       <!-- event host details and link -->
           <div class="event-host-logo col-lg-4 col-md-4">
             <% if @organization.logo? %>
-            <%= link_to "#{image_tag(@organization.logo, style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, user_path(@event.host_id)%>
+            <%= link_to "#{image_tag(@organization.logo, style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe,  organization_path(@event.host_id)%>
             <% else %>
-            <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, user_path(@event.host_id) %>
+            <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, organization_path(@event.host_id) %>
             <% end %>
             <p class="lead text-center" style="font-size:1.5em;"><%= @organization.name %></p>
           </div>
