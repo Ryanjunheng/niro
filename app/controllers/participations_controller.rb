@@ -19,17 +19,23 @@ class ParticipationsController < ApplicationController
     end
   end
 
+  # def complete
+  #   @participant = Participation.find(params[:id])
+  #   @participant.Completed!
+  #   redirect_to '/'
+  # end
+
   def complete
     @participant = Participation.find(params[:id])
     @participant.Completed!
     redirect_to '/'
   end
 
-  def fail
-    @participant = Participation.find(params[:id])
-    @participant.Failed!
-    redirect_to '/'
-  end
+  # def fail
+  #   @participant = Participation.find(params[:id])
+  #   @participant.Failed!
+  #   redirect_to '/'
+  # end
 
   def destroy
     @participation = Participation.find_by(user_id: current_user.id, event_id: params[:event_id])
@@ -46,7 +52,6 @@ class ParticipationsController < ApplicationController
       redirect_to request.referrer
       @flash = {error: "There was a problem submitting your missiong request, please try again"}
     end
-    
   end
 
   def show

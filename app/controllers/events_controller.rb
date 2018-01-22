@@ -51,7 +51,7 @@ class EventsController < ApplicationController
   def org_create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to organization_path(params[:organization_id])
+      redirect_to organization_path(params[:id])
     else
       p @event.errors
       render 'events/org_new'
