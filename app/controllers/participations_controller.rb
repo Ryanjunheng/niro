@@ -19,7 +19,6 @@ class ParticipationsController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
   def complete
     @participant = Participation.find(params[:id])
     @participant.Completed!
@@ -47,10 +46,11 @@ class ParticipationsController < ApplicationController
       redirect_to request.referrer
       @flash = {error: "There was a problem submitting your missiong request, please try again"}
     end
-=======
+    
+  end
+
   def show
     @participation = Participation.find(params[:id])
->>>>>>> 211de25495e97594a5fa937c592ad3ab27d1e435
   end
 
   def complete
