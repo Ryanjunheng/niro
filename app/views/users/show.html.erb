@@ -55,9 +55,15 @@
               <% end %>
             <% end %>
           </div>
-          <div class="about-me-blockquote blockquote text-center well">
-              <p> <%= @user.intro %></p>
-          </div>
+          
+            <div class="about-me-blockquote blockquote text-center well">
+              <% if !@user.intro.empty? %>
+                <p> <%= @user.intro %></p>
+              <% else %>
+                <p>No intro yet</p>
+              <% end %>
+            </div>
+          
       </div>
     </div>
   <div class="user-profile-action">
@@ -95,22 +101,30 @@
       <div class="user-level-exp col-lg-4 col-md-4">
         <div class="user-level" style="height:75%;">
           <div class="user-level-image">
-            <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+            <% if @user.points >= 0 and @user.points <= 100 %>
+              <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 101 and @user.points <= 200 %>
+              <%= image_tag("niro-lvl2.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 201 and @user.points <= 300 %>
+              <%= image_tag("niro-lvl3.png", style:"height:150px;", class:"align-center") %>
+            <% elsif @user.points >= 301 and @user.points <= 400 %>
+              <%= image_tag("niro-lvl4.png", style:"height:150px;", class:"align-center") %>
+            <% end %>
           </div>
           <div class="user-level-level">
             <span>
               <% if @user.points >= 0 and @user.points <= 100 %>
                 <strong>Level: 1:</strong>
-                <strong>Peasant<stong>
+                <strong>Volunteer<stong>
               <% elsif @user.points >= 101 and @user.points <= 200 %>
                 <strong>Level: 2:</strong>
-                <strong>Samurai<stong>
+                <strong>Donor<stong>
               <% elsif @user.points >= 201 and @user.points <= 300 %>
                 <strong>Level: 3:</strong>
-                <strong>Daimyo<stong>
+                <strong>Giver<stong>
               <% elsif @user.points >= 301 and @user.points <= 400 %>
                 <strong>Level: 4:</strong>
-                <strong>Shogun<stong>
+                <strong>Philanthropist<stong>
               <% end %>
             </span>
           </div>
@@ -148,7 +162,11 @@
         <% if @user.badges.size != 0 %>
           <% @user.badges.each do |badge| %>
             <% @event_badge = Badge.find_by(name: badge.name) %>
-            <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li>
+            <% if @event_badge.event.host_type == "User" %>
+              <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
+            <% elsif @event_badge.event.host_type == "Organization" %>
+              <li><%= link_to (image_tag @event_badge.image), show_organization_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
+            <% end %>
           <% end %>
         </ul>
         <% else %>
@@ -188,7 +206,11 @@
         <ul>
         <% if @user_completed_participation.size != 0 %>
           <% @user_completed_participation.each do |p| %>
-            <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+            <% if p.event.host_type == "User" %>
+              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.end_date %></li>
+            <% elsif p.event.host_type == "Organization" %>
+              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
+            <% end %>
           <% end %>
         </ul>
         <% else %>
