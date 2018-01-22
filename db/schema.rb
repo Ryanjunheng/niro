@@ -45,14 +45,6 @@ ActiveRecord::Schema.define(version: 20180121090004) do
     t.index ["sash_id"], name: "index_badges_sashes_on_sash_id"
   end
 
-  create_table "chats", force: :cascade do |t|
-    t.bigint "user_id"
-    t.text "chat"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_chats_on_user_id"
-  end
-
   create_table "event_messages", force: :cascade do |t|
     t.bigint "event_id"
     t.text "message"
@@ -147,6 +139,7 @@ ActiveRecord::Schema.define(version: 20180121090004) do
   end
 
   create_table "organizations", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "name"
     t.string "email"
     t.string "registration_number"
@@ -163,7 +156,6 @@ ActiveRecord::Schema.define(version: 20180121090004) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
@@ -240,10 +232,10 @@ ActiveRecord::Schema.define(version: 20180121090004) do
 
   add_foreign_key "authentications", "users"
   add_foreign_key "badges", "events"
-  add_foreign_key "chats", "users"
   add_foreign_key "event_messages", "events"
   add_foreign_key "event_messages", "users"
   add_foreign_key "messages", "users"
+  add_foreign_key "organizations", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "testimonials", "users"

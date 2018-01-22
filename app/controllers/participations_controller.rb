@@ -50,7 +50,7 @@ class ParticipationsController < ApplicationController
       redirect_to user_path(current_user.id)
     else
       redirect_to request.referrer
-      @flash = {error: "There was a problem submitting your missiong request, please try again"}
+      @flash = {error: "There was a problem submitting your mission request, please try again"}
     end
   end
 
