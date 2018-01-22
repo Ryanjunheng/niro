@@ -1,86 +1,95 @@
 
 
-<div class="container" style="padding-top:50px;">
+
  <!-- User profiles avatar and bio -->
   <head id="user-profile">
-    <div class="user-profile-details row">
-      <div class="user-main col-lg-3 col-md-3">
-          <div class="user-avatar">
-            <% if @user.avatar.present? %>
-            <div>
-              <%= image_tag(@user.avatar, class:"img-circle", id:"profile-page-profile-image") %>
-            </div>
-            <% else %>
-            <div>
-              <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
-            </div>
-            <% end %>
-          </div>
-          <div class="user-followings">
-            <span>
-              <p>Followers: <%= Following.where(followed_id: @user.id).count %></p>
-              <% if @user.id == current_user.id %>
-              <p>Following: <%= Following.where(follower_id: current_user.id).count %></p>
+    <div class="jumbotron jumbotron-profile">
+      <div class="container profile-container">
+      <div class="user-profile-details row">
+    <!-- user avatar -->
+        <div class="user-main col-lg-2 col-md-2">
+            <div class="user-avatar">
+              <% if @user.avatar.present? %>
+              <div>
+                <%= image_tag(@user.avatar, class:"img-circle", id:"profile-page-profile-image") %>
+              </div>
               <% else %>
-              <p>Following: <%= Following.where(follower_id: @user.id).count %></p>
+              <div>
+                <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
+              </div>
               <% end %>
-            </span>
+            </div>
           </div>
-        </div>
-        <div class="user-about-me col-lg-9 col-md-9">
-          <div class="about-me-content text-center">
-            <h1> <%= @user.full_name %> </h1>
-            <!-- user event reporting button  -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
 
-            <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-              <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                  <div class="modal-header"></div>
-                 <div class="modal-body">
-                   <%= render partial: "/reportings/user_reporting_form" %>
-                 </div>
-                 <div class="modal-footer"></div>
+      <!-- user about me  -->
+          <div class="user-about-me col-lg-5 col-md-5">
+            <div class="about-me-content text-center">
+              <h2> <%= @user.full_name %></h2>
+              <p> Member since: <%= @user.created_at.strftime("%^B %Y") %> &middot;  <%= @user.verification %></p>
+              <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%= @user.country if @user.country %></p>
+              <% if signed_in? and current_user.superadmin? and current_user.Verified? %>
+                <% if !@user.Verified? %>
+                  <%= button_to "Verify", verify_user_path(@user.id), method: :post, class:"btn btn-primary"%>
+                <% end %>
+              <% end %>
+              <div class="user-followings">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 text-center">
+                    <p>Followers</p>
+                    <h1><%= Following.where(followed_id: @user.id).count %></h1>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <p>Followings</p>
+                    <h1><%= Following.where(follower_id: @user.id).count %></h1>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- end reporting button -->
-            <p>Status: <%= @user.verification %></p>
-            <p><%= @user.role.capitalize %></p>
-            <p> Member since: <%= @user.created_at %> </p>
-            <p> <%=@user.email%> &middot; <%= @user.city if @user.country %>  <%= @user.country if @user.country %></p>
-            <% if signed_in? and current_user.superadmin? and current_user.Verified? %>
-              <% if !@user.Verified? %>
-                <%= button_to "Verify", verify_user_path(@user.id), method: :post, class:"btn btn-primary"%>
-              <% end %>
+        </div>
+    <!-- user introduction -->
+        <div class="about-me-blockquote col-lg-5 col-mid-5">
+          <div class="bio-box text-center ">
+            <% if @user.intro.present? %>
+            <p> <%= @user.intro %></p>
+            <% else %>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <% end %>
           </div>
-          
-            <div class="about-me-blockquote blockquote text-center well">
-              <% if !@user.intro.empty? %>
-                <p> <%= @user.intro %></p>
-              <% else %>
-                <p>No intro yet</p>
-              <% end %>
-            </div>
-          
+        </div>
       </div>
     </div>
-  <div class="user-profile-action">
+  </div>
+  <div class="container">
     <!-- Buttions bar  -->
-    <div class="user-profile-buttons row well">
-      <div class="user-edit-button col-lg-2 col-md-2">
+    <div class="user-profile-buttons row">
+      <!-- user event reporting button  -->
+      <div class="report-button pull-left">
+        <button type="button" class="btn-profile" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
+        <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header"></div>
+             <div class="modal-body">
+               <%= render partial: "/reportings/user_reporting_form" %>
+             </div>
+             <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end reporting button -->
+      <div class="user-edit-button pull-left">
         <% if @user == current_user %>
-        <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
         <% end %>
       </div>
-      <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
+      <div class="user-message-button pull-left ">
+        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
       </div>
-      <div class="user-tetimonials-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
+      <div class="user-tetimonials-button pull-left">
+        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
       </div>
-      <div class="user-follow-button col-lg-2 col-md-2">
+      <div class="user-follow-button pull-left">
         <% if current_user && current_user.id == params[:id].to_i %>
         <% elsif current_user.following?(@user) %>
           <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
@@ -92,178 +101,312 @@
           </form>
         <% end %>
       </div>
-      <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
+      <div class="user-social-buttons pull-right">
         <p><%= social_share_button_tag('Hi, I am on Niro! Checkout my social resume!', class:"pull-right") %></p>
       </div>
     </div>
     <!-- user level experience badges and testimonials  -->
-    <div class="user-profile-gamify row well">
-      <div class="user-level-exp col-lg-4 col-md-4">
-        <div class="user-level" style="height:75%;">
-          <div class="user-level-image">
-            <% if @user.points >= 0 and @user.points <= 100 %>
+    <div class="user-profile-gamify row">
+      <div class="row home-box-title">
+  			<div class="text-center">
+  				<h1>My Niro Status</h1>
+  			</div>
+  		</div>
+      <div class="niro-status container">
+        <div class="col-lg-4 col-md-4">
+        <div class="user-level-exp">
+          <div class="user-level" style="height:75%;">
+            <div class="user-level-image">
               <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
-            <% elsif @user.points >= 101 and @user.points <= 200 %>
-              <%= image_tag("niro-lvl2.png", style:"height:150px;", class:"align-center") %>
-            <% elsif @user.points >= 201 and @user.points <= 300 %>
-              <%= image_tag("niro-lvl3.png", style:"height:150px;", class:"align-center") %>
-            <% elsif @user.points >= 301 and @user.points <= 400 %>
-              <%= image_tag("niro-lvl4.png", style:"height:150px;", class:"align-center") %>
-            <% end %>
-          </div>
-          <div class="user-level-level">
-            <span>
-              <% if @user.points >= 0 and @user.points <= 100 %>
-                <strong>Level: 1:</strong>
-                <strong>Volunteer<stong>
-              <% elsif @user.points >= 101 and @user.points <= 200 %>
-                <strong>Level: 2:</strong>
-                <strong>Donor<stong>
-              <% elsif @user.points >= 201 and @user.points <= 300 %>
-                <strong>Level: 3:</strong>
-                <strong>Giver<stong>
-              <% elsif @user.points >= 301 and @user.points <= 400 %>
-                <strong>Level: 4:</strong>
-                <strong>Philanthropist<stong>
-              <% end %>
-            </span>
-          </div>
-        </div>
-        <div class="user-exp" style="height:25%">
-          <% bar_width = (@user.points).to_f / 100 * 100 %>
-          <div class="user-exp-bar progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= bar_width %>%"></div>
             </div>
+            <div class="user-level-level">
+              <span>
+                <% if @user.points >= 0 and @user.points <= 100 %>
+                  <strong>Level: 1:</strong>
+                  <strong>Peasant<stong>
+                <% elsif @user.points >= 101 and @user.points <= 200 %>
+                  <strong>Level: 2:</strong>
+                  <strong>Samurai<stong>
+                <% elsif @user.points >= 201 and @user.points <= 300 %>
+                  <strong>Level: 3:</strong>
+                  <strong>Daimyo<stong>
+                <% elsif @user.points >= 301 and @user.points <= 400 %>
+                  <strong>Level: 4:</strong>
+                  <strong>Shogun<stong>
+                <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="user-exp" style="height:25%">
+            <% bar_width = (@user.points).to_f / 100 * 100 %>
+            <div class="user-exp-bar progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= bar_width %>%"></div>
+              </div>
+          </div>
+          <div class="user-exp-points text-center">
+            <h4>Total points: <%= @user.points %></h4>
+          </div>
         </div>
-        <div class="user-exp-points text-center">
-          <h4>Total points: <%= @user.points %></h4>
+        <div class="user-badge-count text-center">
+          <strong>Total Badges Earned</strong>
+          <h1 style="font-size:8em;"><%= @user.badges.size %></h1>
+          <a href="#user-badges-box">View my shiny badges</a>
+        </div>
+        <div class="user-testimonials text-center">
+          <storng>Total Testimonials Received</strong>
+          <h1 style="font-size:8em;">100</h1>
         </div>
       </div>
-      <div class="user-badge-count col-lg-4 col-md-4 text-center">
-        <strong>Total Badges Earned</strong>
-        <h1 style="font-size:8em;"><%= @user.badges.size %></h1>
-        <a href="#user-badges-box">View my shiny badges</a>
-      </div>
-      <div class="user-testimonials col-lg-4 col-md-4 text-center">
-        <storng>Total Testimonials Received</strong>
-        <h1 style="font-size:8em;">100</h1>
+    <!-- badges column  -->
+      <div class="user-badges row col-lg-8 col-md-8", id="user-badges-box">
+        <% if @user.id == current_user.id %>
+        <h2 class="text-center">Your Badges</h2>
+        <% else %>
+        <h2> <%= @user.full_name %>'s Badges</h2>
+        <% end %>
+        <div class="badge-well well">
+          <ul>
+            <% if @user.badges.size != 0 %>
+            <% @user.badges.each do |badge| %>
+            <% @event_badge = Badge.find_by(name: badge.name) %>
+            <% end %>
+          </ul>
+          <% else %>
+          <p>No Badges earned yet! <%= link_to "Start earning now!", root_path %></p>
+          <% end %>
+        </div>
       </div>
     </div>
   </head>
+
   <section>
-    <div class="user-badges row", id="user-badges-box">
-      <% if @user.id == current_user.id %>
-        <h2>Your Badges</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Badges</h2>
-      <% end %>
-      <div class="well">
-        <ul>
-        <% if @user.badges.size != 0 %>
-          <% @user.badges.each do |badge| %>
-            <% @event_badge = Badge.find_by(name: badge.name) %>
-            <% if @event_badge.event.host_type == "User" %>
-              <li><%= link_to (image_tag @event_badge.image), user_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
-            <% elsif @event_badge.event.host_type == "Organization" %>
-              <li><%= link_to (image_tag @event_badge.image), show_organization_event_path(@event_badge.event.host_id, @event_badge.event.id) %>&nbsp;<%= badge.name %></li><br>
-            <% end %>
+    <!-- User upcoming missions  -->
+
+    <div class="home-org-box row">
+    	<div class="row home-box-title">
+    		<div class="text-center">
+          <% if @user.id == current_user.id %>
+            <h2>Your Upcoming Missions</h2>
+          <% else %>
+            <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
           <% end %>
-        </ul>
+    		</div>
+    	</div>
+    <div class="row list-group">
+      <% if @user_upcoming_participation.size != 0 %>
+        <% @user_upcoming_participation.each do |p| %>
+          <% if p.event.host_type == "User" %>
+            <a href="/users/<%=p.event.host_id%>/events/<%=p.event.id%>">
+              <div class="item col-lg-4" >
+                <div class="thumbnail" style="min-height: 400px;">
+                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <div class="caption">
+                    <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
+                    <div>
+                      <div class="home-event-date text-center col-lg-4 col-md-4">
+                        <% if event.start_date.present? %>
+                        <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
+                        <h4><%=p.event.start_date.strftime("%d")%></h4>
+                        <% end %>
+                      </div>
+                      <div class="home-event-detail text-center col-lg-8 col-md-8">
+                        <h4><strong>Min. Niroes<strong>: <%=p.event.required_participants%></h4>
+                          <p class="group inner list-group-item-text"><%= p.event.city %> &middot; <%= p.event.state %> &middot; <%=p.event.country%></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          <% elsif p.event.host_type == "Organization" %>
+            <a href="/organizations/<%=p.event.host_id%>/events/<%=p.event.id%>">
+              <div class="item col-lg-4" >
+                <div class="thumbnail" style="min-height: 400px;">
+                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <div class="caption">
+                    <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
+                    <div>
+                      <div class="home-event-date text-center col-lg-4 col-md-4">
+                        <% if p.event.start_date.present? %>
+                        <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
+                        <h4><%=p.event.start_date.strftime("%d")%></h4>
+                        <% end %>
+                      </div>
+                      <div class="home-event-detail text-center col-lg-8 col-md-8">
+                        <h4><strong>Min. Niroes<strong>: <%=p.event.required_participants%></h4>
+                          <p class="group inner list-group-item-text"><%= p.event.city %> &middot; <%= p.event.state %> &middot; <%=p.event.country%></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p class="text-center">No upcoming mission</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- user completed missions -->
+
+  <div class="home-org-box row">
+    <div class="row home-box-title">
+      <div class="text-center">
+        <% if @user.id == current_user.id %>
+          <h2>Your Completed Missions</h2>
         <% else %>
-          <p>No Badges earned yet! <%= link_to "Start earning now!", root_path %></p>
+          <h2> <%= @user.full_name %>'s Completed Missions</h2>
         <% end %>
       </div>
     </div>
-    <div class="user-upcoming-missions row">
-      <% if @user.id == current_user.id %>
-        <h2>Your Upcoming Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Upcoming Missions</h2>
-      <% end %>
-      <div class="well">
-        <ul>
-        <% if @user_upcoming_participation.size != 0 %>
-          <% @user_upcoming_participation.each do |p| %>
-            <% if p.event.host_type == "User" %>
-              <li><%= link_to p.event.name, user_event_path(@user.id, p.event.id) %><br><%= p.event.start_date %></li>
-            <% elsif p.event.host_type == "Organization" %>
-              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
-            <% end %>
-          <% end %>
-        </ul>
-        <% else %>
-          <p>No upcoming mission</p>
+  <div class="row list-group">
+      <% if @user_completed_participation.size != 0 %>
+        <% @user_completed_participation.each do |p| %>
+        <% if p.event.host_type == "User" %>
+          <a href="/users/<%=p.event.host_id%>/events/<%=p.event.id%>">
+            <div class="item col-lg-4" >
+              <div class="thumbnail" style="min-height: 400px;">
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <div class="caption">
+                  <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
+                  <div>
+                    <div class="home-event-date text-center col-lg-4 col-md-4">
+                      <% if event.start_date.present? %>
+                      <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
+                      <h4><%=p.event.start_date.strftime("%d")%></h4>
+                      <% end %>
+                    </div>
+                    <div class="home-event-detail text-center col-lg-8 col-md-8">
+                      <h4><strong>Min. Niroes<strong>: <%=p.event.required_participants%></h4>
+                        <p class="group inner list-group-item-text"><%= p.event.city %> &middot; <%= p.event.state %> &middot; <%=p.event.country%></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+        <% elsif p.event.host_type == "Organization" %>
+          <a href="/organizations/<%=p.event.host_id%>/events/<%=p.event.id%>">
+            <div class="item col-lg-4" >
+              <div class="thumbnail" style="min-height: 400px;">
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <div class="caption">
+                  <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
+                  <div>
+                    <div class="home-event-date text-center col-lg-4 col-md-4">
+                      <% if p.event.start_date.present? %>
+                      <h4 style="color:#BD3B1B"><%=p.event.start_date.strftime("%^b")%></h4>
+                      <h4><%=p.event.start_date.strftime("%d")%></h4>
+                      <% end %>
+                    </div>
+                    <div class="home-event-detail text-center col-lg-8 col-md-8">
+                      <h4><strong>Min. Niroes<strong>: <%=p.event.required_participants%></h4>
+                        <p class="group inner list-group-item-text"><%= p.event.city %> &middot; <%= p.event.state %> &middot; <%=p.event.country%></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
         <% end %>
-      </div>
-    </div>
-    <div class="user-completed-missions row">
-      <% if @user.id == current_user.id %>
-        <h2>Your Completed Missions</h2>
-      <% else %>
-        <h2> <%= @user.full_name %>'s Completed Missions</h2>
       <% end %>
-      <div class="well">
-        <ul>
-        <% if @user_completed_participation.size != 0 %>
-          <% @user_completed_participation.each do |p| %>
-            <% if p.event.host_type == "User" %>
-              <li><%= link_to p.event.name, user_event_path(p.event.host_id, p.event.id) %><br><%= p.event.end_date %></li>
-            <% elsif p.event.host_type == "Organization" %>
-              <li><%= link_to p.event.name, show_organization_event_path(p.event.host_id, p.event.id) %><br><%= p.event.start_date %></li>
-            <% end %>
-          <% end %>
-        </ul>
-        <% else %>
-          <p>No completed mission</p>
-        <% end %>
-      </div>
-    </div>
-    <div class="user-hosted-missions row">
+    <% else %>
+      <p class="text-center">No completed mission</p>
+    <% end %>
+  </div>
+</div>
+
+<!-- user hosted missions -->
+
+
+<div class="home-org-box row">
+  <div class="row home-box-title">
+    <div class="text-center">
       <% if @user.id == current_user.id %>
         <h2>Missions Hosted By You </h2>
       <% else %>
         <h2>Missions Hosted By <%= @user.full_name %> </h2>
       <% end %>
-      <div class="well">
-        <% if @host_events.size != 0 %>
-          <div class="row list-group">
-            <% @host_events.each do |event| %>
-              <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
-              <div class="item col-lg-4" >
-                <div class="thumbnail" style="min-height: 410px;">
-                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
-                  <div class="caption">
-                    <p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
-                    <h2 class="group inner list-group-item-heading"><%= event.name %></h2>
-                    <p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+    </div>
+  </div>
+  <div class="row list-group">
+    <% if @host_events.size != 0 %>
+      <% @host_events.each do |event| %>
+        <% if event.host_type == "User" %>
+          <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
+            <div class="item col-lg-4" >
+              <div class="thumbnail" style="min-height: 400px;">
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <div class="caption">
+                  <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+                  <div>
+                    <div class="home-event-date text-center col-lg-4 col-md-4">
+                      <% if event.start_date.present? %>
+                      <h4 style="color:#BD3B1B"><%=event.start_date.strftime("%^b")%></h4>
+                      <h4><%=event.start_date.strftime("%d")%></h4>
+                      <% end %>
+                    </div>
+                    <div class="home-event-detail text-center col-lg-8 col-md-8">
+                      <h4><strong>Min. Niroes<strong>: <%=event.required_participants%></h4>
+                        <p class="group inner list-group-item-text"><%= event.city %> &middot; <%= event.state %> &middot; <%=event.country%></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </a>
-            <% end %>
-          </div>
-          <% else %>
-            <p>No mission hosted yet</p>
-          <% end %>
-      </div>
-    </div>
+        <% elsif event.host_type == "Organization" %>
+          <a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
+            <div class="item col-lg-4" >
+              <div class="thumbnail" style="min-height: 400px;">
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <div class="caption">
+                  <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+                  <div>
+                    <div class="home-event-date text-center col-lg-4 col-md-4">
+                      <% if event.start_date.present? %>
+                      <h4 style="color:#BD3B1B"><%=event.start_date.strftime("%^b")%></h4>
+                      <h4><%=event.start_date.strftime("%d")%></h4>
+                      <% end %>
+                    </div>
+                    <div class="home-event-detail text-center col-lg-8 col-md-8">
+                      <h4><strong>Min. Niroes<strong>: <%=event.required_participants%></h4>
+                        <p class="group inner list-group-item-text"><%= event.city %> &middot; <%= event.state %> &middot; <%=event.country%></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p class="text-center">No mission hosted yet</p>
+    <% end %>
+  </div>
+</div>
+
 
  <!-- Super Admin's Organiation list block  -->
-    <div class="row">
+    <div class="home-org-box row text-center">
         <% if @user.organizations.size != 0 %>
-          <h3>Your organization:</h3>
-          <div class="well">
-          <ul>
-          <% @user.organizations.each do |org| %>
-            <% if org.Unverified? and @user.id == current_user.id %>
-              <li><h4><%= link_to org.name, organization_path(org.id) %>(status: verification pending)</h4></li>
-            <% elsif org.Unverified? and @user.id != current_user.id %>
-              <h4>Pending for verification</h4>
-            <% else org.Verified? %>
-              <li><h4><%= link_to org.name, organization_path(org.id) %> (status: verified)</h4></li>
+          <h2>Your organization(s)</h2>
+          <div class="col-lg-3 col-md-3 text-center">
+            <% @user.organizations.each do |org| %>
+              <% if org.Unverified? and @user.id == current_user.id %>
+                <%= image_tag(org.logo, class:"image-circle") %>
+                <h4><%= link_to org.name, organization_path(org.id) %></h4>
+                <p>status: verification pending</p>
+              <% elsif org.Unverified? and @user.id != current_user.id %>
+                <h4>Pending for verification</h4>
+              <% else org.Verified? %>
+                <%= image_tag(org.logo, class:"image-circle") %>
+                <h4><%= link_to org.name, organization_path(org.id) %></h4>
+                <p>status: verified</p>
+            <% end %>
           <% end %>
-        <% end %>
-        </ul>
       </div>
         <% end %>
     </div>
