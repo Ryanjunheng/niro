@@ -107,16 +107,16 @@
             <span>
               <% if @user.points >= 0 and @user.points <= 100 %>
                 <strong>Level: 1:</strong>
-                <strong>Peasant<stong>
+                <strong>Volunteer<stong>
               <% elsif @user.points >= 101 and @user.points <= 200 %>
                 <strong>Level: 2:</strong>
-                <strong>Samurai<stong>
+                <strong>Donor<stong>
               <% elsif @user.points >= 201 and @user.points <= 300 %>
                 <strong>Level: 3:</strong>
-                <strong>Daimyo<stong>
+                <strong>Giver<stong>
               <% elsif @user.points >= 301 and @user.points <= 400 %>
                 <strong>Level: 4:</strong>
-                <strong>Shogun<stong>
+                <strong>Philanthropist<stong>
               <% end %>
             </span>
           </div>
