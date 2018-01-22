@@ -2,7 +2,7 @@
     <h style="font-size:5em;"> <%= @event.name %> </h1>
   </div>
 
-  <div class="jumbotron" style="">
+  <div class="jumbotron">
     <% if @event.photos == [] %>
       <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"width:100%;") %>
     <% else %>
@@ -84,13 +84,13 @@
           </div>
         </div>
         <% end %>
-        <!-- missiong time and location -->
+        <!-- mission time and location -->
         <div class="row">
           <h3>Getting there on time</h3>
           <hr>
           </hr>
           <div class="row">
-            <div class="missiong-location col-lg-4 col-md-4">
+            <div class="mission-location col-lg-4 col-md-4">
                <div class="glyphicon glyphicon-map-marker align-center" style="font-size: 2em;"></div>
                 <div class="text-center">
                 <h4> <%=@event.address%>, <% @event.zip_code %> <%= @event.city %>, <%=@event.state%>, <%= @event.country %>.</h4>
@@ -221,7 +221,6 @@
           <% else %>
             <% shout = ["I'm on FIRE!", "I've never skipped missions like this!", "Won't miss this one", "Consider it done!", "Keep it coming"] %>
             <h3 class="blockquote text-center"> <%= shout.sample %></h3>
-
             <hr/>
             <%= render partial: "form" %>
           <% end %>
