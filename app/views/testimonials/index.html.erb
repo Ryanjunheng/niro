@@ -56,8 +56,8 @@
         <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
         <% end %>
       </div>
-      <div class="user-message-button col-lg-2 col-md-2">
-        <button class="align-center btn btn-lg btn-danger" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Message User</button>
+      <div class="user-message-button pull-left ">
+        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=@user.id%>/rooms'">Chat with User</button>
       </div>
 
       <div class="user-social-buttons col-lg-4 col-md-4 pull-right">
