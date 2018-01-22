@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :host, polymorphic: true
   has_one :badge
   has_many :event_messages
+  has_many :reportings, as: :reported
 
   has_many :participations
   has_many :users, through: :participations

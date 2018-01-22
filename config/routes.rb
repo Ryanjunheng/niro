@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
 
 
+
   # Clearance Default Routes
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -32,12 +33,6 @@ Rails.application.routes.draw do
   end
 
   resources  :organizations
-    # resources :events, except: [:create] do
-    #   resources :badges
-    #   resources :event_messages
-    #   resources :participations
-    # end
-
   # Organizations related cutom routes to avoid clash with users
   get "/organizations/:id/events/new" => "events#org_new", as: :new_organization_event
   post "/organizations/:id/events" => "events#org_create", as: :create_organization_event
@@ -51,6 +46,15 @@ Rails.application.routes.draw do
   delete "/organizations/:organization_id/events/:event_id/event_messages/:id" => "event_messages#org_destroy", as: :delete_organization_event_message
   post "/organizations/:id/verify" => "organizations#verify", as: "verify_org"
   # end of organization routes
+
+  # Reporting custom Routes
+  post "/users/:id/reportings/new" => "reportings#user_create", as: :reporting_user
+  post "/users/:user_id/events/:id/reportings/new" => "reportings#user_event_create", as: :reporting_user_event
+  post "/organizations/:id/reportings/new" => "reportings#org_create", as: :reporting_organization
+  post "/organizations/:organization_id/events/:id/reportings/new" => "reportings#org_event_create", as: :reporting_organization_event
+
+
+  # end of reporting routes
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "sessions#destroy", as: "sign_out"

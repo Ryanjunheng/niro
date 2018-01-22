@@ -1,17 +1,19 @@
 class User < ApplicationRecord
   has_merit
-  
+
   include Clearance::User
 
   has_many :messages
   has_many :organizations
   has_many :user_scores
   has_many :events, as: :host
+  has_many :reportings, as: :reported
   has_many :authentications, dependent: :destroy
   has_many :event_messages
   has_many :chats
   has_many :participations
   has_many :events, through: :participations
+  has_many :followings, foreign_key: "follower_id", dependent: :destroy
 
   enum verification: { Unverified: 0, Verified: 1 }
   enum role: { user: 0, moderator: 1, superadmin: 2 }
@@ -36,5 +38,9 @@ class User < ApplicationRecord
      x = self.authentications.find_by(provider: 'facebook')
      return x.token unless x.nil?
    end
+
+   def following?(user)
+    followings.find_by(followed_id: user.id)
+   end 
 
 end

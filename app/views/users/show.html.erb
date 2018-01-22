@@ -30,6 +30,21 @@
         <div class="user-about-me col-lg-9 col-md-9">
           <div class="about-me-content text-center">
             <h1> <%= @user.full_name %> </h1>
+            <!-- user event reporting button  -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
+
+            <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header"></div>
+                 <div class="modal-body">
+                   <%= render partial: "/reportings/user_reporting_form" %>
+                 </div>
+                 <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+            <!-- end reporting button -->
             <p>Status: <%= @user.verification %></p>
             <p><%= @user.role.capitalize %></p>
             <p> Member since: <%= @user.created_at %> </p>
@@ -66,14 +81,14 @@
         <button class="align-center btn btn-lg btn-warning" onclick="window.location.href='/users/<%=@user.id%>/testimonials'">Leave A Testimony</button>
       </div>
       <div class="user-follow-button col-lg-2 col-md-2">
-        <% if @user.id != current_user.id %>
-          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
-            <input type=submit value="Follow" class="btn btn-info">
-          </form>
-        <% end %>
-        <% if @user.id != current_user.id %>
+        <% if current_user && current_user.id == params[:id].to_i %>
+        <% elsif current_user.following?(@user) %>
           <%= form_tag "/users/#{ @user.id }/unfollow", method: :post %>
             <input type=submit value="Unfollow" class="btn btn-info">
+          </form>
+        <% else %>
+          <%= form_tag "/users/#{ @user.id }/follow", method: :post %>
+            <input type=submit value="Follow" class="btn btn-info">
           </form>
         <% end %>
       </div>
@@ -99,7 +114,7 @@
               <% elsif @user.points >= 201 and @user.points <= 300 %>
                 <strong>Level: 3:</strong>
                 <strong>Daimyo<stong>
-              <% elsif @user.points >= 301 and @user.points <= 400 %>   
+              <% elsif @user.points >= 301 and @user.points <= 400 %>
                 <strong>Level: 4:</strong>
                 <strong>Shogun<stong>
               <% end %>

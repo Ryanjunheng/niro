@@ -2,6 +2,21 @@
   <div class="event-page-title text-center">
     <h style="font-size:5em;"> <%= @event.name %> </h1>
   </div>
+  <!-- user event reporting button  -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-reporting-modal-md">Report Event</button>
+
+  <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header"></div>
+       <div class="modal-body">
+         <%= render partial: "/reportings/organization_event_reporting_form" %>
+       </div>
+       <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+  <!-- end reporting button -->
   <div class="jumbotron" style="padding-top:50px;">
     <% if @event.photos == [] %>
     <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample) %>
@@ -50,9 +65,9 @@
       <!-- event host details and link -->
           <div class="event-host-logo col-lg-4 col-md-4">
             <% if @organization.logo? %>
-            <%= link_to "#{image_tag(@organization.logo, style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, user_path(@event.host_id)%>
+            <%= link_to "#{image_tag(@organization.logo, style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe,  organization_path(@event.host_id)%>
             <% else %>
-            <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, user_path(@event.host_id) %>
+            <%= link_to "#{image_tag("profile_placeholder.jpg", style:"border-radius:50%; width:50%; height:50%;", class:"align-center")}".html_safe, organization_path(@event.host_id) %>
             <% end %>
             <p class="lead text-center" style="font-size:1.5em;"><%= @organization.name %></p>
           </div>
