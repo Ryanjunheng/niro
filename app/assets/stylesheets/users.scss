@@ -10,13 +10,32 @@
   max-height: 400px;
 }
 
+
+#profile-page-profile-image {
+  width:100%;
+}
+
+.user-avatar-1 {
+  transform: rotate(7deg);
+  min-height:190px;
+  padding:10px;
+  position:relative;
+  top:50px;
+  box-shadow: 3px 5px 10px 3px black;
+}
+.user-avatar-1 p {
+  font-size: 90%;
+}
+
+
 .bio-box {
+  background-image: url("paper-background.jpg");
   box-shadow: 3px 3px 10px 3px black;
   overflow: scroll;
   height: 300px;
   padding: 8%;
-  background-color: white;
-  border-radius: 5px;
+  margin-top:20px;
+  // background-color: white;
 }
 
 .jumbotron-profile {
@@ -24,7 +43,9 @@
   max-height: 400px;
 }
 
-.user-profile-details {
+
+.about-me-content p {
+  font-size:1em;
 }
 
 .btn-profile {
