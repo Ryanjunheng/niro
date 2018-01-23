@@ -45,3 +45,15 @@ position: relative;
 	opacity: 0.75;
 	padding:20px 5px;
 }
+
+
+.org-background  {
+	background-image: asset_url("org-form-background.jpg");
+	background-repeat: no-repeat;
+	background-size:cover;
+	background-position: center;
+
+}
+.new-list-box {
+	opacity: 0.85;
+}
