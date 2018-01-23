@@ -4,7 +4,7 @@
 
   <div class="jumbotron">
     <% if @event.photos == [] %>
-      <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"width:100%;") %>
+      <%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"width:100%;") %>
     <% else %>
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
