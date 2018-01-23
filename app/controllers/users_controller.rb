@@ -1,22 +1,22 @@
-class UsersController < ApplicationController
+class UsersController < Clearance::UsersController
 	before_action :find_user, only: [:show, :edit, :update, :verify]
 
 	def index
 	end
 
 	def create
-		user = User.new(user_params) 
-		if user.save 
+		user = User.new(user_params)
+		if user.save
 			 sign_in user
       		 redirect_to "/"
 		else
-			redirect_to "/sign_up"
+			redirect_to "/"
 		end
 	end
 
-	def show 
-		@pending_org_feed = params[:pending_org_feed] ? params[:pending_org_feed].to_i : 1 
-  		@pending_user_feed = params[:pending_user_feed] ? params[:pending_user_feed].to_i : 1
+	def show
+		@pending_org_feed = params[:pending_org_feed] ? params[:pending_org_feed].to_i : 1
+  	@pending_user_feed = params[:pending_user_feed] ? params[:pending_user_feed].to_i : 1
 		@pending_org = Organization.where(verification: 0).page(@pending_org_feed)
 		@pending_user = User.where(verification: 0).page(@pending_user_feed)
 		@user_upcoming_participation = Participation.includes(:event).where(status: 0, user_id: @user.id).order(:created_at)
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		
+
 	end
 
 	def update
