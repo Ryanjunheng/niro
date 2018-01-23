@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20180121090004) do
     t.integer "allocated_points"
     t.date "start_date"
     t.date "end_date"
+    t.time "start_time"
+    t.time "end_time"
     t.string "address"
     t.string "city"
     t.string "state"
@@ -80,8 +82,6 @@ ActiveRecord::Schema.define(version: 20180121090004) do
     t.float "longitude"
     t.text "host_rewards"
     t.json "image"
-    t.time "end_time"
-    t.time "start_time"
     t.index ["host_type", "host_id"], name: "index_events_on_host_type_and_host_id"
   end
 
