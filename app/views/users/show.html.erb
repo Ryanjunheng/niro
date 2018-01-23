@@ -162,8 +162,13 @@
           <a href="#user-badges-box">View my shiny badges</a>
         </div>
         <div class="user-testimonials text-center">
-          <storng>Total Testimonials Received</strong>
-          <h1 style="font-size:8em;">100</h1>
+          <strong>Total Testimonials Received</strong>
+          <% @testimonials = Testimonial.where(user_id: @user.id) %>
+          <% if @testimonials.present? %>
+          <h1 style="font-size:8em;"><%= @testimonials.size %></h1>
+          <% else %>
+          <h1 style="font-size:8em;">0</h1>
+          <% end %>
         </div>
       </div>
     <!-- badges column  -->
@@ -189,9 +194,15 @@
     </div>
   </head>
 
-  <section>
-    <!-- User upcoming missions  -->
+  <!-- ---------------------------------- -->
 
+  <Button  class="align-center btn btn-primary" id="IDButton1" type="button" onclick="toggleResume()" style="margin-bottom:25px;">
+      Toggle Resume View
+  </Button>
+
+
+  <section id="user-missions-block" style="display:block">
+    <!-- User upcoming missions  -->
     <div class="home-org-box row">
     	<div class="row home-box-title">
     		<div class="text-center">
@@ -462,5 +473,54 @@
         </div>
     <% end %>
   </section>
+  <section id="user-missions-list", style="display:none;">
+    <div class="container">
+      <div class="social-resume align-center">
+        <h2 class="text-center"> <%= @user.full_name %> </h2>
+        <strong> Completed Missions </strong>
+        <table class="table table-hover">
+          <% num = 0 %>
+          <%= @user_completed_participation.each do |m| %>
+          <td>num += 1</td>
+          <td>m.event.name</td>
+          <td>m.event.event_type</td>
+          <td>m.event.start_date</td>
+          <td>m.event.end_date</td>
+          <td>m.event.city</td>
+          <% end %>
+        </table>
+
+        <strong> Missions hosted </strong>
+        <table class="table table-hover">
+          <% num = 0 %>
+          <%= @host_events.each do |m| %>
+          <td>num += 1</td>
+          <td>m.name</td>
+          <td>m.event_type</td>
+          <td>m.start_date</td>
+          <td>m.end_date</td>
+          <td>m.city</td>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </section>
 </div>
 </div>
+
+
+
+<script>
+    function toggleResume() {
+      var standard = document.getElementById("user-missions-block")
+      var resume = document.getElementById("user-missions-list")
+      if (standard.style.display != "none") {
+        standard.style.display = "none";
+        resume.style.display = "block";
+      }
+      else {
+        standard.style.display = "block";
+        resume.style.display = "none";
+      }
+    }
+</script>

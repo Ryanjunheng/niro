@@ -112,3 +112,14 @@
   overflow: scroll;
   border: none;
 }
+
+.social-resume {
+  background-image: asset_url("resume-background.jpg");
+  background-size: cover;
+  background-repeat: none;
+  box-shadow: 3px 3px 5px 3px grey;
+  background-position: center;
+  width: 80%;
+  padding:5%;
+  margin-bottom:50px
+}
