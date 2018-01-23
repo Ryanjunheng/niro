@@ -14,7 +14,6 @@
 //= require rails-ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require pace/pace
 //= require social-share-button
 //= require underscore
 //= require gmaps/google

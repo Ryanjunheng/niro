@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'room/show'
   root "home#index"
 
   get 'cities/:state', to: 'application#cities'
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   get "/participations/:id" => "participations#show"
 
 
+  get 'room/show'
   mount ActionCable.server => '/cable'
 
 
