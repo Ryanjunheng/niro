@@ -17,5 +17,5 @@
 //= require social-share-button
 //= require underscore
 //= require gmaps/google
-//= require_tree .
 //= require bootstrap-datepicker
+//= require_tree .

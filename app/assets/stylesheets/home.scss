@@ -4,7 +4,7 @@
 
 .home-gif {
   height: 500px;
-  background-image: url("niro-home-banner1.gif");
+  background-image: asset_url("niro-home-banner1.gif");
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
@@ -87,4 +87,8 @@
 
 .dropdown-menu {
   width:350px;
+}
+
+#dropdownMenu1 {
+  padding: 0;
 }

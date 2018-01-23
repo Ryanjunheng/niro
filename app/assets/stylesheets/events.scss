@@ -180,3 +180,15 @@
   position:relative;
   z-index:5;
 }
+
+.event-form-background {
+  background-image: asset_url("event-form-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.new-list-box {
+  background-color: white;
+  margin-bottom: 50px;
+  opacity: 0.85;
+}
