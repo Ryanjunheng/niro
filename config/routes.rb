@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  mount ActionCable.server => '/cable'
   get 'room/show'
   root "home#index"
 
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
   get "/participations/:id" => "participations#show"
 
 
+  mount ActionCable.server => '/cable'
 
 
   # Clearance Default Routes
