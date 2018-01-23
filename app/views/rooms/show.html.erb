@@ -1,8 +1,8 @@
 <div class="page-container">
-  <div class="jumbotron">
-  </div>
-
-  <div class="container">
+  <div class="jumbotron jumbotron-chatroom">
+    <div>
+      <p class="text-center"><%=link_to "Return to previous page", user_path(params[:user_id])%></p>
+      <h1 class="text-center" style="font-family:Work Sans">Talk To Niroes Community</h1>
     <div class="chatbox-container align-center">
       <div class="message-history align-center" id="messages">
         <% @messages.each do |m| %>
@@ -14,4 +14,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>
