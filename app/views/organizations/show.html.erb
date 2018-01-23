@@ -83,6 +83,9 @@
 								<p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
 								<h2 class="group inner list-group-item-heading"><%= event.name %></h2>
 								<p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
+								<% if @organization.user_id == current_user.id %>
+									<button class="align-center btn-profile" onclick="window.location.href='/users/<%=current_user.id%>/events/<%=event.id%>/edit'">Edit Event</button>
+								<% end %>
 							</div>
 						</div>
 					</div>
