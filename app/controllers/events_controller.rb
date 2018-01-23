@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :find_event, only: [:show, :update, :org_show]
+  before_action :find_event, only: [:show, :edit, :update, :org_show]
   before_action :check_login, only: [:new, :edit]
 
 # User related methods
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
-    redirect_to user_events_path(params[:host], params[:id])
+    redirect_to user_path(current_user.id)
   end
 
 

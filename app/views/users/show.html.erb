@@ -344,6 +344,9 @@
                 <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+                      <% if @user == current_user %>
+                        <button class="align-center btn-profile" onclick="window.location.href='/users/<%=current_user.id%>/events/<%=event.id%>/edit'">Edit Event</button>
+                      <% end %>
                   <div>
                     <div class="home-event-date text-center col-lg-4 col-md-4">
                       <% if event.start_date.present? %>

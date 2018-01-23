@@ -1,47 +1,17 @@
 <div class="page-container">
-<div class="jumbotron">
-</div>
+  <div class="jumbotron">
+  </div>
 
-<div class="container">
-  <div class="chatbox-container align-center">
-    <div class="message-history align-center" id="messages">
-      <% @messages.each do |m| %>
-       <% if m.user == current_user %>
-       <div>
-         <div class="speech-bubble-right pull-left col-lg-9 col-md-9">
-           <span><a href=""><%= m.user.email %></a>
-             <%= m.created_at %></span>
-             <p><%= m.content %></p>
-         </div>
-         <div class="chat-room-avatar col-lg-3 col-md-3">
-           <% if m.user.avatar.present? %>
-           <%= image_tag(m.user.avatar.thumb, class:"img-circle pull-right", style:"width:70%;") %>
-           <% else %>
-           <%= image_tag('profile_placeholder.jpg',class:"img-circle pull-right", style:"width:70%;" ) %>
-           <% end %>
-         </div>
-       </div>
-       <% else %>
-      <div>
-        <div class="chat-room-avatar col-lg-3 col-md-3">
-          <% if m.user.avatar.present? %>
-          <%= image_tag(m.user.avatar.thumb, class:"img-circle pull-left", style:"width:70%;") %>
-          <% else %>
-          <%= image_tag('profile_placeholder.jpg',class:"img-circle pull-left", style:"width:70%;" ) %>
-          <% end %>
-        </div>
-        <div class="speech-bubble pull-right col-lg-9 col-md-9">
-          <span><a href=""><%= m.user.email %></a>
-            <%= m.created_at %></span>
-            <p><%= m.content %></p>
-        </div>
+  <div class="container">
+    <div class="chatbox-container align-center">
+      <div class="message-history align-center" id="messages">
+        <% @messages.each do |m| %>
+          <%= render partial: 'messages/message', locals: { message: m } %>
+        <% end %>
       </div>
-      <% end %>
-      <% end %>
-    </div>
-    <div class="input-box align-center">
-      <input type="text" class="input-box_text" id="message_input"/>
+      <div class="input-box align-center">
+        <input type="text" class="input-box_text" id="message_input"/>
+      </div>
     </div>
   </div>
-</div>
 </div>
