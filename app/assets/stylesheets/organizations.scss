@@ -2,13 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+nav {
+	z-index: 1;
+}
+
 #new-org-submit-btn {
 	width:50%;
 }
 
-.jumbotron-org {
-	background-color: #add8e6;
-}
 
 .org-logo-box {
 	padding: 20px;
@@ -22,4 +23,25 @@
 .org-details-box {
 	position:relative;
 	top:100px;
+}
+
+#org-map {
+height: 100%;
+position: absolute;
+top: 150px;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 0;
+}
+
+.container-with-map {
+z-index: 0;
+position: relative;
+}
+
+.org-details-box {
+	background-color: white;
+	opacity: 0.75;
+	padding:20px 5px;
 }

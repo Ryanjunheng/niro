@@ -1,11 +1,31 @@
-<div class="message">
-  <a href="" class="message_profile-pic"></a>
-  <a href="" class="message_username"><%= message.user.email %></a>
-  <span class="message_timestamp">
-    <%= message.created_at %>
-  </span>
-  <span class="message_star"></span>
-  <span class="message_content">
-    <%= message.content %>
-  </span>
-</div>
+<% if true %>
+  <div class='row'>
+    <div class="speech-bubble-right pull-left col-lg-9 col-md-9">
+      <span><a href=""><%= message.user.email %></a>
+        <%= message.created_at %></span>
+        <p><%= message.content %></p>
+    </div>
+    <div class="chat-room-avatar col-lg-3 col-md-3">
+      <% if message.user.avatar.present? %>
+      <%= image_tag(message.user.avatar.thumb, class:"img-circle pull-right", style:"width:70%;") %>
+      <% else %>
+      <%= image_tag('profile_placeholder.jpg',class:"img-circle pull-right", style:"width:70%;" ) %>
+      <% end %>
+    </div>
+  </div>
+  <% else %>
+  <div class='row'>
+   <div class="chat-room-avatar col-lg-3 col-md-3">
+     <% if message.user.avatar.present? %>
+     <%= image_tag(message.user.avatar.thumb, class:"img-circle pull-left", style:"width:70%;") %>
+     <% else %>
+     <%= image_tag('profile_placeholder.jpg',class:"img-circle pull-left", style:"width:70%;" ) %>
+     <% end %>
+   </div>
+   <div class="speech-bubble pull-right col-lg-9 col-md-9">
+     <span><a href=""><%= message.user.email %></a>
+       <%= message.created_at %></span>
+       <p><%= message.content %></p>
+   </div>
+  </div>
+<% end %>
