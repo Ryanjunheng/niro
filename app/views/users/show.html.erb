@@ -20,6 +20,10 @@
               <% else %>
               <div class="thumbnail user-avatar-1">
                 <%= image_tag("profile_placeholder.jpg",id:"profile-page-profile-image") %>
+                <p><%=@user.email%></p>
+                <% if @user == current_user %>
+                <button class="align-center btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+                <% end %>
               </div>
               <% end %>
             </div>
@@ -69,6 +73,7 @@
     <!-- Buttions bar  -->
     <div class="user-profile-buttons row">
       <!-- user event reporting button  -->
+      <% if @user != current_user %>
       <div class="report-button pull-left">
         <button type="button" class="btn-profile" data-toggle="modal" data-target=".bs-reporting-modal-md">Report User</button>
         <div class="modal fade bs-reporting-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
@@ -83,6 +88,7 @@
           </div>
         </div>
       </div>
+      <% end %>
       <!-- end reporting button -->
       <div class="user-edit-button pull-left">
       </div>
