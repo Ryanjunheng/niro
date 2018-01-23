@@ -40,9 +40,9 @@
       <h2 style="color:#9a35b2">Niroes who left testimony<h2>
       </div>
     <div class="container" style="padding-top:30px;">
-        <div class="testimonials-visitor-avatar row col-lg-3 col-md-3">
-          <% @testimonials.each do |t| %>
-          <div class="thumbnail testimonial-thumbnail">
+      <% @testimonials.each do |t| %>
+        <div>
+          <div class="thumbnail testimonial-thumbnail col-lg-3 col-md-3">
             <% @visitor = User.find(t.visitor_id)%>
             <% if @visitor.avatar.present? %>
               <%= image_tag(@visitor.avatar, class:"image-circle", id:"profile-page-profile-image") %>
@@ -65,7 +65,7 @@
                     <h4 class="modal-title" id="myModalLabel"><%=t.title%></h4>
                   </div>
                   <div class="modal-body">
-                    <p>t.testimony</p>
+                    <p><%=t.testimony%></p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -76,7 +76,6 @@
             <!-- end modal -->
           </div>
         </div>
-      </div>
       <!-- edit testimony modal -->
       <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -112,3 +111,4 @@
       <% end %>
   </div>
   </section>
+</div>

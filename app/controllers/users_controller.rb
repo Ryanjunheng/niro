@@ -6,12 +6,13 @@ class UsersController < Clearance::UsersController
 
 	def create
 		user = User.new(user_params)
-		if user.save
+		user.save
+		user.errors
 			 sign_in user
       		 redirect_to "/"
-		else
-			redirect_to "/"
-		end
+		# else
+		# 	redirect_to "/"
+		# end
 	end
 
 	def show
@@ -41,7 +42,7 @@ class UsersController < Clearance::UsersController
 	private
 
 	def user_params
-		params.require(:user).permit(:full_name, :email, :password, :phone, :intro, :city, :state, :country, :fb_link, :linkedin_link, :twitter_link, :avatar, :remove_avatar, {documents: []}, :remove_documents)
+		params.require(:user).permit(:full_name, :sash_is, :email, :password, :phone, :intro, :city, :state, :country, :fb_link, :linkedin_link, :twitter_link, :avatar, :remove_avatar, {documents: []}, :remove_documents)
 	end
 
 	def find_user
