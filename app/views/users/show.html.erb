@@ -178,6 +178,7 @@
             <% if @user.badges.size != 0 %>
             <% @user.badges.each do |badge| %>
             <% @event_badge = Badge.find_by(name: badge.name) %>
+            <%= image_tag @event_badge.image %>
             <% end %>
           </ul>
           <% else %>
