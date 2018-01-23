@@ -49,7 +49,7 @@
 			</div>
 		</div>
   <div class="row list-group">
-		<% @events = Event.where(host_type:"Organization").order(created_at: :desc) %>
+		<% @events = Event.where(host_type:"Organization").order(created_at: :desc).page params[:page] %>
     <% @events.each do |event| %>
       <a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
       <div class="item col-lg-4" >
@@ -73,10 +73,11 @@
     </a>
     <% end %>
   </div>
+	<div class="text-center"><%= paginate @events %></div>
 </div>
 
  <!-- Missions hosted by Niroes  -->
- <div class="home-org-box row">
+ <div class="home-org-box row" id="home-niroes-mission">
  	<div class="row home-box-title">
  		<div class="text-center">
  			<h1 style="font-family:Work Sans;">Missions by Fellow Niroes</h1>
@@ -84,7 +85,7 @@
  		</div>
  	</div>
  <div class="row list-group">
-	 <% @events = Event.where(host_type:"User").order(created_at: :desc) %>
+	 <% @events = Event.where(host_type:"User").order(created_at: :desc).page params[:page] %>
  	<% @events.each do |event| %>
 		<a href="/users/<%=event.host_id%>/events/<%=event.id%>">
  		<div class="item col-lg-4" >
@@ -110,5 +111,6 @@
  	</a>
  	<% end %>
  </div>
+ <div class="text-center"><%= paginate @events %></div>
  </div>
 </div>
