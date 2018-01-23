@@ -42,6 +42,18 @@ class EventsController < ApplicationController
     redirect_to user_path(current_user.id)
   end
 
+  def search
+    @search = Event.all
+    @search = @search.where(["name LIKE ?","%#{params[:search]}%"]) if params[:search].present?
+    @search = @search.where("event_type = ?", params[:event_type]) if params[:event_type].present?
+    @search = @search.where("country = ?", params[:country]) if params[:country].present?
+    @search = @search.where("state = ?", params[:state]) if params[:state].present?
+    @search = @search.where("city = ?", params[:city]) if params[:city].present?
+    @hash = Gmaps4rails.build_markers(@search) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+    end
+  end
 
 #Organization related method
 

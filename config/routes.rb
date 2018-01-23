@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/users/:id/unfollow' => "followings#unfollow"
 
   get "/participations/:id" => "participations#show"
-
+  get "/search" => "events#search", as: "search"
 
   get 'room/show'
   mount ActionCable.server => '/cable'
