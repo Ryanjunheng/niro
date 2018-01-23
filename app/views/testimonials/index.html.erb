@@ -48,16 +48,16 @@
               <%= image_tag(@visitor.avatar, class:"image-circle", id:"profile-page-profile-image") %>
             <% else %>
               <%= image_tag("profile_placeholder.jpg", class:"image_circle", style:"width:100%;") %>
-              <% end %>
+            <% end %>
               <!-- Button trigger modal -->
               <h3><%=@visitor.full_name%></h3>
               <p><%=t.created_at.strftime("%d %^B %Y")%></p>
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#show-testimony-<%=t.id.to_s%>">
                 View
               </button>
           </div>
           <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="show-testimony-<%=t.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -69,7 +69,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#edit">edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#edit-testimony-<%=t.id.to_s%>">edit</button>
                   </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
           </div>
         </div>
       <!-- edit testimony modal -->
-      <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="edit-testimony-<%=t.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -86,7 +86,7 @@
             </div>
             <div class="modal-body">
               <div class="user-testimonial-edit-form ">
-                <%= form_for :testimonial, url:user_testimonial_path(t.user_id, t.id), method: :post do |form| %>
+                <%= form_for t, url:user_testimonial_path(t.user_id, t.id), method: :put do |form| %>
                 <%=  form.hidden_field :visitor_id, value:current_user.id %>
                 <%=  form.hidden_field :user_id, value:t.user_id %>
                 <div class="form-group">
