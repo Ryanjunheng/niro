@@ -8,7 +8,7 @@
 			<% if @organization.logo.size !=0 %>
 				<%= image_tag @organization.logo, id:"org-logo" %>
 			<% else %>
-				<%= image_tag("http://placehold.it/500x500&text=no images for mission", id:"org-logo") %>
+				<%= image_tag("profile_placeholder.jpg", id:"org-logo") %>
 			<% end %>
 			<h3> <%= @organization.name %></h3>
 				<% if current_user.id == @organization.user_id %>
@@ -80,7 +80,7 @@
 							<% if event.image? %>
                     			<%= image_tag(event.image, style:"height:auto; width:500px;") %>
                   			<% else %>
-                    			<%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"height:auto; width:250px;") %>
+                    			<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
                   			<% end %>
 							<div class="caption">
 								<p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
