@@ -37,6 +37,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'social-share-button'
 gem 'merit'
+gem 'faker'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -57,7 +58,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'faker'
+
 end
 
 group :development do
