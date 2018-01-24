@@ -2,7 +2,6 @@ CarrierWave.configure do |config|
 
   config.permissions = 0666
   config.directory_permissions = 0777
-  config.storage = :fog
   
   config.fog_provider = 'fog/aws'
   config.fog_credentials = {
@@ -13,4 +12,6 @@ CarrierWave.configure do |config|
   }
   config.fog_directory  = ENV['AMAZON_BUCKET_NAME']
   config.fog_public     = false
+  
+  config.storage = :fog
 end
