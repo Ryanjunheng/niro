@@ -13,6 +13,14 @@ GIT
       omniauth (~> 1.0)
       omniauth-oauth2
 
+GIT
+  remote: https://github.com/tamycova/merit.git
+  revision: f657596409d98fc7c8e3274b213b86cc47d87495
+  branch: f657596409d98fc7c8e3274b213b86cc47d87495
+  specs:
+    merit (2.4.0)
+      ambry (~> 1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -161,8 +169,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    merit (3.0.0)
-      ambry (~> 1.0.0)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -327,7 +333,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   listen (>= 3.0.5, < 3.2)
-  merit
+  merit!
   mini_magick
   omniauth
   omniauth-facebook
