@@ -39,7 +39,8 @@
 }
 
 .jumbotron-profile {
-  background-color: #b784a7;
+  // background-color: #b784a7;
+  background: radial-gradient(#f2e1ec, #b784a7);
   max-height: 400px;
 }
 
@@ -110,4 +111,15 @@
   height: 85%;
   overflow: scroll;
   border: none;
+}
+
+.social-resume {
+  background-image: asset_url("resume-background.jpg");
+  background-size: cover;
+  background-repeat: none;
+  box-shadow: 3px 3px 5px 3px grey;
+  background-position: center;
+  width: 80%;
+  padding:5%;
+  margin-bottom:50px
 }

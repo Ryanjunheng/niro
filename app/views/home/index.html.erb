@@ -1,11 +1,13 @@
-<div class="jumbotron home-gif">
+<div class="jumbotron jumbotron-home">
+	<div class="home-gif">
 	<div class="banner-content text-center">
-		<h3>Make the world a better place &middot; Put smile on other's face</h3>
-		<h1>Be our Everyday Hero</h1>
-		<h1>Be a Niro</h1>
+		<h3 style="font-family:Amatic SC; font-size: 3em;">Make the world a better place &middot; Put smile on other's face</h3>
+		<h1 style="font-family:Raleway; font-size:8em;">Be our Everyday Hero</h1>
+		<h1 style="font-family:Work Sans">Be a Niro</h1>
 		<div >
-			<h2><%= Event.all.count %> Missions On Niro Today </h1>
+			<h2 style="font-family:Work Sans; font-size: 3em;"><%= Event.all.count %> Missions On Niro Today </h1>
 		</div>
+	</div>
 	</div>
 </div>
 
@@ -17,8 +19,8 @@
 					<%= image_tag("home-page-star.png", class:"home-page-star align-center") %>
 				</div>
 				<div class="text-center">
-					<h1>All Time Top Niroes</h1>
-					<em>Making the world a better place</em>
+					<h1 style="font-family:Work Sans;">All Time Top Niroes</h1>
+					<em style="font-size:1.5em;">Making the world a better place</em>
 				</div>
 			</div>
 				<div class="leader-box">
@@ -44,12 +46,12 @@
 	<div class="home-org-box row">
 		<div class="row home-box-title">
 			<div class="text-center">
-				<h1>Missions by The Big Guys</h1>
-				<em>Reaching out for heroes</em>
+				<h1 style="font-family:Work Sans;">Missions by The Big Guys</h1>
+				<em style="font-size:1.5em;">Reaching out for heroes</em>
 			</div>
 		</div>
   <div class="row list-group">
-		<% @events = Event.where(host_type:"Organization").order(created_at: :desc) %>
+		<% @events = Event.where(host_type:"Organization").order(created_at: :desc).page params[:page] %>
     <% @events.each do |event| %>
       <a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
       <div class="item col-lg-4" >
@@ -77,18 +79,19 @@
     </a>
     <% end %>
   </div>
+	<div class="text-center"><%= paginate @events %></div>
 </div>
 
  <!-- Missions hosted by Niroes  -->
- <div class="home-org-box row">
+ <div class="home-org-box row" id="home-niroes-mission">
  	<div class="row home-box-title">
  		<div class="text-center">
- 			<h1>Missions by Fellow Niroes</h1>
- 			<em>Power of the crowd</em>
+ 			<h1 style="font-family:Work Sans;">Missions by Fellow Niroes</h1>
+ 			<em style="font-size:1.5em;">Power of the crowd</em>
  		</div>
  	</div>
  <div class="row list-group">
-	 <% @events = Event.where(host_type:"User").order(created_at: :desc) %>
+	 <% @events = Event.where(host_type:"User").order(created_at: :desc).page params[:page] %>
  	<% @events.each do |event| %>
 		<a href="/users/<%=event.host_id%>/events/<%=event.id%>">
  		<div class="item col-lg-4" >
@@ -118,5 +121,35 @@
  	</a>
  	<% end %>
  </div>
+ <div class="text-center"><%= paginate @events %></div>
  </div>
+</div>
+<div class="home-info-banner1">
+		<%=image_tag "home-info-banner1.png" %>
+</div>
+<div class="home-info-banner1-info text-center">
+	<h1>Why Niro?</h1>
+	<div class="row">
+		<div class=" col-lg-4 col-md-4">
+			<%= image_tag("why-niro1.png", class:"why1") %>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<%= image_tag("why-niro2.png", class:"why1") %>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<%= image_tag("why-niro3.png", class:"why1") %>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Social Resume</h2>
+		</div>
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Good Deeds Recognised</h2>
+		</div>
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Collaborate & Expand</h2>
+		</div>
+	</div>
 </div>

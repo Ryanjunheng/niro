@@ -1,10 +1,12 @@
 
-<div class="event-form-background">
+<div class="jumbotron event-form-background">
+  <<div style="height:600px;"></div>
+</div>
 
 
-<div class="container" style="padding-top:150px;">
-  <h2>Host as Yourself</h2>
-  <div class="new-list-box row">
+<div class="container">
+  <h1 class="text-center">Host A Mission</h1>
+  <div class="new-list-box align-center row">
     <%= form_for Event.new, url: user_events_path do |form| %>
     <%= form.hidden_field :host_id, value:current_user.id%>
     <%= form.hidden_field :host_type, value:"User"%>
@@ -121,6 +123,4 @@
     </div>
     <% end %>
   </div>
-</div>
-
 </div>

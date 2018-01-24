@@ -3,16 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .home-gif {
-  height: 500px;
+  height: 600px;
   background-image: asset_url("niro-home-banner1.gif");
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
 }
 
+.jumbotron-home {
+  background-color: #d1a1c2;
+}
+
 .banner-content {
   color: white;
   height: 800px;
+  padding-top: 8%;
 
 }
 
@@ -70,7 +75,7 @@
 }
 
 #myFooter {
-  background-color: #ba55d3;
+  background-color: #d1a1c2;
 }
 
 // Navbar styling
@@ -91,4 +96,18 @@
 
 #dropdownMenu1 {
   padding: 0;
+}
+
+.home-info-banner1-info {
+  background-color:#d1a1c2;
+}
+
+.home-info-banner1-info h1 {
+  margin:0;
+  color: white;
+  padding: 20px 0;
+}
+
+.why1, .why2, .why3 {
+  width: 150px;
 }
