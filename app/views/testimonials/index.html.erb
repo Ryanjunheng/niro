@@ -1,18 +1,16 @@
-<div class="jumbotron" style="background-color:#FF7373;">
+<div class="jumbotron jumbotron-testimonial">
   <div class="container" style="padding-top:30px;">
-    <div class="user-avatar col-lg-3 col-md-3">
+    <div class="user-avatar">
       <% if @user.avatar.present? %>
       <div>
-        <%= image_tag(@user.avatar, class:"img-circle", style:"width:60%; margin-top:15px;") %>
+        <%= image_tag(@user.avatar, class:"img-circle align-center", style:"width:20%;") %>
       </div>
       <% else %>
       <div>
-        <%= image_tag("profile_placeholder.jpg", class:"img-circle", style:"width:100%;") %>
+        <%= image_tag("profile_placeholder.jpg", class:"img-circle align-center", style:"width:20%;") %>
       </div>
       <% end %>
-    </div>
-    <div class="col-lg-9 col-md-9">
-      <h1 style="color:white;"><%=@user.full_name%>'s Testimonials</h1>
+      <h1 class="text-center"><%=@user.full_name%>'s Testimonials</h1>
     </div>
   </div>
 </div>
@@ -37,27 +35,28 @@
   <% end %>
   <section class="testimonial-section">
     <div>
+      <p ><%= link_to "Return to previous page", user_path(@user), style:"font-size:1em;" %></p>
       <h2 style="color:#9a35b2">Niroes who left testimony<h2>
       </div>
     <div class="container" style="padding-top:30px;">
-        <div class="testimonials-visitor-avatar row col-lg-3 col-md-3">
-          <% @testimonials.each do |t| %>
-          <div class="thumbnail testimonial-thumbnail">
+      <% @testimonials.each do |t| %>
+        <div>
+          <div class="thumbnail testimonial-thumbnail col-lg-3 col-md-3">
             <% @visitor = User.find(t.visitor_id)%>
             <% if @visitor.avatar.present? %>
               <%= image_tag(@visitor.avatar, class:"image-circle", id:"profile-page-profile-image") %>
             <% else %>
               <%= image_tag("profile_placeholder.jpg", class:"image_circle", style:"width:100%;") %>
-              <% end %>
+            <% end %>
               <!-- Button trigger modal -->
               <h3><%=@visitor.full_name%></h3>
               <p><%=t.created_at.strftime("%d %^B %Y")%></p>
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#show-testimony-<%=t.id.to_s%>">
                 View
               </button>
           </div>
           <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="show-testimony-<%=t.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -65,20 +64,19 @@
                     <h4 class="modal-title" id="myModalLabel"><%=t.title%></h4>
                   </div>
                   <div class="modal-body">
-                    <p>t.testimony</p>
+                    <p><%=t.testimony%></p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#edit">edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#edit-testimony-<%=t.id.to_s%>">edit</button>
                   </div>
                 </div>
             </div>
             <!-- end modal -->
           </div>
         </div>
-      </div>
       <!-- edit testimony modal -->
-      <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="edit-testimony-<%=t.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -87,7 +85,7 @@
             </div>
             <div class="modal-body">
               <div class="user-testimonial-edit-form ">
-                <%= form_for :testimonial, url:user_testimonial_path(t.user_id, t.id), method: :post do |form| %>
+                <%= form_for t, url:user_testimonial_path(t.user_id, t.id), method: :put do |form| %>
                 <%=  form.hidden_field :visitor_id, value:current_user.id %>
                 <%=  form.hidden_field :user_id, value:t.user_id %>
                 <div class="form-group">
@@ -112,3 +110,4 @@
       <% end %>
   </div>
   </section>
+</div>

@@ -185,10 +185,11 @@
   background-image: asset_url("event-form-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  height: 600px;
+  background-position: center;
 }
 
 .new-list-box {
   background-color: white;
   margin-bottom: 50px;
-  opacity: 0.85;
 }
