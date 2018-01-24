@@ -31,7 +31,7 @@
 								<% if l.avatar.size > 0  %>
 								<%= link_to "#{image_tag(l.avatar, id:"each-leader", class:"align-center")}".html_safe, user_path(l.id) %>
 								<% else %>
-								<%= link_to "#{image_tag("http://placehold.it/500x500&text=no images for profile", id:"each-leader", class:"align-center")}".html_safe, user_path(l.id) %>
+								<%= link_to "#{image_tag("profile_placeholder.jpg", id:"each-leader", class:"align-center")}".html_safe, user_path(l.id) %>
 								<% end %>
 							</div>
 							<div class="leader-info text-center">
@@ -59,7 +59,7 @@
           <% if event.image? %>
           	<%= image_tag(event.image, style:"height:auto; width:500px;") %>
           <% else %>
-          	<%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"height:auto; width:250px;") %>
+          	<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
           <% end %>
           <div class="caption">
             <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
@@ -99,7 +99,7 @@
  				<% if event.image? %>
           			<%= image_tag(event.image, style:"height:auto; width:500px;") %>
           		<% else %>
-          			<%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"height:auto; width:250px;") %>
+          			<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
           		<% end %>
  				<div class="caption">
  					<h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
