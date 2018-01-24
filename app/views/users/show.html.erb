@@ -126,22 +126,30 @@
         <div class="user-level-exp">
           <div class="user-level" style="height:75%;">
             <div class="user-level-image">
-              <%= image_tag("niro-lvl1.png", style:"height:150px;", class:"align-center") %>
+              <% if @user.points >= 0 and @user.points <= 100 %>
+                <%= image_tag("some1.png", style:"height:150px;", class:"align-center") %>
+              <% elsif @user.points >= 101 and @user.points <= 200 %>
+              <%= image_tag("some2.png", style:"height:150px;", class:"align-center") %>
+              <% elsif @user.points >= 201 and @user.points <= 300 %>
+              <%= image_tag("some3.png", style:"height:150px;", class:"align-center") %>
+              <% elsif @user.points >= 301 and @user.points <= 400 %>
+              <%= image_tag("some4.png", style:"height:150px;", class:"align-center") %>
+              <% end %>
             </div>
             <div class="user-level-level">
               <span>
                 <% if @user.points >= 0 and @user.points <= 100 %>
                   <strong>Level: 1:</strong>
-                  <strong>Peasant<stong>
+                  <strong>Volunteer<strong>
                 <% elsif @user.points >= 101 and @user.points <= 200 %>
                   <strong>Level: 2:</strong>
-                  <strong>Samurai<stong>
+                  <strong>Donor<strong>
                 <% elsif @user.points >= 201 and @user.points <= 300 %>
                   <strong>Level: 3:</strong>
-                  <strong>Daimyo<stong>
+                  <strong>Giver<strong>
                 <% elsif @user.points >= 301 and @user.points <= 400 %>
                   <strong>Level: 4:</strong>
-                  <strong>Shogun<stong>
+                  <strong>Philanthropist<strong>
                 <% end %>
               </span>
             </div>
