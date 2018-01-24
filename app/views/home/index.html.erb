@@ -1,4 +1,5 @@
-<div class="jumbotron home-gif">
+<div class="jumbotron jumbotron-home">
+	<div class="home-gif">
 	<div class="banner-content text-center">
 		<h3 style="font-family:Amatic SC; font-size: 3em;">Make the world a better place &middot; Put smile on other's face</h3>
 		<h1 style="font-family:Raleway; font-size:8em;">Be our Everyday Hero</h1>
@@ -6,6 +7,7 @@
 		<div >
 			<h2 style="font-family:Work Sans; font-size: 3em;"><%= Event.all.count %> Missions On Niro Today </h1>
 		</div>
+	</div>
 	</div>
 </div>
 
@@ -121,4 +123,33 @@
  </div>
  <div class="text-center"><%= paginate @events %></div>
  </div>
+</div>
+<div class="home-info-banner1">
+		<%=image_tag "home-info-banner1.png" %>
+</div>
+<div class="home-info-banner1-info text-center">
+	<h1>Why Niro?</h1>
+	<div class="row">
+		<div class=" col-lg-4 col-md-4">
+			<%= image_tag("why-niro1.png", class:"why1") %>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<%= image_tag("why-niro2.png", class:"why1") %>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<%= image_tag("why-niro3.png", class:"why1") %>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Social Resume</h2>
+		</div>
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Good Deeds Recognised</h2>
+		</div>
+		<div class="col-lg-4 col-md-4" style="color:white">
+				<h2>Collaborate & Expand</h2>
+		</div>
+	</div>
 </div>
