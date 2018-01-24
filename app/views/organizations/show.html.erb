@@ -76,23 +76,30 @@
 				<% @host_events.each do |event| %>
 				<a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
 					<div class="item col-lg-4" >
-						<div class="thumbnail" style="min-height: 410px;">
-							<% if event.image? %>
-                    			<%= image_tag(event.image, style:"height:auto; width:500px;") %>
-                  			<% else %>
-                    			<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
-                  			<% end %>
+						<div class="thumbnail" style="min-height: 400px;">
+						<% if event.image? %>
+							<%= image_tag(event.image, style:"height:auto; width:100%;") %>
+						<% else %>
+							<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
+						<% end %>
 							<div class="caption">
-								<p class="group inner list-group-item-text">Required Participants: <%=event.required_participants%> &middot; <%= event.city %> - <%= event.country %></p>
-								<h2 class="group inner list-group-item-heading"><%= event.name %></h2>
-								<p class="group inner list-group-item-text"><%= truncate(event.description, length: 150) %></p>
-								<% if @organization.user_id == current_user.id %>
-									<button class="align-center btn-profile" onclick="window.location.href='/users/<%=current_user.id%>/events/<%=event.id%>/edit'">Edit Event</button>
-								<% end %>
+								<h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
+								<div>
+									<div class="home-event-date text-center col-lg-4 col-md-4">
+										<% if event.start_date.present? %>
+										<h4 style="color:#BD3B1B"><%=event.start_date.strftime("%^b")%></h4>
+										<h4><%=event.start_date.strftime("%d")%></h4>
+										<% end %>
+									</div>
+									<div class="home-event-detail text-center col-lg-8 col-md-8">
+										<h4><strong>Min. Niroes<strong>: <%=event.required_participants%></h4>
+											<p class="group inner list-group-item-text"><%= event.city %> &middot; <%= event.state %> &middot; <%=event.country%></p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</a>
+					</a>
 				<% end %>
 			</div>
 			<% else %>
