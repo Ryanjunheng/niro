@@ -16,6 +16,6 @@ class Organization < ApplicationRecord
 	# after_validation :reverse_geocode
 
 	def full_address
-			[:address, :city, :state, :zip_code].compact.join(', ')
+			[:address, :city, :state, :zip_code.to_s].compact.join(', ')
 	end
 end
