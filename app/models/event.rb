@@ -17,7 +17,7 @@ class Event < ApplicationRecord
   # after_validation :reverse_geocode
 
   def full_address
-      [:address, :city, :state, :country].compact.join(', ')
+      [:address, :city, :state, :zip_code.to_s].compact.join(', ')
   end
 
 end
