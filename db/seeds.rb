@@ -24,7 +24,7 @@ ActiveRecord::Base.transaction do
     user['country'] = Faker::Address.country
     user['intro'] = Faker::HowIMetYourMother.quote
     user['avatar'] = Faker::Avatar.image("my-own-slug")
-    user['sash_id'] = rand(1..100)
+  
 
     User.create(user)
   end
