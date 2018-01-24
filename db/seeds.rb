@@ -35,7 +35,7 @@ uids = []
 User.all.each { |u| uids << u.id }
 
 ActiveRecord::Base.transaction do
-  100.times do
+  50.times do
     event['name'] = Faker::App.name
     event['description'] = Faker::Lorem.paragraphs
     event['event_type'] = ["Donation", "Campaign", "Volunteer", "Community"].sample
