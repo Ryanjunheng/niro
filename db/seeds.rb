@@ -54,7 +54,7 @@ ActiveRecord::Base.transaction do
     event['state'] = Faker::Address.state
     event['country'] = Faker::Address.country
     event['zip_code'] = 12345
-    event['host_id'] = 1
+    event['host_id'] = uids.first
     event['host_type'] = "User"
 
     a = Event.new(event)
