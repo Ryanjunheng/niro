@@ -3,16 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .home-gif {
-  height: 500px;
+  height: 600px;
   background-image: asset_url("niro-home-banner1.gif");
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
 }
 
+.jumbotron-home {
+  background-color: #d1a1c2;
+}
+
 .banner-content {
   color: white;
   height: 800px;
+  padding-top: 8%;
 
 }
 
