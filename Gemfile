@@ -26,7 +26,7 @@ gem 'omniauth-facebook'
 gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
-gem 'fog'
+gem 'fog-aws'
 gem "sidekiq"
 gem 'omniauth-google-oauth2'
 gem 'rails_12factor', group: :production

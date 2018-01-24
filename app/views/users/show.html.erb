@@ -19,7 +19,7 @@
               </div>
               <% else %>
               <div class="thumbnail user-avatar-1">
-                <%= image_tag("profile_placeholder.jpg",id:"profile-page-profile-image") %>
+                <%= image_tag("http://placehold.it/500x500&text=no images for profile",id:"profile-page-profile-image") %>
                 <p><%=@user.email%></p>
                 <% if @user == current_user %>
                 <button class="align-center btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
@@ -220,7 +220,11 @@
             <a href="/users/<%=p.event.host_id%>/events/<%=p.event.id%>">
               <div class="item col-lg-4" >
                 <div class="thumbnail" style="min-height: 400px;">
-                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <% if p.event.image? %>
+                    <%= image_tag(p.event.image, style:"height:auto; width:500px;") %>
+                  <% else %>
+                    <%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"height:auto; width:250px;") %>
+                  <% end %>
                   <div class="caption">
                     <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                     <div>
@@ -359,7 +363,11 @@
           <a href="/users/<%=event.host_id%>/events/<%=event.id%>">
             <div class="item col-lg-4" >
               <div class="thumbnail" style="min-height: 400px;">
-                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <% if event.image? %>
+                    <%= image_tag(event.image, style:"height:auto; width:500px;") %>
+                  <% else %>
+                    <%= image_tag("http://placehold.it/500x500&text=no images for mission", style:"height:auto; width:250px;") %>
+                  <% end %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
                       <% if @user == current_user %>
