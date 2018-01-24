@@ -37,21 +37,20 @@
                   <strong>Lvl.<%= current_user.level %></strong>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <% bar_width = current_user.points.to_f / 100 * 100 %>
+                  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width:<%= bar_width%>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
               <li><%= link_to "My Niro Profile", user_path(current_user.id), id:"profile-title" %></li>
-            <hr/>
               <li><%= link_to "Create your organization page", new_organization_path %></li>
-            <% if current_user.organizations.present? %>
-              <li><%= link_to "Host as Yourself", new_user_event_path(current_user.id), id:"become-host-title" %></li>
-              <% current_user.organizations.each do |org| %>
-              <li><%= link_to "Host as #{org.name}", new_organization_event_path(org.id), id:"become-host-title" %></li>
-              <% end %>
+                <% if current_user.organizations.present? %>
+                <li><%= link_to "Host as Yourself", new_user_event_path(current_user.id), id:"become-host-title" %></li>
+                <% current_user.organizations.each do |org| %>
+                <li><%= link_to "Host as #{org.name}", new_organization_event_path(org.id), id:"become-host-title" %></li>
+                <% end %>
             <% else  %>
             <li><%= link_to "Host a Niro Event", new_user_event_path(current_user.id), id:"become-host-title" %></li>
             <% end %>
-            <hr/>
             <li><%= link_to "Sign Out", sign_out_path, id:"sign-out-title", method: :delete %></li>
             </ul>
         </li>

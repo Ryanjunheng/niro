@@ -229,9 +229,9 @@
               <div class="item col-lg-4" >
                 <div class="thumbnail" style="min-height: 400px;">
                   <% if p.event.image? %>
-                    <%= image_tag(p.event.image, style:"height:auto; width:500px;") %>
+                    <%= image_tag(p.event.image, style:"height:auto; width:100%;") %>
                   <% else %>
-                    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
+                    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
                   <% end %>
                   <div class="caption">
                     <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
@@ -255,7 +255,11 @@
             <a href="/organizations/<%=p.event.host_id%>/events/<%=p.event.id%>">
               <div class="item col-lg-4" >
                 <div class="thumbnail" style="min-height: 400px;">
-                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                  <% if p.event.image? %>
+                    <%= image_tag(p.event.image, style:"height:auto; width:100%;") %>
+                  <% else %>
+                    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
+                  <% end %>
                   <div class="caption">
                     <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                     <div>
@@ -301,7 +305,11 @@
           <a href="/users/<%=p.event.host_id%>/events/<%=p.event.id%>">
             <div class="item col-lg-4" >
               <div class="thumbnail" style="min-height: 400px;">
-                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+              <% if p.event.image? %>
+                <%= image_tag(p.event.image, style:"height:auto; width:100%;") %>
+              <% else %>
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
+              <% end %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                   <div>
@@ -324,7 +332,11 @@
           <a href="/organizations/<%=p.event.host_id%>/events/<%=p.event.id%>">
             <div class="item col-lg-4" >
               <div class="thumbnail" style="min-height: 400px;">
-                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+                <% if p.event.image? %>
+                  <%= image_tag(p.event.image, style:"height:auto; width:100%;") %>
+                <% else %>
+                  <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
+                <% end %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= p.event.name %></h2>
                   <div>
@@ -374,7 +386,7 @@
                 <% if event.image? %>
                     <%= image_tag(event.image, style:"height:auto; width:500px;") %>
                   <% else %>
-                    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
+                    <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
                   <% end %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
@@ -401,7 +413,11 @@
           <a href="/organizations/<%=event.host_id%>/events/<%=event.id%>">
             <div class="item col-lg-4" >
               <div class="thumbnail" style="min-height: 400px;">
-                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:500px;") %>
+              <% if event.image? %>
+                <%= image_tag(event.image, style:"height:auto; width:100%;") %>
+              <% else %>
+                <%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
+              <% end %>
                 <div class="caption">
                   <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
                   <div>

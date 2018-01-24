@@ -57,9 +57,9 @@
       <div class="item col-lg-4" >
         <div class="thumbnail" style="min-height: 400px;">
           <% if event.image? %>
-          	<%= image_tag(event.image, style:"height:auto; width:500px;") %>
+          	<%= image_tag(event.image, style:"height:auto; width:100%;") %>
           <% else %>
-          	<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
+          	<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
           <% end %>
           <div class="caption">
             <h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
@@ -97,9 +97,9 @@
  		<div class="item col-lg-4" >
  			<div class="thumbnail" style="min-height: 400px;">
  				<% if event.image? %>
-          			<%= image_tag(event.image, style:"height:auto; width:500px;") %>
+          			<%= image_tag(event.image, style:"height:auto; width:100%;") %>
           		<% else %>
-          			<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:250px;") %>
+          			<%= image_tag(["niro_sample_photo1","niro_sample_photo2","niro_sample_photo3"].sample, style:"height:auto; width:100%;") %>
           		<% end %>
  				<div class="caption">
  					<h2 class="group inner list-group-item-heading text-center" style="color:#9A35B2;"><%= event.name %></h2>
@@ -128,7 +128,7 @@
 
 </div>
 	<div class="home-info-banner1">
-			<%=image_tag "home-info-banner1.png" %>
+			<%=image_tag "home-info-banner1.png", style:"width:100%;" %>
 	</div>
 </div>
 <div class="home-info-banner1-info text-center">
